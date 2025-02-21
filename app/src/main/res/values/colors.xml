@@ -2,4 +2,11 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+    //Colors FrontEnd
+    <color name="rodape">#1d3a1e</color>
+    <color name="buttons">#809c34</color>
+    <color name="toolbar">#d8e6aa</color>
+    <color name="backgroundSecondary">#fdfcda</color>
+
 </resources>
