@@ -2,14 +2,16 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/tbMenu"
+    android:id="@+id/Menu"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/backgroundSecondary"
+    android:backgroundTint="@color/backgroundSecondary"
     android:paddingStart="2dp"
     tools:context=".MainActivity">
 
     <com.google.android.material.appbar.MaterialToolbar
-        android:id="@+id/materialToolbar2"
+        android:id="@+id/tbInicio"
         android:layout_width="506dp"
         android:layout_height="72dp"
         android:background="@color/toolbar"
@@ -19,20 +21,56 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageView
-        android:id="@+id/imageView"
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/imgLogo"
+        style="@style/RoundedImageView"
         android:layout_width="63dp"
         android:layout_height="57dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
         android:background="@color/backgroundSecondary"
-        android:radius="20dp"
-        app:circularflow_defaultRadius="10dp"
-        app:circularflow_radiusInDP="20dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/logo"  />
-<!--        app:shapeAppearenceOverlay="@style/Circular"-->
+        app:srcCompat="@drawable/logo" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnLoginInicio"
+        style="@style/Buttons"
+        android:layout_width="115dp"
+        android:layout_height="63dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="32dp"
+        android:backgroundTint="@color/buttons"
+        android:text="LOGIN"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/tbInicio" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="345dp"
+        android:layout_height="362dp"
+        android:backgroundTint="@color/backgroundSecondary"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/guideline2"
+        app:layout_constraintStart_toStartOf="@+id/guideline"
+        app:layout_constraintTop_toBottomOf="@+id/tbInicio"
+        app:srcCompat="@drawable/img_tela_inicial" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.07" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.93" />
+
+    <!--        -->
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

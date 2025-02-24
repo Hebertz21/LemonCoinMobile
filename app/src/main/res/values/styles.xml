@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="RoundedImageView" parent="">
+        <item name="shapeAppearanceOverlay">@style/RoundedCorners</item>
+    </style>
+
+    <style name="RoundedCorners">
+        <item name="cornerSize">15dp</item>
+    </style>
+
+    <style name="RoundedButtons">
+        <item name="cornerSize">15dp</item>
+
+    </style>
+
+    <style name="Buttons" parent="">
+        <item name="shapeAppearanceOverlay">@style/RoundedButtons</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">#FFFFFF</item>
+    </style>
+</resources>

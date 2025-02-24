@@ -1,11 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <!-- Base application theme. -->
-    <style name="Base.Theme.LemonCoinMobile" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Customize your dark theme here. -->
-        <!-- <item name="colorPrimary">@color/my_dark_primary</item> -->
-    </style>
-
-    <style name="RoundedSquare">
-        <item name="cornerSize">20dp</item>
+    <!-- Tema Escuro -->
+    <style name="Theme.LemonCoinMobile" parent="Theme.Material3.DayNight.NoActionBar">
+        <!-- Ignorem essas cores por enquanto -->
+        <item name="colorPrimary">@color/buttons</item>
+        <item name="colorSecondary">@color/toolbar</item>
+        <item name="android:windowBackground">@color/backgroundSecondary</item>
     </style>
 </resources>
