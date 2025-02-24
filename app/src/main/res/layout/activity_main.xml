@@ -31,8 +31,8 @@
         app:circularflow_radiusInDP="20dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:shapeAppearenceOverlay="@style/Circular"
-        app:srcCompat="@mipmap/logo" />
+        app:srcCompat="@drawable/logo"  />
+<!--        app:shapeAppearenceOverlay="@style/Circular"-->
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
