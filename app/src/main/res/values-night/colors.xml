@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="rodape">#F44336</color>
-    <color name="buttons">#E91E63</color>
-    <color name="toolbar">#9C27B0</color>
-    <color name="backgroundSecondary">#FFEB3B</color>
+    <color name="buttons">#ffe699</color>
+    <color name="toolbar">#262626</color>
+    <color name="backgroundSecondary">#A29C92</color>
+    <color name="background">#3b3838</color>
+    <color name="textButton">#bf9000</color>
 </resources>

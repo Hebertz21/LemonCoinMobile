@@ -28,18 +28,6 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/logo" />
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/btnLoginInicio"
-        style="@style/Buttons"
-        android:layout_width="115dp"
-        android:layout_height="63dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginEnd="32dp"
-        android:backgroundTint="@color/buttons"
-        android:text="LOGIN"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/tbInicio" />
-
 </androidx.constraintlayout.widget.ConstraintLayout>
 
 
