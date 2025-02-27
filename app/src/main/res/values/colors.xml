@@ -10,4 +10,5 @@
     <color name="backgroundSecondary">#fdfcda</color>
     <color name="background">#FFFFFFFF</color>
     <color name="textButton">#FFFFFFFF</color>
+    <color name="textView">#FF000000</color>
 </resources>

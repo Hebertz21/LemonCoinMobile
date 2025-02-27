@@ -17,5 +17,12 @@
         <item name="shapeAppearanceOverlay">@style/RoundedButtons</item>
         <item name="android:textSize">16sp</item>
         <item name="android:textColor">#FFFFFF</item>
+        <item name="backgroundTint">@color/buttons</item>
+        <!--<item name="fontFamily">@font/sans-serif</item> -->
+
+    </style>
+    
+     <style name="fontTextView" parent="">
+        <item name="android:fontFamily">@font/montserrat_semi_bold</item>
     </style>
 </resources>

@@ -4,4 +4,6 @@
     <style name="RoundedSquare">
         <item name="cornerSize">20dp</item>
     </style>
+    <string name="hint_usuario">Digite seu usuario</string>
+    <string name="hint_password">Digite sua senha</string>
 </resources>
