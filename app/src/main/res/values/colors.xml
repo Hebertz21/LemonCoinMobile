@@ -11,4 +11,7 @@
     <color name="background">#FFFFFFFF</color>
     <color name="textButton">#FFFFFFFF</color>
     <color name="textView">#FF000000</color>
+    <color name="titulos">#FF000000</color>
+    <color name="textButtons">#FFFFFFFF</color>
+
 </resources>
