@@ -24,6 +24,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
         android:background="@color/backgroundSecondary"
+        android:onClick="toHome"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/logo" />

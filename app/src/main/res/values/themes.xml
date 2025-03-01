@@ -8,6 +8,7 @@
         <item name="colorPrimary">@color/background</item>
         <item name="colorButtonNormal">@color/textButton</item>
         <item name="android:textColor">@color/textView</item>
+        <item name="android:statusBarColor">@color/toolbar</item>
         <!--  <item name="android:fontFamily">@font/montserrat_semibold</item> Fonte utilizada nos textViews -->
     </style>
 </resources>

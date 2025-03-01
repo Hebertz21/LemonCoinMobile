@@ -6,5 +6,6 @@
         <item name="colorPrimary">@color/buttons</item>
         <item name="colorSecondary">@color/toolbar</item>
         <item name="android:windowBackground">@color/background</item>
+        <item name="android:statusBarColor">@color/toolbar</item>
     </style>
 </resources>
