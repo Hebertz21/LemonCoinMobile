@@ -17,15 +17,14 @@
     <include layout="@layout/toolbar" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="339dp"
-        android:layout_height="438dp"
-        android:layout_marginBottom="16dp"
+        android:layout_width="356dp"
+        android:layout_height="525dp"
+        android:layout_marginTop="64dp"
         android:background="@color/backgroundSecondary"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.533"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline4"
-        app:layout_constraintVertical_bias="0.602">
+        app:layout_constraintTop_toTopOf="@+id/guideline4">
 
         <TextView
             android:id="@+id/textView"
@@ -45,7 +44,7 @@
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/layoutInputNome"
             android:layout_width="305dp"
-            android:layout_height="55dp"
+            android:layout_height="65dp"
             android:layout_marginTop="16dp"
             android:textColorHint="@color/titulos"
             app:boxStrokeColor="@color/textView"
@@ -57,17 +56,19 @@
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/inputNome"
-                android:layout_width="300dp"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:hint="Nome completo:"
                 android:textColor="@color/titulos"
-                android:textColorHighlight="@color/titulos" />
+                android:textColorHighlight="@color/titulos"
+                android:textColorHint="@color/titulos"
+                android:textSize="14sp" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/layoutInputEmail"
             android:layout_width="305dp"
-            android:layout_height="55dp"
+            android:layout_height="65dp"
             android:layout_marginTop="16dp"
             android:textColorHint="@color/titulos"
             app:boxStrokeColor="@color/titulos"
@@ -83,14 +84,20 @@
                 android:layout_height="wrap_content"
                 android:hint="E-mail:"
                 android:textColor="@color/titulos"
-                android:textColorHighlight="@color/titulos" />
+                android:textColorHighlight="@color/titulos"
+                android:textColorHint="@color/titulos"
+                android:textColorLink="@color/titulos"
+                android:textSize="14sp" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/layoutInputTelefone"
             android:layout_width="305dp"
-            android:layout_height="55dp"
+            android:layout_height="65dp"
             android:layout_marginTop="16dp"
+            android:textColorHint="@color/titulos"
+            app:boxStrokeColor="@color/titulos"
+            app:hintTextColor="@color/titulos"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
@@ -100,8 +107,204 @@
                 android:id="@+id/inputTelefone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Telefone:" />
+                android:hint="Telefone:"
+                android:textColor="@color/titulos"
+                android:textColorHighlight="@color/titulos"
+                android:textColorHint="@color/titulos"
+                android:textColorLink="@color/titulos"
+                android:textSize="14sp" />
         </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="Data de nascimento:"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="@+id/guideline6"
+            app:layout_constraintTop_toBottomOf="@+id/layoutInputTelefone" />
+
+        <Spinner
+            android:id="@+id/spnDia"
+            android:layout_width="60dp"
+            android:layout_height="48dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintEnd_toStartOf="@+id/spnMes"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView3" />
+
+        <Spinner
+            android:id="@+id/spnMes"
+            android:layout_width="152dp"
+            android:layout_height="48dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintEnd_toStartOf="@+id/spinner3"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/spnDia"
+            app:layout_constraintTop_toBottomOf="@+id/textView3" />
+
+        <Spinner
+            android:id="@+id/spinner3"
+            android:layout_width="115dp"
+            android:layout_height="48dp"
+            android:layout_marginEnd="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/spnMes"
+            app:layout_constraintTop_toTopOf="@+id/spnMes" />
+
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="17dp"
+            android:text="Gênero:"
+            android:textColorHighlight="@color/titulos"
+            android:textColorHint="@color/titulos"
+            android:textColorLink="@color/titulos"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="@+id/guideline6"
+            app:layout_constraintTop_toBottomOf="@+id/spnMes" />
+
+        <TextView
+            android:id="@+id/textView5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Senha"
+            android:textColor="@color/titulos"
+            android:textColorHighlight="@color/titulos"
+            android:textColorHint="@color/titulos"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="@+id/textView4"
+            app:layout_constraintTop_toBottomOf="@+id/radioButton4" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/layoutInputSenha"
+            android:layout_width="145dp"
+            android:layout_height="65dp"
+
+            android:textColorHint="@color/titulos"
+            app:boxStrokeColor="@color/titulos"
+            app:endIconMode="password_toggle"
+            app:hintTextColor="@color/titulos"
+            app:layout_constraintStart_toStartOf="@+id/guideline6"
+            app:layout_constraintTop_toBottomOf="@+id/textView5">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/inputSenha"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Mín 8 "
+                android:inputType="textPassword"
+                android:textColor="@color/titulos"
+                android:textColorHighlight="@color/titulos"
+                android:textColorHint="@color/titulos"
+                android:textColorLink="@color/titulos"
+                android:textSize="12sp" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView
+            android:id="@+id/textView6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Confirmar senha"
+            android:textColorHighlight="@color/titulos"
+            android:textColorHint="@color/titulos"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="@+id/layoutInputConfSenha"
+            app:layout_constraintTop_toTopOf="@+id/textView5" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/layoutInputConfSenha"
+            android:layout_width="145dp"
+            android:layout_height="65dp"
+            android:textColorHint="@color/titulos"
+            app:boxStrokeColor="@color/titulos"
+            app:endIconMode="password_toggle"
+            app:hintTextColor="@color/titulos"
+            app:layout_constraintEnd_toStartOf="@+id/guideline7"
+            app:layout_constraintTop_toBottomOf="@+id/textView6">
+
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/inputConfSenha"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Mín 8"
+                android:inputType="textPassword"
+                android:textColor="@color/titulos"
+                android:textColorHighlight="@color/titulos"
+                android:textColorHint="@color/titulos"
+                android:textColorLink="@color/titulos"
+                android:textSize="12sp" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.08" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline7"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.92" />
+
+        <RadioButton
+            android:id="@+id/radioButton4"
+            android:layout_width="wrap_content"
+            android:layout_height="48dp"
+            android:layout_marginStart="2dp"
+            android:layout_marginTop="8dp"
+            android:text="Masculino"
+            android:textAlignment="viewStart"
+            android:textColor="@color/titulos"
+            android:textColorHighlight="@color/titulos"
+            android:textColorHint="@color/titulos"
+            android:textColorLink="@color/titulos"
+            android:textSize="11sp"
+            app:layout_constraintStart_toEndOf="@+id/textView4"
+            app:layout_constraintTop_toBottomOf="@+id/spnMes" />
+
+        <RadioButton
+            android:id="@+id/radioButton5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="2dp"
+            android:text="Feminino"
+            android:textColor="@color/titulos"
+            android:textColorHighlight="@color/titulos"
+            android:textColorHint="@color/titulos"
+            android:textColorLink="@color/titulos"
+            android:textSize="11sp"
+            app:layout_constraintStart_toEndOf="@+id/radioButton4"
+            app:layout_constraintTop_toTopOf="@+id/radioButton4" />
+
+        <RadioButton
+            android:id="@+id/radioButton6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="2dp"
+            android:text="Outro"
+            android:textColor="@color/titulos"
+            android:textColorHighlight="@color/titulos"
+            android:textColorHint="@color/titulos"
+            android:textColorLink="@color/titulos"
+            android:textSize="11sp"
+            app:layout_constraintStart_toEndOf="@+id/radioButton5"
+            app:layout_constraintTop_toTopOf="@+id/radioButton5" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -19,8 +19,8 @@
         app:layout_constraintGuide_percent="0.1" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="339dp"
-        android:layout_height="438dp"
+        android:layout_width="345dp"
+        android:layout_height="457dp"
         android:layout_marginBottom="16dp"
         android:background="@color/backgroundSecondary"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -49,7 +49,7 @@
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/layoutInputUsuario"
             android:layout_width="270dp"
-            android:layout_height="55dp"
+            android:layout_height="65dp"
             android:layout_marginTop="12dp"
             android:backgroundTint="@color/textView"
             android:textColorHint="@color/titulos"
@@ -69,7 +69,7 @@
                 android:hint="Usuario "
                 android:textColorHighlight="@color/titulos"
                 android:textColorHint="@color/titulos"
-                android:textSize="12sp" />
+                android:textSize="14sp" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <TextView
@@ -91,7 +91,7 @@
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/LayoutInputSenha"
             android:layout_width="270dp"
-            android:layout_height="55dp"
+            android:layout_height="65dp"
             android:layout_marginTop="12dp"
             android:textColorHint="@color/titulos"
             app:boxStrokeColor="@color/titulos"
@@ -112,7 +112,7 @@
                 android:inputType="textPassword"
                 android:textColorHighlight="@color/titulos"
                 android:textColorHint="@color/titulos"
-                android:textSize="12sp" />
+                android:textSize="14sp" />
         </com.google.android.material.textfield.TextInputLayout>
 
 
@@ -121,7 +121,7 @@
             style="@style/Buttons"
             android:layout_width="129dp"
             android:layout_height="57dp"
-            android:layout_marginTop="12dp"
+            android:layout_marginTop="24dp"
             android:text="Entrar"
             android:textColor="@color/textButtons"
             android:textColorHighlight="@color/buttons"
@@ -136,15 +136,16 @@
         <TextView
             android:id="@+id/hpkEsqueciSenha"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:layout_height="48dp"
+            android:layout_marginTop="55dp"
+            android:gravity="bottom"
             android:text="Esqueci minha senha"
             android:textColor="@color/buttons"
             android:textSize="14sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/LayoutInputSenha" />
+            app:layout_constraintTop_toTopOf="@+id/LayoutInputSenha" />
 
         <View
             android:id="@+id/linhaEsqueciSenha"
@@ -158,9 +159,10 @@
 
         <TextView
             android:id="@+id/hpkSemConta"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            android:layout_width="157dp"
+            android:layout_height="48dp"
+            android:gravity="bottom"
+            android:onClick="toCadastro"
             android:text="Ainda não possuo conta"
             android:textColor="@color/buttons"
             android:textSize="14sp"
