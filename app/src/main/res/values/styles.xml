@@ -25,4 +25,9 @@
      <style name="fontTextView" parent="">
         <item name="android:fontFamily">@font/montserrat_semi_bold</item>
     </style>
+
+    <style name="radioButton" parent="Widget.MaterialComponents.CompoundButton.RadioButton">
+        <item name="android:textColor">@color/black</item>
+    </style>
+
 </resources>

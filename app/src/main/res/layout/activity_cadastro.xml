@@ -17,9 +17,9 @@
     <include layout="@layout/toolbar" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="356dp"
-        android:layout_height="525dp"
-        android:layout_marginTop="64dp"
+        android:layout_width="354dp"
+        android:layout_height="600dp"
+        android:layout_marginTop="32dp"
         android:background="@color/backgroundSecondary"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.533"
@@ -47,7 +47,8 @@
             android:layout_height="65dp"
             android:layout_marginTop="16dp"
             android:textColorHint="@color/titulos"
-            app:boxStrokeColor="@color/textView"
+            app:boxStrokeColor="@color/titulos"
+            app:cursorColor="@color/titulos"
             app:hintTextColor="@color/titulos"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
@@ -62,6 +63,7 @@
                 android:textColor="@color/titulos"
                 android:textColorHighlight="@color/titulos"
                 android:textColorHint="@color/titulos"
+                android:textColorLink="@color/titulos"
                 android:textSize="14sp" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -72,6 +74,7 @@
             android:layout_marginTop="16dp"
             android:textColorHint="@color/titulos"
             app:boxStrokeColor="@color/titulos"
+            app:cursorColor="@color/titulos"
             app:hintTextColor="@color/titulos"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
@@ -97,6 +100,7 @@
             android:layout_marginTop="16dp"
             android:textColorHint="@color/titulos"
             app:boxStrokeColor="@color/titulos"
+            app:cursorColor="@color/titulos"
             app:hintTextColor="@color/titulos"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
@@ -121,6 +125,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:text="Data de nascimento:"
+            android:textColor="@color/titulos"
             android:textSize="18sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="@+id/guideline6"
@@ -132,6 +137,7 @@
             android:layout_height="48dp"
             android:layout_marginStart="16dp"
             android:layout_marginTop="8dp"
+            android:backgroundTint="@color/black"
             app:layout_constraintEnd_toStartOf="@+id/spnMes"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
@@ -143,6 +149,7 @@
             android:layout_height="48dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
+            android:backgroundTint="@color/black"
             app:layout_constraintEnd_toStartOf="@+id/spinner3"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/spnDia"
@@ -153,6 +160,7 @@
             android:layout_width="115dp"
             android:layout_height="48dp"
             android:layout_marginEnd="16dp"
+            android:backgroundTint="@color/black"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/spnMes"
@@ -164,6 +172,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="17dp"
             android:text="Gênero:"
+            android:textColor="@color/titulos"
             android:textColorHighlight="@color/titulos"
             android:textColorHint="@color/titulos"
             android:textColorLink="@color/titulos"
@@ -183,7 +192,7 @@
             android:textSize="18sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="@+id/textView4"
-            app:layout_constraintTop_toBottomOf="@+id/radioButton4" />
+            app:layout_constraintTop_toBottomOf="@+id/rbtnMasculino" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/layoutInputSenha"
@@ -192,6 +201,7 @@
 
             android:textColorHint="@color/titulos"
             app:boxStrokeColor="@color/titulos"
+            app:cursorColor="@color/titulos"
             app:endIconMode="password_toggle"
             app:hintTextColor="@color/titulos"
             app:layout_constraintStart_toStartOf="@+id/guideline6"
@@ -201,6 +211,7 @@
                 android:id="@+id/inputSenha"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:backgroundTint="@color/background"
                 android:hint="Mín 8 "
                 android:inputType="textPassword"
                 android:textColor="@color/titulos"
@@ -215,8 +226,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Confirmar senha"
+            android:textColor="@color/titulos"
             android:textColorHighlight="@color/titulos"
             android:textColorHint="@color/titulos"
+            android:textColorLink="@color/titulos"
             android:textSize="18sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="@+id/layoutInputConfSenha"
@@ -228,6 +241,7 @@
             android:layout_height="65dp"
             android:textColorHint="@color/titulos"
             app:boxStrokeColor="@color/titulos"
+            app:cursorErrorColor="@color/titulos"
             app:endIconMode="password_toggle"
             app:hintTextColor="@color/titulos"
             app:layout_constraintEnd_toStartOf="@+id/guideline7"
@@ -238,6 +252,7 @@
                 android:id="@+id/inputConfSenha"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:backgroundTint="@color/background"
                 android:hint="Mín 8"
                 android:inputType="textPassword"
                 android:textColor="@color/titulos"
@@ -262,11 +277,14 @@
             app:layout_constraintGuide_percent="0.92" />
 
         <RadioButton
-            android:id="@+id/radioButton4"
+            android:id="@+id/rbtnMasculino"
+            style="@style/radioButton"
             android:layout_width="wrap_content"
             android:layout_height="48dp"
             android:layout_marginStart="2dp"
             android:layout_marginTop="8dp"
+            android:backgroundTint="@color/titulos"
+            android:buttonTint="@color/black"
             android:text="Masculino"
             android:textAlignment="viewStart"
             android:textColor="@color/titulos"
@@ -278,32 +296,51 @@
             app:layout_constraintTop_toBottomOf="@+id/spnMes" />
 
         <RadioButton
-            android:id="@+id/radioButton5"
+            android:id="@+id/rbtnFeminino"
+            style="@style/Widget.AppCompat.CompoundButton.RadioButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="2dp"
+            android:backgroundTint="@color/titulos"
+            android:buttonTint="@color/black"
             android:text="Feminino"
             android:textColor="@color/titulos"
             android:textColorHighlight="@color/titulos"
             android:textColorHint="@color/titulos"
             android:textColorLink="@color/titulos"
             android:textSize="11sp"
-            app:layout_constraintStart_toEndOf="@+id/radioButton4"
-            app:layout_constraintTop_toTopOf="@+id/radioButton4" />
+            app:layout_constraintStart_toEndOf="@+id/rbtnMasculino"
+            app:layout_constraintTop_toTopOf="@+id/rbtnMasculino" />
 
         <RadioButton
-            android:id="@+id/radioButton6"
+            android:id="@+id/rbtnOutro"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="2dp"
+            android:backgroundTint="@color/titulos"
+            android:buttonTint="@color/black"
             android:text="Outro"
             android:textColor="@color/titulos"
             android:textColorHighlight="@color/titulos"
             android:textColorHint="@color/titulos"
             android:textColorLink="@color/titulos"
             android:textSize="11sp"
-            app:layout_constraintStart_toEndOf="@+id/radioButton5"
-            app:layout_constraintTop_toTopOf="@+id/radioButton5" />
+            app:layout_constraintStart_toEndOf="@+id/rbtnFeminino"
+            app:layout_constraintTop_toTopOf="@+id/rbtnFeminino" />
+
+        <Button
+            android:id="@+id/btnCadastrar"
+            style="@style/Buttons"
+            android:layout_width="135dp"
+            android:layout_height="60dp"
+            android:layout_marginBottom="16dp"
+            android:text="Cadastrar"
+            android:textSize="19sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/layoutInputSenha" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
