@@ -54,6 +54,7 @@
             android:backgroundTint="@color/textView"
             android:textColorHint="@color/titulos"
             app:boxStrokeColor="@color/titulos"
+            app:cursorColor="@color/titulos"
             app:hintTextColor="@color/titulos"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
@@ -67,8 +68,10 @@
                 android:backgroundTint="@color/textView"
                 android:contextClickable="false"
                 android:hint="Usuario "
+                android:textColor="@color/titulos"
                 android:textColorHighlight="@color/titulos"
                 android:textColorHint="@color/titulos"
+                android:textColorLink="@color/titulos"
                 android:textSize="14sp" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -81,6 +84,8 @@
             android:text="Senha"
             android:textColor="@color/titulos"
             android:textColorHighlight="@color/titulos"
+            android:textColorHint="@color/titulos"
+            android:textColorLink="@color/titulos"
             android:textSize="34sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
@@ -95,6 +100,7 @@
             android:layout_marginTop="12dp"
             android:textColorHint="@color/titulos"
             app:boxStrokeColor="@color/titulos"
+            app:cursorColor="@color/titulos"
             app:endIconMode="password_toggle"
             app:endIconTint="@color/titulos"
             app:hintTextColor="@color/titulos"
@@ -110,8 +116,10 @@
                 android:backgroundTint="@color/textView"
                 android:hint="Senha"
                 android:inputType="textPassword"
+                android:textColor="@color/titulos"
                 android:textColorHighlight="@color/titulos"
                 android:textColorHint="@color/titulos"
+                android:textColorLink="@color/titulos"
                 android:textSize="14sp" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -162,9 +170,9 @@
             android:layout_width="157dp"
             android:layout_height="48dp"
             android:gravity="bottom"
-            android:onClick="toCadastro"
             android:text="Ainda não possuo conta"
             android:textColor="@color/buttons"
+            android:textColorLink="@color/titulos"
             android:textSize="14sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"

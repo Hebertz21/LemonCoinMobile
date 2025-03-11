@@ -16,7 +16,8 @@
         android:onClick="toLogin"
         android:text="LOGIN"
         android:textColor="@color/textButton"
-        android:textSize="22sp"
+        android:textSize="20sp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" /> <!-- Adicionando restrição vertical -->
 

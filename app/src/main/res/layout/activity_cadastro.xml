@@ -34,7 +34,7 @@
             android:text="CADASTRE-SE AQUI"
             android:textColor="@color/titulos"
             android:textColorHighlight="@color/titulos"
-            android:textSize="24sp"
+            android:textSize="34sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
@@ -45,7 +45,7 @@
             android:id="@+id/layoutInputNome"
             android:layout_width="305dp"
             android:layout_height="65dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="12dp"
             android:textColorHint="@color/titulos"
             app:boxStrokeColor="@color/titulos"
             app:cursorColor="@color/titulos"
@@ -192,7 +192,7 @@
             android:textSize="18sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="@+id/textView4"
-            app:layout_constraintTop_toBottomOf="@+id/rbtnMasculino" />
+            app:layout_constraintTop_toBottomOf="@+id/radioGroupGenero" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/layoutInputSenha"
@@ -267,66 +267,62 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.08" />
+            app:layout_constraintGuide_percent="0.07" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline7"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.92" />
+            app:layout_constraintGuide_percent="0.93" />
 
-        <RadioButton
-            android:id="@+id/rbtnMasculino"
-            style="@style/radioButton"
+        <RadioGroup
+            android:id="@+id/radioGroupGenero"
             android:layout_width="wrap_content"
-            android:layout_height="48dp"
-            android:layout_marginStart="2dp"
+            android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:backgroundTint="@color/titulos"
-            android:buttonTint="@color/black"
-            android:text="Masculino"
-            android:textAlignment="viewStart"
-            android:textColor="@color/titulos"
-            android:textColorHighlight="@color/titulos"
-            android:textColorHint="@color/titulos"
-            android:textColorLink="@color/titulos"
-            android:textSize="11sp"
+            android:orientation="horizontal"
             app:layout_constraintStart_toEndOf="@+id/textView4"
-            app:layout_constraintTop_toBottomOf="@+id/spnMes" />
+            app:layout_constraintTop_toBottomOf="@+id/spnMes">
 
-        <RadioButton
-            android:id="@+id/rbtnFeminino"
-            style="@style/Widget.AppCompat.CompoundButton.RadioButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="2dp"
-            android:backgroundTint="@color/titulos"
-            android:buttonTint="@color/black"
-            android:text="Feminino"
-            android:textColor="@color/titulos"
-            android:textColorHighlight="@color/titulos"
-            android:textColorHint="@color/titulos"
-            android:textColorLink="@color/titulos"
-            android:textSize="11sp"
-            app:layout_constraintStart_toEndOf="@+id/rbtnMasculino"
-            app:layout_constraintTop_toTopOf="@+id/rbtnMasculino" />
+            <RadioButton
+                android:id="@+id/rbtnMasculino"
+                style="@style/radioButton"
+                android:layout_width="wrap_content"
+                android:layout_height="48dp"
+                android:layout_marginStart="2dp"
+                android:backgroundTint="@color/titulos"
+                android:buttonTint="@color/black"
+                android:text="Masculino"
+                android:textAlignment="viewStart"
+                android:textColor="@color/titulos"
+                android:textSize="11sp" />
 
-        <RadioButton
-            android:id="@+id/rbtnOutro"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="2dp"
-            android:backgroundTint="@color/titulos"
-            android:buttonTint="@color/black"
-            android:text="Outro"
-            android:textColor="@color/titulos"
-            android:textColorHighlight="@color/titulos"
-            android:textColorHint="@color/titulos"
-            android:textColorLink="@color/titulos"
-            android:textSize="11sp"
-            app:layout_constraintStart_toEndOf="@+id/rbtnFeminino"
-            app:layout_constraintTop_toTopOf="@+id/rbtnFeminino" />
+            <RadioButton
+                android:id="@+id/rbtnFeminino"
+                style="@style/Widget.AppCompat.CompoundButton.RadioButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="2dp"
+                android:backgroundTint="@color/titulos"
+                android:buttonTint="@color/black"
+                android:text="Feminino"
+                android:textColor="@color/titulos"
+                android:textSize="11sp" />
+
+            <RadioButton
+                android:id="@+id/rbtnOutro"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="2dp"
+                android:backgroundTint="@color/titulos"
+                android:buttonTint="@color/black"
+                android:text="Outro"
+                android:textColor="@color/titulos"
+                android:textSize="11sp" />
+
+        </RadioGroup>
+
 
         <Button
             android:id="@+id/btnCadastrar"
