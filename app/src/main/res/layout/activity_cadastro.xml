@@ -17,8 +17,9 @@
     <include layout="@layout/toolbar" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout"
         android:layout_width="354dp"
-        android:layout_height="600dp"
+        android:layout_height="650dp"
         android:layout_marginTop="32dp"
         android:background="@color/backgroundSecondary"
         app:layout_constraintEnd_toEndOf="parent"
@@ -133,8 +134,8 @@
 
         <Spinner
             android:id="@+id/spnDia"
-            android:layout_width="60dp"
-            android:layout_height="48dp"
+            android:layout_width="82dp"
+            android:layout_height="60dp"
             android:layout_marginStart="16dp"
             android:layout_marginTop="8dp"
             android:backgroundTint="@color/black"
@@ -145,20 +146,20 @@
 
         <Spinner
             android:id="@+id/spnMes"
-            android:layout_width="152dp"
-            android:layout_height="48dp"
+            android:layout_width="116dp"
+            android:layout_height="60dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:backgroundTint="@color/black"
-            app:layout_constraintEnd_toStartOf="@+id/spinner3"
+            app:layout_constraintEnd_toStartOf="@+id/spnAno"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/spnDia"
             app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
         <Spinner
-            android:id="@+id/spinner3"
-            android:layout_width="115dp"
-            android:layout_height="48dp"
+            android:id="@+id/spnAno"
+            android:layout_width="96dp"
+            android:layout_height="60dp"
             android:layout_marginEnd="16dp"
             android:backgroundTint="@color/black"
             app:layout_constraintEnd_toEndOf="parent"
