@@ -3,10 +3,10 @@
     <color name="rodape">#F44336</color>
     <color name="buttons">#548235</color>
     <color name="toolbar">#212620</color>
-    <color name="backgroundSecondary">#e2f0d9</color>
+    <color name="backgroundSecondary">#3B3838</color>
     <color name="background">#2a3028</color>
     <color name="textButton">#e2f0d9</color>
-    <color name="titulos">#FF000000</color>
-    <color name="textView">#ffe699</color>
+    <color name="titulos">#92d050</color>
+    <color name="textView">#e2f0d9</color>
     <color name="textButtons">#FF000000</color>
 </resources>
