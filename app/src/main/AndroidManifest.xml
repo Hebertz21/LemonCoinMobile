@@ -13,12 +13,6 @@
         android:theme="@style/Theme.LemonCoinMobile"
         tools:targetApi="31">
         <activity
-            android:name=".MainActivity"
-            android:exported="false" />
-        <activity
-            android:name=".LoginActivity"
-            android:exported="false" />
-        <activity
             android:name=".HomeActivity"
             android:exported="true"
             android:screenOrientation="portrait">
@@ -28,6 +22,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".MainActivity"
+            android:exported="false" />
+        <activity
+            android:name=".LoginActivity"
+            android:exported="false" />
         <activity
             android:name=".CadastroActivity"
             android:exported="true">

@@ -6,6 +6,9 @@ plugins {
 android {
     namespace = "com.example.lemoncoin"
     compileSdk = 35
+    viewBinding{
+        enable = true
+    }
 
     defaultConfig {
         applicationId = "com.example.lemoncoin"
@@ -48,7 +51,6 @@ dependencies {
     // Substituir a versão antiga do design (com.android.support) pela versão androidx
     implementation("com.google.android.material:material:1.13.0-alpha11") // Material Design do Google
     implementation("androidx.appcompat:appcompat:1.4.1") // Substituindo o androidx.appcompat
-    implementation("androidx.constraintlayout:constraintlayout:2.1.1") // ConstraintLayout atualizado
     implementation("androidx.legacy:legacy-support-v4:1.0.0") // Substituindo o support-v4
 
 
