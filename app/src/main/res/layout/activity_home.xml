@@ -1,57 +1,63 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.drawerlayout.widget.DrawerLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/drawerLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
     tools:context=".HomeActivity">
 
+    <!-- Layout Principal -->
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/main"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="true">
 
-        <include layout="@layout/toolbar" />
+        <!-- Toolbar -->
+        <include layout="@layout/toolbar"/>
 
-        <include layout="@layout/button_logout" />
+        <!-- Botão de Logout -->
+        <include layout="@layout/button_logout"/>
 
-        <!-- Botão para abrir o menu -->
+        <!-- Botão para abrir o menu lateral -->
         <Button
             android:id="@+id/btnHome"
             android:layout_width="77dp"
             android:layout_height="59dp"
             android:layout_marginStart="4dp"
             android:contentDescription="Botão"
+            android:onClick="Nav"
             app:icon="@android:drawable/ic_menu_sort_by_size"
             app:iconSize="50dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@id/guideline8" />
+            app:layout_constraintTop_toTopOf="@id/guideline8"/>
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline8"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.1" />
+            app:layout_constraintGuide_percent="0.1"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <!-- Navigation Drawer (menu lateral) -->
     <com.google.android.material.navigation.NavigationView
         android:id="@+id/navView"
-        android:layout_width="wrap_content"
+        app:layout_constraintTop_toTopOf="@id/guideline8"
+        android:layout_width="250dp"
         android:layout_height="match_parent"
         android:layout_gravity="start"
-        android:layout_marginTop="?attr/actionBarSize">
+        android:fitsSystemWindows="true">
 
         <!-- Layout interno do menu -->
         <LinearLayout
-
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="80dp"
             android:background="@color/backgroundSecondary"
-            android:backgroundTint="@color/backgroundSecondary"
             android:orientation="vertical"
             android:padding="16dp">
 
@@ -62,9 +68,7 @@
                 android:padding="10dp"
                 android:text="DESPESAS"
                 android:textColor="@color/textView"
-                android:textColorHighlight="@color/textView"
-                android:textColorHint="@color/textView"
-                android:textSize="18sp" />
+                android:textSize="18sp"/>
 
             <TextView
                 android:id="@+id/txtReceitas"
@@ -73,9 +77,7 @@
                 android:padding="10dp"
                 android:text="RECEITAS"
                 android:textColor="@color/textView"
-                android:textColorHighlight="@color/textView"
-                android:textColorHint="@color/textView"
-                android:textSize="18sp" />
+                android:textSize="18sp"/>
 
             <TextView
                 android:id="@+id/txtCategorias"
@@ -84,9 +86,7 @@
                 android:padding="10dp"
                 android:text="CATEGORIAS"
                 android:textColor="@color/textView"
-                android:textColorHighlight="@color/textView"
-                android:textColorHint="@color/textView"
-                android:textSize="18sp" />
+                android:textSize="18sp"/>
 
             <TextView
                 android:id="@+id/txtContas"
@@ -95,9 +95,7 @@
                 android:padding="10dp"
                 android:text="CONTAS"
                 android:textColor="@color/textView"
-                android:textColorHighlight="@color/textView"
-                android:textColorHint="@color/textView"
-                android:textSize="18sp" />
+                android:textSize="18sp"/>
 
             <TextView
                 android:id="@+id/txtRelatorios"
@@ -106,9 +104,7 @@
                 android:padding="10dp"
                 android:text="RELATÓRIOS"
                 android:textColor="@color/textView"
-                android:textColorHighlight="@color/textView"
-                android:textColorHint="@color/textView"
-                android:textSize="18sp" />
+                android:textSize="18sp"/>
 
         </LinearLayout>
     </com.google.android.material.navigation.NavigationView>

@@ -1,6 +1,7 @@
 package com.example.lemoncoin
 
 import android.os.Bundle
+import android.view.View
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
@@ -23,6 +24,9 @@ class HomeActivity : AppCompatActivity() {
             insets
         }
 
+    }
+
+    fun Nav(view: View) { //Chama a navegação lateral
         binding.btnHome.setOnClickListener(){
             if (binding.drawerLayout.isDrawerOpen(GravityCompat.START)){
                 binding.drawerLayout.closeDrawer(GravityCompat.START)
