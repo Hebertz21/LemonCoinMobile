@@ -13,5 +13,6 @@
     <color name="textView">#FF000000</color>
     <color name="titulos">#FF000000</color>
     <color name="textButtons">#FFFFFFFF</color>
+    <color name="transparente">#00FFFFFF</color>
 
 </resources>
