@@ -10,7 +10,18 @@
 
     <style name="RoundedButtons">
         <item name="cornerSize">15dp</item>
+    </style>
 
+    <style name="RoundedCornersSecundario">
+        <item name="cornerSize">7dp</item>
+    </style>
+
+    <style name="RoundedButtonsSecondary">
+        <item name="cornerSize">7dp</item>
+    </style>
+
+    <style name="StrokeColor">
+        <item name="strokeColor">#FF000000</item>
     </style>
 
     <style name="Buttons" parent="">
@@ -21,7 +32,15 @@
         <!--<item name="fontFamily">@font/sans-serif</item> -->
 
     </style>
-    
+
+    <style name="ButtonSecondary" parent="">
+        <item name="shapeAppearanceOverlay">@style/RoundedButtonsSecondary</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">#FF000000</item>
+        <item name="backgroundTint">#D997C6D9</item>>
+        <!--<item name="fontFamily">@font/sans-serif</item> -->
+
+    </style>
      <style name="fontTextView" parent="">
         <item name="android:fontFamily">@font/montserrat_semi_bold</item>
     </style>
