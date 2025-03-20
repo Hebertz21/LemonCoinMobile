@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.lemoncoin.R
 
-class ContasFragments : Fragment() {  //É preciso um constructor vazio para a classe enviar informações de configurações
+class ContasFragment : Fragment() {  //É preciso um constructor vazio para a classe enviar informações de configurações
 
     override fun onCreateView(  //Metodo que constroi a visualização do fragment
         inflater: LayoutInflater,
