@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <layer-list>
+            <item>
+                <shape android:shape="rectangle">
+                    <solid android:color="@color/sppinerHome"></solid>
+                    <corners android:radius="50dp"></corners>
+                    <padding android:right="0dp"></padding>
+                </shape>
+            </item>
+            <item>
+                <bitmap android:src="@drawable/ic_down"
+                    android:gravity="center|end"></bitmap>
+            </item>
+        </layer-list>
+    </item>
+</selector>
