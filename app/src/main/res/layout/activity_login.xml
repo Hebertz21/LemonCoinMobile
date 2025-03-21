@@ -19,22 +19,22 @@
         app:layout_constraintGuide_percent="0.1" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="345dp"
-        android:layout_height="457dp"
-        android:layout_marginBottom="16dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="72dp"
         android:background="@color/backgroundSecondary"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline5"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.47">
 
         <TextView
             android:id="@+id/txtUsuario"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="32dp"
             android:backgroundTint="@color/textView"
             android:text="Usuario"
             android:textColor="@color/titulos"
@@ -48,7 +48,7 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/layoutInputUsuario"
-            android:layout_width="270dp"
+            android:layout_width="310dp"
             android:layout_height="65dp"
             android:layout_marginTop="12dp"
             android:backgroundTint="@color/textView"
@@ -95,7 +95,7 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/LayoutInputSenha"
-            android:layout_width="270dp"
+            android:layout_width="310dp"
             android:layout_height="65dp"
             android:layout_marginTop="12dp"
             android:textColorHint="@color/textView"
@@ -127,15 +127,15 @@
         <Button
             android:id="@+id/btnEntrar"
             style="@style/Buttons"
-            android:layout_width="129dp"
-            android:layout_height="57dp"
+            android:layout_width="160dp"
+            android:layout_height="63dp"
             android:layout_marginTop="24dp"
             android:text="Entrar"
             android:textColor="@color/textButtons"
             android:textColorHighlight="@color/buttons"
             android:textColorHint="@color/buttons"
             android:textColorLink="@color/buttons"
-            android:textSize="20sp"
+            android:textSize="24sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
@@ -149,7 +149,7 @@
             android:gravity="bottom"
             android:text="Esqueci minha senha"
             android:textColor="@color/buttons"
-            android:textSize="14sp"
+            android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
@@ -157,7 +157,7 @@
 
         <View
             android:id="@+id/linhaEsqueciSenha"
-            android:layout_width="135dp"
+            android:layout_width="150dp"
             android:layout_height="2dp"
             android:background="@color/buttons"
             app:layout_constraintEnd_toEndOf="parent"
@@ -167,14 +167,14 @@
 
         <TextView
             android:id="@+id/hpkSemConta"
-            android:layout_width="157dp"
+            android:layout_width="wrap_content"
             android:layout_height="48dp"
             android:gravity="bottom"
             android:onClick="toCadastro"
             android:text="Ainda não possuo conta"
             android:textColor="@color/buttons"
             android:textColorLink="@color/titulos"
-            android:textSize="14sp"
+            android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
@@ -182,7 +182,7 @@
 
         <View
             android:id="@+id/linhaNaoPossuoConta"
-            android:layout_width="155dp"
+            android:layout_width="173dp"
             android:layout_height="2dp"
             android:background="@color/buttons"
             app:layout_constraintEnd_toEndOf="parent"

@@ -7,9 +7,8 @@
     android:layout_height="match_parent">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="354dp"
-        android:layout_height="680dp"
-        android:layout_marginTop="24dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:background="@color/backgroundSecondary"
         android:backgroundTint="@color/backgroundSecondary"
         app:layout_constraintEnd_toEndOf="parent"
@@ -17,33 +16,19 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <Button
-            android:id="@+id/btnData"
-            style="@style/ButtonSecondary"
-            android:layout_width="250dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text="DATA"
-            app:icon="@android:drawable/arrow_down_float"
-            app:iconGravity="end"
-            app:iconTint="@color/textView"
+        <Spinner
+            android:id="@+id/spinnerData"
+            style="?attr/spinnerStyle"
+            android:layout_width="230dp"
+            android:layout_height="60dp"
+            android:layout_marginTop="40dp"
+            android:background="@color/sppinerHome"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <CalendarView
-            android:id="@+id/calendarData"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:background="@color/background"
-            android:backgroundTint="@color/background"
-            android:visibility="gone"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btnData" />
+
 
         <ScrollView
             android:id="@+id/scrollView2"
@@ -54,7 +39,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btnData">
+            app:layout_constraintTop_toBottomOf="@+id/spinnerData">
 
             <LinearLayout
                 android:id="@+id/linearLayoutDespesas"
@@ -66,38 +51,38 @@
         <Button
             android:id="@+id/btnAddDespesas"
             style="@style/Buttons"
-            android:layout_width="135dp"
-            android:layout_height="60dp"
+            android:layout_width="142dp"
+            android:layout_height="74dp"
             android:layout_marginEnd="16dp"
+            android:layout_marginBottom="24dp"
             android:text="ADICIONAR DESPESA"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/scrollView2" />
+            app:layout_constraintEnd_toEndOf="parent" />
 
         <TextView
             android:id="@+id/txtTotal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="4dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginBottom="8dp"
             android:text="TOTAL:"
             android:textColor="@color/textView"
             android:textSize="24sp"
             android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/scrollView2" />
+            app:layout_constraintBottom_toTopOf="@+id/txtValorTotal"
+            app:layout_constraintStart_toStartOf="parent" />
 
         <TextView
             android:id="@+id/txtValorTotal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="24dp"
             android:text="R$ 13.201,00"
             android:textColor="@color/buttons"
             android:textSize="24sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/txtTotal"
-            app:layout_constraintTop_toBottomOf="@+id/txtTotal" />
+            app:layout_constraintStart_toStartOf="@+id/txtTotal" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

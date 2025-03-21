@@ -18,8 +18,9 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout"
-        android:layout_width="354dp"
-        android:layout_height="610dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="72dp"
         android:background="@color/backgroundSecondary"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -44,16 +45,16 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/layoutInputNome"
-            android:layout_width="305dp"
+            android:layout_width="340dp"
             android:layout_height="65dp"
             android:layout_marginTop="12dp"
             android:textColorHint="@color/textView"
             app:boxStrokeColor="@color/textView"
             app:cursorColor="@color/titulos"
             app:hintTextColor="@color/textView"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/guideline7"
             app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/guideline6"
             app:layout_constraintTop_toBottomOf="@+id/textView">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -70,7 +71,7 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/layoutInputEmail"
-            android:layout_width="305dp"
+            android:layout_width="345dp"
             android:layout_height="65dp"
             android:layout_marginTop="16dp"
             android:textColorHint="@color/textView"
@@ -96,7 +97,7 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/layoutInputTelefone"
-            android:layout_width="305dp"
+            android:layout_width="345dp"
             android:layout_height="65dp"
             android:layout_marginTop="16dp"
             android:textColorHint="@color/textView"
@@ -149,7 +150,7 @@
 
         <Spinner
             android:id="@+id/spnMes"
-            android:layout_width="116dp"
+            android:layout_width="136dp"
             android:layout_height="60dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
@@ -180,7 +181,7 @@
             android:textColorHighlight="@color/textView"
             android:textColorHint="@color/textView"
             android:textColorLink="@color/textView"
-            android:textSize="18sp"
+            android:textSize="20sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="@+id/guideline6"
             app:layout_constraintTop_toBottomOf="@+id/spnMes" />
@@ -189,6 +190,7 @@
             android:id="@+id/textView5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
             android:text="Senha"
             android:textColor="@color/textView"
             android:textColorHighlight="@color/textView"
@@ -201,7 +203,7 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/layoutInputSenha"
-            android:layout_width="145dp"
+            android:layout_width="165dp"
             android:layout_height="65dp"
 
             android:textColorHint="@color/textView"
@@ -242,7 +244,7 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/layoutInputConfSenha"
-            android:layout_width="145dp"
+            android:layout_width="165dp"
             android:layout_height="65dp"
             android:textColorHint="@color/textView"
             app:boxStrokeColor="@color/textView"
@@ -301,7 +303,7 @@
                 android:text="Masculino"
                 android:textAlignment="viewStart"
                 android:textColor="@color/textView"
-                android:textSize="11sp" />
+                android:textSize="14sp" />
 
             <RadioButton
                 android:id="@+id/rbtnFeminino"
@@ -313,7 +315,7 @@
                 android:buttonTint="@color/black"
                 android:text="Feminino"
                 android:textColor="@color/textView"
-                android:textSize="11sp" />
+                android:textSize="14sp" />
 
             <RadioButton
                 android:id="@+id/rbtnOutro"
@@ -324,7 +326,7 @@
                 android:buttonTint="@color/black"
                 android:text="Outro"
                 android:textColor="@color/textView"
-                android:textSize="11sp" />
+                android:textSize="14sp" />
 
         </RadioGroup>
 
@@ -332,11 +334,11 @@
         <Button
             android:id="@+id/btnCadastrar"
             style="@style/Buttons"
-            android:layout_width="135dp"
-            android:layout_height="60dp"
+            android:layout_width="143dp"
+            android:layout_height="70dp"
             android:layout_marginBottom="16dp"
             android:text="Cadastrar"
-            android:textSize="19sp"
+            android:textSize="20sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

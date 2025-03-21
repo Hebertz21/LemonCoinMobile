@@ -8,7 +8,7 @@
         android:id="@+id/btnLogout"
         style="@style/Buttons"
         android:layout_width="115dp"
-        android:layout_height="63dp"
+        android:layout_height="50dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="5dp"
         android:backgroundTint="@color/buttons"
