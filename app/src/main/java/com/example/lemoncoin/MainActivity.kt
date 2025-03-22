@@ -23,22 +23,6 @@ class MainActivity : AppCompatActivity() {
         //code
         //supportActionBar?.hide() //esconde a actionBar
     }
-    fun toHome(view: View) {
-        if (this.localClassName != "MainActivity") {
-            val intent = Intent(this, MainActivity::class.java)
-            startActivity(intent)
-            finish()
-        }
-        setContentView(R.layout.activity_main)
-    }
-
-    fun toLogin(view: View){
-        setContentView(R.layout.activity_login)
-    }
-    fun toCadastro(View: View){
-        val intent = Intent(this, CadastroActivity::class.java)
-        startActivity(intent)
-    }
 
     override fun onStart() {
         super.onStart()

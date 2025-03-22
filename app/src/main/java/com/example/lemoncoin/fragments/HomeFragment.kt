@@ -7,19 +7,16 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.lemoncoin.R
 
-class DespesasFragment : Fragment() {
+class HomeFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
-
-        return inflater.inflate(
-            R.layout.fragment_despesas,
+        return inflater.inflate( //Cria a visualização
+            R.layout.fragment_home,  //R chama o layout, o containerView
             container,
-            false
+            false // anexa ao elemento raiz automaticamente
         )
     }
 }
-
