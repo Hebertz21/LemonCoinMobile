@@ -14,19 +14,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <com.google.android.material.imageview.ShapeableImageView
-            android:id="@+id/imgLogo2"
-            style="@style/RoundedImageView"
-            android:layout_width="63dp"
-            android:layout_height="57dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="16dp"
-            android:background="@color/backgroundSecondary"
-            android:contentDescription="logo"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/logo" />
-
         <include
             android:id="@+id/include"
             layout="@layout/toolbar_menu" />
@@ -49,81 +36,17 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guide"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:visibility="visible"
-            app:layout_constraintGuide_begin="72dp" />
-
         <androidx.fragment.app.FragmentContainerView
             android:id="@+id/fragmentContainer"
 
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="122dp"
+            android:layout_marginTop="72dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:layout="@layout/fragment_despesas" />
 
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guideline8"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintGuide_begin="205dp"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent" />
 
-        <TextView
-            android:id="@+id/txtDespesas"
-            android:layout_height="0dp"
-            android:layout_width="0dp"
-            android:background="@color/buttons"
-            android:backgroundTint="@color/buttons"
-            android:gravity="center|center_vertical"
-            android:text="DESPESAS"
-            android:textAlignment="center"
-            android:textColor="@color/textButton"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toTopOf="@+id/guideline9"
-            app:layout_constraintEnd_toStartOf="@+id/guideline8"
-            app:layout_constraintHorizontal_bias="0.503"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/guide"
-            android:focusable="true"
-            android:clickable="true"
-            />
-
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guideline9"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintGuide_begin="122dp" />
-
-        <TextView
-            android:id="@+id/txtReceitas"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:background="@color/buttons"
-            android:gravity="center|center_vertical"
-            android:text="RECEITAS"
-            android:textAlignment="center"
-            android:textColor="@color/textButton"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toTopOf="@+id/guideline9"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/guideline8"
-            app:layout_constraintTop_toTopOf="@+id/guide"
-
-            android:focusable="true"
-            android:clickable="true"
-            />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

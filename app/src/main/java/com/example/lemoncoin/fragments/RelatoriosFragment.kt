@@ -6,20 +6,37 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.lemoncoin.R
+import com.example.lemoncoin.databinding.FragmentRelatoriosBinding
 
 class RelatoriosFragment : Fragment() {
+    private var _binding: FragmentRelatoriosBinding? = null
+    private val binding get() = _binding!! // Uso seguro do binding
+
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
+        inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
+        _binding = FragmentRelatoriosBinding.inflate(inflater, container, false)
 
+        binding.txtDespesas.setOnClickListener {
+            trocarFragment(DespesasFragment())
+        }
 
-        return inflater.inflate(
-            R.layout.fragment_despesas,
-            container,
-            false
-        )
+        return binding.root
+    }
+
+    private fun trocarFragment(fragment: Fragment) {
+        parentFragmentManager.beginTransaction()
+            .replace(R.id.fragmentContainer, fragment)
+            .addToBackStack(null) //
+            .commit()
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null // Evita vazamento de memória
     }
 }
+
+
 

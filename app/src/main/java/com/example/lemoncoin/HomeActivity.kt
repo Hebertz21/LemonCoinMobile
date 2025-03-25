@@ -1,6 +1,7 @@
 package com.example.lemoncoin
 
 import android.os.Bundle
+import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.core.view.ViewCompat
@@ -46,10 +47,10 @@ class HomeActivity : AppCompatActivity() {
             openFragment(ContasFragment())
         }
 
-        //Despesas
+        /*//Despesas
         binding.txtDespesas.setOnClickListener {
             openFragment(RelatoriosFragment())
-        }
+        }*/
 
         //Relatorios
         binding.txtRelatorios.setOnClickListener {
@@ -61,9 +62,11 @@ class HomeActivity : AppCompatActivity() {
             openFragment(CategoriasFragment())
         }
 
-        binding.imgLogo.setOnClickListener {
+        binding.include.imgLogo.setOnClickListener {
             openFragment(HomeFragment())
         }
+
+
     }
 
     //função para abrir fragment
