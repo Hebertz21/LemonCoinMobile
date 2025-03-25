@@ -22,12 +22,17 @@ class RelatoriosFragment : Fragment() {
             trocarFragment(DespesasFragment())
         }
 
+        //Chama Receitas
+        binding.txtReceitas.setOnClickListener() {
+            trocarFragment(ReceitasFragment())
+        }
+
         return binding.root
     }
 
-    private fun trocarFragment(fragment: Fragment) {
+    private fun trocarFragment(fragment: androidx.fragment.app.Fragment) {
         parentFragmentManager.beginTransaction()
-            .replace(R.id.fragmentContainer, fragment)
+            .replace(R.id.fragmentContainerRelatorios, fragment)
             .addToBackStack(null) //
             .commit()
     }
@@ -36,7 +41,7 @@ class RelatoriosFragment : Fragment() {
         super.onDestroyView()
         _binding = null // Evita vazamento de memória
     }
-}
 
+}
 
 

@@ -15,7 +15,6 @@
         app:layout_constraintGuide_begin="0dp" />
 
 
-
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline8"
         android:layout_width="wrap_content"
@@ -28,10 +27,12 @@
 
     <TextView
         android:id="@+id/txtDespesas"
-        android:layout_height="0dp"
         android:layout_width="0dp"
+        android:layout_height="0dp"
         android:background="@color/buttons"
         android:backgroundTint="@color/buttons"
+        android:clickable="true"
+        android:focusable="true"
         android:gravity="center|center_vertical"
         android:text="DESPESAS"
         android:textAlignment="center"
@@ -42,23 +43,22 @@
         app:layout_constraintEnd_toStartOf="@+id/guideline8"
         app:layout_constraintHorizontal_bias="0.503"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideSuperior"
-        android:focusable="true"
-        android:clickable="true"
-        />
+        app:layout_constraintTop_toTopOf="@+id/guideSuperior" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideInferior"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_begin="60dp" />
+        app:layout_constraintGuide_begin="55dp" />
 
     <TextView
         android:id="@+id/txtReceitas"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:background="@color/buttons"
+        android:clickable="true"
+        android:focusable="true"
         android:gravity="center|center_vertical"
         android:text="RECEITAS"
         android:textAlignment="center"
@@ -67,11 +67,21 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/guideInferior"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/guideline8"
-        app:layout_constraintTop_toTopOf="@+id/guideSuperior"
 
-        android:focusable="true"
-        android:clickable="true"
-        />
+        app:layout_constraintStart_toStartOf="@+id/guideline8"
+        app:layout_constraintTop_toTopOf="@+id/guideSuperior" />
+
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/fragmentContainerRelatorios"
+        android:name="com.example.lemoncoin.fragments.DespesasFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="55dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtDespesas"
+        app:layout_constraintVertical_bias="0.5" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

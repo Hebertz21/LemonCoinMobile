@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/backgroundSecondary"
+    android:backgroundTint="@color/backgroundSecondary">
+
+    <TextView
+        android:id="@+id/textView11"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:text="ADICIONAR DESPESA"
+        android:textColor="@color/titulos"
+        android:textSize="34sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="409dp"
+        android:layout_height="652dp"
+        android:layout_marginTop="150dp"
+        android:background="@color/backgroundSecondary"
+        android:backgroundTint="@color/backgroundSecondary"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView11"
+        app:layout_constraintVertical_bias="1.0">
+
+        <Spinner
+            android:id="@+id/spnDia2"
+            android:layout_width="82dp"
+            android:layout_height="60dp"
+            android:layout_marginStart="7dp"
+            android:layout_marginTop="8dp"
+            android:backgroundTint="@color/textView"
+            app:layout_constraintEnd_toStartOf="@+id/spnMes2"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txtDataDespesa" />
+
+        <Spinner
+            android:id="@+id/spnMes2"
+            android:layout_width="136dp"
+            android:layout_height="60dp"
+            android:backgroundTint="@color/textView"
+            app:layout_constraintEnd_toStartOf="@+id/spnAno2"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/spnDia2"
+            app:layout_constraintTop_toTopOf="@+id/spnDia2" />
+
+        <Spinner
+            android:id="@+id/spnAno2"
+            android:layout_width="96dp"
+            android:layout_height="60dp"
+            android:layout_marginEnd="7dp"
+            android:backgroundTint="@color/textView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/spnMes2"
+            app:layout_constraintTop_toTopOf="@+id/spnDia2" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/layoutInputNomeDespesa"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toStartOf="@+id/guideDireita"
+            app:layout_constraintStart_toStartOf="@+id/guideEsquerda"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/inputNomeDespesa"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Nome:"
+                android:textColor="@color/textView"
+                app:layout_constraintEnd_toEndOf="@id/guideDireita"
+                app:layout_constraintStart_toStartOf="@id/guideEsquerda" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/layoutInputValorDespesa"
+            android:layout_width="160dp"
+            android:layout_height="65dp"
+            android:layout_marginTop="32dp"
+            app:layout_constraintStart_toStartOf="@+id/layoutInputNomeDespesa"
+            app:layout_constraintTop_toBottomOf="@+id/layoutInputNomeDespesa">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/inputValorDespesa"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Valor: R$" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideEsquerda"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.07" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideDireita"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.93" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/layoutInputCategoriaDespesa"
+            android:layout_width="181dp"
+            android:layout_height="66dp"
+            android:layout_marginTop="32dp"
+            app:layout_constraintEnd_toEndOf="@+id/layoutInputNomeDespesa"
+            app:layout_constraintTop_toBottomOf="@+id/layoutInputNomeDespesa">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/inputCategoriaDespesa"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Categoria:" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <Spinner
+            android:id="@+id/spnRecorrenciaDespesa"
+            android:layout_width="206dp"
+            android:layout_height="65dp"
+            android:layout_marginTop="32dp"
+            app:layout_constraintStart_toStartOf="@+id/guideEsquerda"
+            app:layout_constraintTop_toBottomOf="@+id/layoutInputValorDespesa" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/layouInputContaDespesa"
+            android:layout_width="134dp"
+            android:layout_height="65dp"
+            android:layout_marginTop="32dp"
+            app:layout_constraintEnd_toStartOf="@+id/guideDireita"
+            app:layout_constraintTop_toBottomOf="@+id/layoutInputCategoriaDespesa">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/inputContaDespesa"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Conta:" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView
+            android:id="@+id/txtDataDespesa"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:text="Data:"
+            android:textSize="20sp"
+            app:layout_constraintStart_toStartOf="@+id/guideEsquerda"
+            app:layout_constraintTop_toBottomOf="@+id/spnRecorrenciaDespesa" />
+
+        <Button
+            android:id="@+id/button2"
+            style="@style/Buttons"
+            android:layout_width="140dp"
+            android:layout_height="75dp"
+            android:layout_marginTop="32dp"
+            android:text="Button"
+            app:layout_constraintEnd_toStartOf="@+id/button3"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/spnMes2" />
+
+        <Button
+            android:id="@+id/button3"
+            style="@style/Buttons"
+            android:layout_width="140dp"
+            android:layout_height="75dp"
+            android:text="Button"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/button2"
+            app:layout_constraintTop_toTopOf="@+id/button2" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

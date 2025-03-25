@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.lemoncoin.R
 
-class DespesasFragment : Fragment() {
+class ReceitasFragment : Fragment() {
 
     override fun onCreateView(  //Metodo que constroi a visualização do fragment
         inflater: LayoutInflater,
@@ -15,7 +15,7 @@ class DespesasFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         return inflater.inflate(   //Cria a visualização
-            R.layout.fragment_despesas,  //R chama o layout, o containerView e
+            R.layout.fragment_receitas,  //R chama o layout, o containerView e
             container,
             false // anexa ao elemento raiz automaticamente
         )
