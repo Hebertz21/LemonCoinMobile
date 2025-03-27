@@ -11,24 +11,25 @@
         android:id="@+id/textView11"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="52dp"
         android:text="ADICIONAR DESPESA"
         android:textColor="@color/titulos"
         android:textSize="34sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.48"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="409dp"
-        android:layout_height="652dp"
-        android:layout_marginTop="150dp"
+        android:layout_width="413dp"
+        android:layout_height="606dp"
+        android:layout_marginTop="24dp"
         android:background="@color/backgroundSecondary"
         android:backgroundTint="@color/backgroundSecondary"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView11"
         app:layout_constraintVertical_bias="1.0">
@@ -70,6 +71,10 @@
             android:id="@+id/layoutInputNomeDespesa"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:textColorHint="@color/textView"
+            app:boxStrokeColor="@color/textView"
+            app:cursorColor="@color/textView"
+            app:hintTextColor="@color/textView"
             app:layout_constraintEnd_toStartOf="@+id/guideDireita"
             app:layout_constraintStart_toStartOf="@+id/guideEsquerda"
             app:layout_constraintTop_toTopOf="parent">
@@ -80,6 +85,9 @@
                 android:layout_height="wrap_content"
                 android:hint="Nome:"
                 android:textColor="@color/textView"
+                android:textColorHighlight="@color/textView"
+                android:textColorHint="@color/textView"
+                android:textColorLink="@color/textView"
                 app:layout_constraintEnd_toEndOf="@id/guideDireita"
                 app:layout_constraintStart_toStartOf="@id/guideEsquerda" />
         </com.google.android.material.textfield.TextInputLayout>
@@ -89,6 +97,10 @@
             android:layout_width="160dp"
             android:layout_height="65dp"
             android:layout_marginTop="32dp"
+            android:textColorHint="@color/textView"
+            app:boxStrokeColor="@color/textView"
+            app:cursorColor="@color/textView"
+            app:hintTextColor="@color/textView"
             app:layout_constraintStart_toStartOf="@+id/layoutInputNomeDespesa"
             app:layout_constraintTop_toBottomOf="@+id/layoutInputNomeDespesa">
 
@@ -96,7 +108,11 @@
                 android:id="@+id/inputValorDespesa"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Valor: R$" />
+                android:hint="Valor: R$"
+                android:textColor="@color/textView"
+                android:textColorHighlight="@color/textView"
+                android:textColorHint="@color/textView"
+                android:textColorLink="@color/textView" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <androidx.constraintlayout.widget.Guideline
@@ -118,6 +134,10 @@
             android:layout_width="181dp"
             android:layout_height="66dp"
             android:layout_marginTop="32dp"
+            android:textColorHint="@color/textView"
+            app:boxStrokeColor="@color/textView"
+            app:cursorColor="@color/textView"
+            app:hintTextColor="@color/textView"
             app:layout_constraintEnd_toEndOf="@+id/layoutInputNomeDespesa"
             app:layout_constraintTop_toBottomOf="@+id/layoutInputNomeDespesa">
 
@@ -125,7 +145,11 @@
                 android:id="@+id/inputCategoriaDespesa"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Categoria:" />
+                android:hint="Categoria:"
+                android:textColor="@color/textView"
+                android:textColorHighlight="@color/textView"
+                android:textColorHint="@color/textView"
+                android:textColorLink="@color/textView" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <Spinner
@@ -141,6 +165,10 @@
             android:layout_width="134dp"
             android:layout_height="65dp"
             android:layout_marginTop="32dp"
+            android:textColorHint="@color/textView"
+            app:boxStrokeColor="@color/textView"
+            app:cursorColor="@color/textView"
+            app:hintTextColor="@color/textView"
             app:layout_constraintEnd_toStartOf="@+id/guideDireita"
             app:layout_constraintTop_toBottomOf="@+id/layoutInputCategoriaDespesa">
 
@@ -148,7 +176,11 @@
                 android:id="@+id/inputContaDespesa"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Conta:" />
+                android:hint="Conta:"
+                android:textColor="@color/textView"
+                android:textColorHighlight="@color/textView"
+                android:textColorHint="@color/textView"
+                android:textColorLink="@color/textView" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <TextView
@@ -157,31 +189,40 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
             android:text="Data:"
+            android:textColor="@color/textView"
             android:textSize="20sp"
             app:layout_constraintStart_toStartOf="@+id/guideEsquerda"
             app:layout_constraintTop_toBottomOf="@+id/spnRecorrenciaDespesa" />
 
         <Button
-            android:id="@+id/button2"
+            android:id="@+id/btnAddDespesa"
             style="@style/Buttons"
             android:layout_width="140dp"
             android:layout_height="75dp"
             android:layout_marginTop="32dp"
-            android:text="Button"
-            app:layout_constraintEnd_toStartOf="@+id/button3"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:text="ADICIONAR"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toStartOf="@+id/btnCancelarCategoria"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/spnMes2" />
 
         <Button
-            android:id="@+id/button3"
+            android:id="@+id/btnCancelarCategoria"
             style="@style/Buttons"
             android:layout_width="140dp"
             android:layout_height="75dp"
-            android:text="Button"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:text="CANCELAR"
+            android:textSize="18sp"
+            android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/button2"
-            app:layout_constraintTop_toTopOf="@+id/button2" />
+            app:layout_constraintStart_toEndOf="@+id/btnAddDespesa"
+            app:layout_constraintTop_toTopOf="@+id/btnAddDespesa" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
