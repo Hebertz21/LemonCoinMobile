@@ -18,7 +18,8 @@ class DespesasFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentDespesasBinding.inflate(inflater, container, false)
+        _binding = FragmentDespesasBinding.inflate(inflater,
+            container, false)
 
         binding.btnAddDespesas.setOnClickListener(){
             trocarFragment(AddDespesasFragment())

@@ -17,7 +17,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <Spinner
-            android:id="@+id/spinnerData"
+            android:id="@+id/spinnerDataDespesas"
             style="?attr/spinnerStyle"
             android:layout_width="318dp"
             android:layout_height="51dp"
@@ -32,14 +32,15 @@
 
         <ScrollView
             android:id="@+id/scrollView2"
-            android:layout_width="match_parent"
-            android:layout_height="490dp"
+            android:layout_width="0dp"
+            android:layout_height="502dp"
             android:layout_marginTop="24dp"
+            android:background="@color/background"
             android:contentDescription="Abaixe a tela"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/guideDireitaDespesa"
             app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/spinnerData">
+            app:layout_constraintStart_toStartOf="@+id/guideEsquerdaDespesa"
+            app:layout_constraintTop_toBottomOf="@+id/spinnerDataDespesas">
 
             <LinearLayout
                 android:id="@+id/linearLayoutDespesas"
@@ -63,7 +64,7 @@
             android:id="@+id/txtTotal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
+            android:layout_marginStart="24dp"
             android:layout_marginBottom="8dp"
             android:text="TOTAL:"
             android:textColor="@color/textView"
@@ -83,6 +84,20 @@
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="@+id/txtTotal" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideEsquerdaDespesa"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.10" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideDireitaDespesa"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.90" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
