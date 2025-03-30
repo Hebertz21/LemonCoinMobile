@@ -131,7 +131,7 @@
             android:layout_height="63dp"
             android:layout_marginTop="24dp"
             android:text="Entrar"
-            android:textColor="@color/textButtons"
+            android:textColor="@color/textButton"
             android:textColorHighlight="@color/buttons"
             android:textColorHint="@color/buttons"
             android:textColorLink="@color/buttons"

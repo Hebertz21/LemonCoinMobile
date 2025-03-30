@@ -1,18 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <style name="RoundedImageView" parent="">
-        <item name="shapeAppearanceOverlay">@style/RoundedCorners</item>
-    </style>
+
 
     <style name="RoundedCorners">
         <item name="cornerSize">15dp</item>
     </style>
 
-
-
     <style name="RoundedCornersSecundario">
         <item name="cornerSize">7dp</item>
     </style>
+
 
     <style name="StrokeColor">
         <item name="strokeColor">#FF000000</item>
@@ -27,9 +24,24 @@
         <item name="android:textSize">16sp</item>
         <item name="android:textColor">#FFFFFF</item>
         <item name="backgroundTint">@color/buttons</item>
-        <!--<item name="fontFamily">@font/sans-serif</item> -->
-
+        <!--Botões principais -->
     </style>
+
+    <!--Estilo da imagem -->
+    <style name="RoundedImageView" parent="">
+        <item name="shapeAppearance">@style/RoundedCornersImagemLapis</item>
+    </style>
+
+    <style name="RoundedCornersImagemLapis" parent="ShapeAppearance.MaterialComponents.SmallComponent">
+        <item name="cornerSize">20dp</item>
+    </style>
+
+    <style name="imagemLapis" parent="">
+        <item name="shapeAppearance">@style/RoundedCornersImagemLapis</item>
+        <item name="backgroundTint">@color/background</item>
+        <item name="background">@color/background</item>
+    </style>
+    <!--Estilo da imagem -->
 
      <style name="fontTextView" parent="">
         <item name="android:fontFamily">@font/montserrat_semi_bold</item>
