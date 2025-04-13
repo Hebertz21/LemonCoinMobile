@@ -23,27 +23,31 @@
         app:layout_constraintTop_toTopOf="parent" />
 
 
-    <ImageView
+    <FrameLayout
         android:id="@+id/imgLapis"
-        style="@style/imagemLapis"
         android:layout_width="245dp"
         android:layout_height="245dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="28dp"
         android:background="@drawable/rounded_image_lapis"
-        android:paddingStart="20dp"
-        android:paddingEnd="20dp"
-        android:scaleType="fitCenter"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.493"
-        app:layout_constraintStart_toStartOf="parent"
+        android:clipToOutline="true"
+        android:padding="8dp"
         app:layout_constraintTop_toBottomOf="@+id/textView8"
-        app:srcCompat="@drawable/lapis" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="20dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/lapis" />
+    </FrameLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout2"
         android:layout_width="280dp"
         android:layout_height="80dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
@@ -62,20 +66,34 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/textInputLayout"
+            android:id="@+id/layoutInputSaldo"
             android:layout_width="0dp"
             android:layout_height="match_parent"
+            android:background="@color/transparente"
+            android:textColorHint="@color/textView"
+            app:boxBackgroundColor="@color/transparente"
+            app:boxStrokeColor="@color/transparente"
+            app:counterTextColor="@color/textView"
+            app:cursorColor="@color/textView"
+            app:helperTextTextColor="@color/textView"
+            app:hintTextColor="@color/textView"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/textViewConta"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toTopOf="parent"
+            app:placeholderTextColor="@color/textView"
+            app:prefixTextColor="@color/textView"
+            app:suffixTextColor="@color/textView">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/inputSaldo"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:background="@color/transparente"
                 android:hint="Saldo: R$"
                 android:paddingStart="6dp"
                 android:textColor="@color/textView"
+                android:textColorHighlight="@color/textView"
                 android:textColorHint="@color/textView" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -91,19 +109,30 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/textInputLayout2"
+        android:id="@+id/layoutInputDescricao"
         android:layout_width="0dp"
         android:layout_height="64dp"
         android:layout_marginTop="8dp"
+        android:background="@drawable/input_text_padrao"
+        android:textColorHint="@color/textView"
+        app:cursorColor="@color/textView"
+        app:helperTextTextColor="@color/textView"
+        app:hintTextColor="@color/textView"
         app:layout_constraintEnd_toEndOf="@+id/constraintLayout2"
         app:layout_constraintStart_toStartOf="@+id/constraintLayout2"
-        app:layout_constraintTop_toBottomOf="@+id/constraintLayout2">
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout2"
+        app:placeholderTextColor="@color/textView"
+        app:prefixTextColor="@color/textView"
+        app:suffixTextColor="@color/textView">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/InputDescricao"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@color/transparente"
             android:hint="Descrição:"
             android:textColor="@color/textView"
+            android:textColorHighlight="@color/textView"
             android:textColorHint="@color/textView" />
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -116,10 +145,11 @@
         android:text="Cancelar"
         android:textColor="@color/textButton"
         android:textSize="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/button3"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textInputLayout2" />
+        app:layout_constraintTop_toBottomOf="@+id/layoutInputDescricao" />
 
     <Button
         android:id="@+id/button3"

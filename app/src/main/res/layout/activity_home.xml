@@ -44,7 +44,7 @@
             android:layout_marginTop="72dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:layout="@layout/fragment_despesas" />
+            tools:layout="@layout/fragment_home" />
 
 
 

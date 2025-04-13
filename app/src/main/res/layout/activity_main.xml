@@ -11,8 +11,13 @@
     tools:context=".MainActivity">
 
 
-    <include layout="@layout/toolbar" />
-    <include layout="@layout/button_logar" />
+    <include
+        android:id="@+id/include_toolbar"
+        layout="@layout/toolbar" />
+
+    <include
+        android:id="@+id/include_button_login"
+        layout="@layout/button_logar" />
 
     <ImageView
         android:id="@+id/imageView"
