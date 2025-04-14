@@ -8,7 +8,8 @@
     android:background="@color/backgroundSecondary"
     tools:context=".LoginActivity">
 
-    <include layout="@layout/toolbar" />
+    <include layout="@layout/toolbar"
+            android:id="@+id/toolbar" />
 
 
     <androidx.constraintlayout.widget.Guideline

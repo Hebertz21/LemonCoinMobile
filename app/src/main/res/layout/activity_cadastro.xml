@@ -15,7 +15,8 @@
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.1" />
 
-    <include layout="@layout/toolbar" />
+    <include layout="@layout/toolbar"
+        android:id="@+id/toolbar" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout"

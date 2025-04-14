@@ -32,5 +32,8 @@ class LoginActivity : AppCompatActivity() {
             val intent = Intent(this, CadastroActivity::class.java)
             startActivity(intent)
         }
+        binding.toolbar.imgLogo.setOnClickListener(){
+            finish()
+        }
     }
 }

@@ -6,11 +6,13 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.fragment.app.Fragment
 import com.example.lemoncoin.databinding.ActivityHomeBinding
 import com.example.lemoncoin.fragments.CategoriasFragment
 import com.example.lemoncoin.fragments.ContasFragment
 import com.example.lemoncoin.fragments.HomeFragment
 import com.example.lemoncoin.fragments.RelatoriosFragment
+
 //import com.example.lemoncoin.fragments.
 
 class HomeActivity : AppCompatActivity() {
@@ -66,11 +68,13 @@ class HomeActivity : AppCompatActivity() {
             openFragment(HomeFragment())
         }
 
-
+        binding.includeButtonLogout.btnLogout.setOnClickListener() {
+            finish()
+        }
     }
 
     //função para abrir fragment
-    private fun openFragment(fragment: androidx.fragment.app.Fragment) {
+    private fun openFragment(fragment: Fragment) {
         supportFragmentManager.beginTransaction() //
             .replace(R.id.fragmentContainer, fragment)
             /*Replace substitui, ele pega o R.id e coloca

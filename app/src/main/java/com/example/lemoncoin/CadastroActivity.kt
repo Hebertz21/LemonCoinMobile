@@ -35,6 +35,10 @@ class CadastroActivity : AppCompatActivity() {
             val intent = Intent(this, HomeActivity::class.java)
             startActivity(intent)
         }
+
+        binding.toolbar.imgLogo.setOnClickListener(){
+            finish()
+        }
     }
 
     //essa desgraça não funciona, não sei pq...
@@ -84,5 +88,8 @@ class CadastroActivity : AppCompatActivity() {
         anoAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
 
         spnAno.adapter = anoAdapter
+
     }
+
+
 }

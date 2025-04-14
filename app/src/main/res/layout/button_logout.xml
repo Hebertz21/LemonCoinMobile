@@ -13,7 +13,6 @@
         android:layout_marginTop="5dp"
         android:backgroundTint="@color/buttons"
         android:fontFamily="sans-serif"
-        android:onClick="toLogin"
         android:text="SAIR"
         android:textColor="@color/textButton"
         android:textSize="20sp"
