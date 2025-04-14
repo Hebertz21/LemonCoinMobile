@@ -5,6 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/backgroundSecondary"
     tools:context=".CadastroActivity">
 
     <androidx.constraintlayout.widget.Guideline
@@ -19,14 +20,14 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="72dp"
+        android:layout_height="wrap_content"
         android:background="@color/backgroundSecondary"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline4">
+        app:layout_constraintTop_toTopOf="@+id/guideline4"
+        app:layout_constraintVertical_bias="0.503">
 
         <TextView
             android:id="@+id/textView"
@@ -45,7 +46,7 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/layoutInputNomeDespesa"
-            android:layout_width="340dp"
+            android:layout_width="345dp"
             android:layout_height="65dp"
             android:layout_marginTop="12dp"
             android:background="@drawable/input_text_padrao"
@@ -81,9 +82,9 @@
             app:boxStrokeColor="@color/textView"
             app:cursorColor="@color/titulos"
             app:hintTextColor="@color/textView"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/layoutInputNomeDespesa"
             app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/layoutInputNomeDespesa"
             app:layout_constraintTop_toBottomOf="@+id/layoutInputNomeDespesa">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -139,14 +140,13 @@
             android:textColorLink="@color/textView"
             android:textSize="18sp"
             android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="@+id/guideline6"
+            app:layout_constraintStart_toStartOf="@+id/layoutInputTelefone"
             app:layout_constraintTop_toBottomOf="@+id/layoutInputTelefone" />
 
         <Spinner
             android:id="@+id/spnDia"
             android:layout_width="82dp"
             android:layout_height="60dp"
-            android:layout_marginStart="16dp"
             android:layout_marginTop="8dp"
             android:background="@drawable/input_text_padrao"
             android:backgroundTint="@color/textView"
@@ -155,7 +155,8 @@
             android:foregroundGravity="right"
             app:layout_constraintEnd_toStartOf="@+id/spnMes"
             app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintHorizontal_chainStyle="spread_inside"
+            app:layout_constraintStart_toStartOf="@+id/textView3"
             app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
         <Spinner
@@ -178,12 +179,11 @@
             android:id="@+id/spnAno"
             android:layout_width="96dp"
             android:layout_height="60dp"
-            android:layout_marginEnd="16dp"
             android:background="@drawable/input_text_padrao"
             android:backgroundTint="@color/textView"
             android:foreground="@drawable/ic_down_green"
             android:foregroundGravity="right"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/layoutInputTelefone"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/spnMes"
             app:layout_constraintTop_toTopOf="@+id/spnMes" />
@@ -200,7 +200,7 @@
             android:textColorLink="@color/textView"
             android:textSize="20sp"
             android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="@+id/guideline6"
+            app:layout_constraintStart_toStartOf="@+id/spnDia"
             app:layout_constraintTop_toBottomOf="@+id/spnMes" />
 
         <TextView
@@ -229,7 +229,7 @@
             app:cursorColor="@color/titulos"
             app:endIconMode="password_toggle"
             app:hintTextColor="@color/textView"
-            app:layout_constraintStart_toStartOf="@+id/guideline6"
+            app:layout_constraintStart_toStartOf="@+id/textView5"
             app:layout_constraintTop_toBottomOf="@+id/textView5">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -271,7 +271,7 @@
             app:cursorErrorColor="@color/titulos"
             app:endIconMode="password_toggle"
             app:hintTextColor="@color/textView"
-            app:layout_constraintEnd_toStartOf="@+id/guideline7"
+            app:layout_constraintEnd_toEndOf="@+id/spnAno"
             app:layout_constraintTop_toBottomOf="@+id/textView6">
 
 
@@ -355,13 +355,12 @@
         <Button
             android:id="@+id/btnCadastrar"
             style="@style/Buttons"
-            android:layout_width="143dp"
+            android:layout_width="150dp"
             android:layout_height="70dp"
-            android:layout_marginBottom="16dp"
+            android:layout_marginTop="16dp"
             android:text="Cadastrar"
             android:textSize="18dp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"

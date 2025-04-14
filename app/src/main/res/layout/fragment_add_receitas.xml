@@ -10,14 +10,14 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout3"
         android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
         android:background="@drawable/input_text_padrao"
         android:backgroundTint="@color/backgroundSecondary"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guide_20">
+        app:layout_constraintTop_toTopOf="parent">
 
         <Spinner
             android:id="@+id/spnDiaReceita"
@@ -30,7 +30,8 @@
             android:foregroundGravity="right"
             app:layout_constraintEnd_toStartOf="@+id/spnMesReceita"
             app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="@+id/layoutInputNomeReceita"
+            app:layout_constraintHorizontal_chainStyle="spread_inside"
+            app:layout_constraintStart_toStartOf="@+id/txtDataReceita"
             app:layout_constraintTop_toBottomOf="@+id/txtDataReceita" />
 
         <Spinner
@@ -54,7 +55,7 @@
             android:backgroundTint="@color/textView"
             android:foreground="@drawable/ic_down_green"
             android:foregroundGravity="right"
-            app:layout_constraintEnd_toEndOf="@+id/layoutInputNomeReceita"
+            app:layout_constraintEnd_toEndOf="@+id/spnContaReceita"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/spnMesReceita"
             app:layout_constraintTop_toTopOf="@+id/spnDiaReceita" />
@@ -177,7 +178,7 @@
             android:id="@+id/txtDataReceita"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
+            android:layout_marginTop="16dp"
             android:text="Data:"
             android:textColor="@color/textView"
             android:textSize="20sp"
@@ -187,7 +188,7 @@
         <Button
             android:id="@+id/btnAddReceita"
             style="@style/Buttons"
-            android:layout_width="140dp"
+            android:layout_width="150dp"
             android:layout_height="75dp"
             android:layout_marginTop="32dp"
             android:paddingLeft="10dp"
@@ -203,7 +204,7 @@
         <Button
             android:id="@+id/btnCancelarCategoria"
             style="@style/Buttons"
-            android:layout_width="140dp"
+            android:layout_width="150dp"
             android:layout_height="75dp"
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
@@ -228,6 +229,7 @@
         android:id="@+id/textView13"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
         android:text="ADICIONAR RECEITAS"
         android:textColor="@color/titulos"
         android:textSize="28dp"
@@ -235,8 +237,7 @@
         app:layout_constraintBottom_toTopOf="@+id/constraintLayout3"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guide_20"
