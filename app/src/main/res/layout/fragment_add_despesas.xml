@@ -10,14 +10,15 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout4"
         android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
         android:background="@drawable/input_text_padrao"
         android:backgroundTint="@color/backgroundSecondary"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline10">
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.5">
 
         <Spinner
             android:id="@+id/spnDiaDespesa"
@@ -30,7 +31,8 @@
             android:foregroundGravity="right"
             app:layout_constraintEnd_toStartOf="@+id/spnMesDespesa"
             app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="@+id/layoutInputNomeDespesa"
+            app:layout_constraintHorizontal_chainStyle="spread_inside"
+            app:layout_constraintStart_toStartOf="@+id/txtDataDespesa"
             app:layout_constraintTop_toBottomOf="@+id/txtDataDespesa" />
 
         <Spinner
@@ -54,7 +56,7 @@
             android:backgroundTint="@color/textView"
             android:foreground="@drawable/ic_down_green"
             android:foregroundGravity="right"
-            app:layout_constraintEnd_toEndOf="@+id/layoutInputNomeDespesa"
+            app:layout_constraintEnd_toStartOf="@+id/guideDireita"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/spnMesDespesa"
             app:layout_constraintTop_toTopOf="@+id/spnDiaDespesa" />
@@ -177,7 +179,7 @@
             android:id="@+id/txtDataDespesa"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
+            android:layout_marginTop="16dp"
             android:text="Data:"
             android:textColor="@color/textView"
             android:textSize="20sp"
@@ -187,7 +189,7 @@
         <Button
             android:id="@+id/btnAddDespesa"
             style="@style/Buttons"
-            android:layout_width="140dp"
+            android:layout_width="150dp"
             android:layout_height="75dp"
             android:layout_marginTop="32dp"
             android:paddingLeft="10dp"
@@ -203,7 +205,7 @@
         <Button
             android:id="@+id/btnCancelarCategoria"
             style="@style/Buttons"
-            android:layout_width="140dp"
+            android:layout_width="150dp"
             android:layout_height="75dp"
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
@@ -228,6 +230,7 @@
         android:id="@+id/textView11"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
         android:text="ADICIONAR DESPESAS"
         android:textColor="@color/titulos"
         android:textSize="28sp"
@@ -235,8 +238,7 @@
         app:layout_constraintBottom_toTopOf="@+id/constraintLayout4"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline10"
