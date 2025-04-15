@@ -27,10 +27,10 @@
 
     <TextView
         android:id="@+id/txtDespesas"
+        style="@style/Buttons"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:background="@color/buttons"
-        android:backgroundTint="@color/buttons"
         android:clickable="true"
         android:focusable="true"
         android:gravity="center|center_vertical"
@@ -54,6 +54,7 @@
 
     <TextView
         android:id="@+id/txtReceitas"
+        style="@style/Buttons"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:background="@color/buttons"
@@ -66,8 +67,8 @@
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/guideInferior"
-        app:layout_constraintEnd_toEndOf="parent"
 
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/guideline8"
         app:layout_constraintTop_toTopOf="@+id/guideSuperior" />
 

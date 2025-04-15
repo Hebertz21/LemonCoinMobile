@@ -10,4 +10,5 @@
     <color name="textView">#e2f0d9</color>
     <color name="textButtons">#FF000000</color>
     <color name="sppinerHome">#212620</color>
+    <color name="borderHome">#6B6B6B</color>
 </resources>

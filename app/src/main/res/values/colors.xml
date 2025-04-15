@@ -6,6 +6,7 @@
     <!-- Colors FrontEnd (Modo Claro) -->
     <color name="rodape">#1d3a1e</color>
     <color name="buttons">#809c34</color>
+    <color name="buttonsPressed">#536426</color>
     <color name="toolbar">#d8e6aa</color>
     <color name="backgroundSecondary">#fdfcda</color>
     <color name="background">#FFFFFFFF</color>
@@ -15,4 +16,5 @@
     <color name="textButtons">#FFFFFFFF</color>
     <color name="transparente">#00FFFFFF</color>
     <color name="sppinerHome">#d8e6aa</color>
+    <color name="borderHome">#C5C396</color>
 </resources>

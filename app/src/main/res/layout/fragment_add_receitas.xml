@@ -55,8 +55,7 @@
             android:backgroundTint="@color/textView"
             android:foreground="@drawable/ic_down_green"
             android:foregroundGravity="right"
-            app:layout_constraintEnd_toEndOf="@+id/spnContaReceita"
-            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintEnd_toStartOf="@+id/guideDireita"
             app:layout_constraintStart_toEndOf="@+id/spnMesReceita"
             app:layout_constraintTop_toTopOf="@+id/spnDiaReceita" />
 
@@ -100,7 +99,7 @@
             app:boxStrokeColor="@color/textView"
             app:cursorColor="@color/textView"
             app:hintTextColor="@color/textView"
-            app:layout_constraintEnd_toStartOf="@+id/guideline13"
+            app:layout_constraintEnd_toStartOf="@+id/guideline10"
             app:layout_constraintStart_toStartOf="@+id/layoutInputNomeReceita"
             app:layout_constraintTop_toBottomOf="@+id/layoutInputNomeReceita">
 
@@ -130,49 +129,15 @@
             android:orientation="vertical"
             app:layout_constraintGuide_percent="0.93" />
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/layoutInputCategoriaReceita"
-            android:layout_width="0dp"
-            android:layout_height="66dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="32dp"
-            android:background="@drawable/input_text_padrao"
-            android:textColorHint="@color/textView"
-            app:boxStrokeColor="@color/textView"
-            app:cursorColor="@color/textView"
-            app:hintTextColor="@color/textView"
-            app:layout_constraintEnd_toEndOf="@+id/layoutInputNomeReceita"
-            app:layout_constraintStart_toStartOf="@+id/guideline13"
-            app:layout_constraintTop_toBottomOf="@+id/layoutInputNomeReceita">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/inputCategoriaReceita"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/transparente"
-                android:hint="Categoria:"
-                android:textColor="@color/textView"
-                android:textColorHighlight="@color/textView"
-                android:textColorHint="@color/textView"
-                android:textColorLink="@color/textView" />
-        </com.google.android.material.textfield.TextInputLayout>
-
         <Spinner
             android:id="@+id/spnRecorrenciaReceita"
-            android:layout_width="189dp"
+            android:layout_width="0dp"
             android:layout_height="65dp"
             android:layout_marginTop="32dp"
             android:background="@drawable/sppiner_padrao"
+            app:layout_constraintEnd_toStartOf="@+id/guideDireita"
             app:layout_constraintStart_toStartOf="@+id/layoutInputValorReceita"
             app:layout_constraintTop_toBottomOf="@+id/layoutInputValorReceita" />
-
-        <Spinner
-            android:id="@+id/spnContaReceita"
-            android:layout_width="140dp"
-            android:layout_height="65dp"
-            android:background="@drawable/sppiner_padrao"
-            app:layout_constraintEnd_toEndOf="@+id/layoutInputCategoriaReceita"
-            app:layout_constraintTop_toTopOf="@+id/spnRecorrenciaReceita" />
 
         <TextView
             android:id="@+id/txtDataReceita"
@@ -222,6 +187,23 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             app:layout_constraintGuide_percent="0.5" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline10"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.6" />
+
+        <Spinner
+            android:id="@+id/spnCategoriaReceita"
+            android:layout_width="0dp"
+            android:layout_height="65dp"
+            android:layout_marginStart="8dp"
+            android:background="@drawable/input_text_padrao"
+            app:layout_constraintEnd_toStartOf="@+id/guideDireita"
+            app:layout_constraintStart_toStartOf="@+id/guideline10"
+            app:layout_constraintTop_toTopOf="@+id/layoutInputValorReceita" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
