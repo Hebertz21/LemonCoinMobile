@@ -9,6 +9,7 @@
     <color name="buttonsPressed">#536426</color>
     <color name="toolbar">#d8e6aa</color>
     <color name="backgroundSecondary">#fdfcda</color>
+    <color name="iconBackground">#7C9943</color>
     <color name="background">#FFFFFFFF</color>
     <color name="textButton">#FFFFFFFF</color>
     <color name="textView">#FF000000</color>

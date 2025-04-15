@@ -23,7 +23,7 @@
         android:layout_height="57dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="16dp"
-        android:background="@color/backgroundSecondary"
+        android:background="@color/iconBackground"
         android:contentDescription="logo"
         app:layout_constraintEnd_toEndOf="@+id/tbInicio"
         app:layout_constraintTop_toTopOf="parent"

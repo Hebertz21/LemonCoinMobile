@@ -20,12 +20,13 @@ class LoginActivity : AppCompatActivity() {
 
         fun testarAutenticacao() {
             val auth = FirebaseAuth.getInstance()
-            auth.signInWithEmailAndPassword("teste@example.com", "senha123") // Substitua por credenciais válidas ou crie uma nova conta
+            auth.signInWithEmailAndPassword("hebertruan@gmail.com", "hebert") // Substitua por credenciais válidas ou crie uma nova conta
                 .addOnCompleteListener { task ->
                     if (task.isSuccessful) {
                         Log.i("FirebaseTest", "Autenticação bem-sucedida: ${auth.currentUser?.email}")
                     } else {
                         Log.e("FirebaseTest", "Erro na autenticação: ${task.exception?.message}")
+                        Log.e("FirebaseTest", "Felipe vacilão")
                     }
                 }
         }
@@ -39,9 +40,9 @@ class LoginActivity : AppCompatActivity() {
             insets
         }
         binding.btnEntrar.setOnClickListener(){
-              testarAutenticacao()
-//            val intent = Intent(this, HomeActivity::class.java)
-//            startActivity(intent)
+            //testarAutenticacao()
+            val intent = Intent(this, HomeActivity::class.java)
+            startActivity(intent)
         }
 
         binding.hpkSemConta.setOnClickListener(){
