@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
+    id("com.google.gms.google-services")
 }
 
 android {
@@ -48,6 +49,7 @@ dependencies {
     implementation(libs.material)
     implementation(libs.androidx.activity)
     implementation(libs.androidx.constraintlayout)
+    implementation(libs.firebase.auth.ktx)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -56,6 +58,8 @@ dependencies {
     implementation("com.google.android.material:material:1.13.0-alpha11") // Material Design do Google
     implementation("androidx.appcompat:appcompat:1.4.1") // Substituindo o androidx.appcompat
     implementation("androidx.legacy:legacy-support-v4:1.0.0") // Substituindo o support-v4
+    implementation(platform("com.google.firebase:firebase-bom:33.12.0"))
+    implementation("com.google.firebase:firebase-analytics")
 
 
 }

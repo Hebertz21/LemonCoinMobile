@@ -5,8 +5,8 @@
     android:layout_height="65dp">
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/btnLogout"
         style="@style/Buttons"
+        android:id="@+id/btnLogout"
         android:layout_width="115dp"
         android:layout_height="50dp"
         android:layout_marginStart="8dp"

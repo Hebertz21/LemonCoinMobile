@@ -1,6 +1,8 @@
 package com.example.lemoncoin
 
+import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
@@ -12,6 +14,7 @@ import com.example.lemoncoin.fragments.CategoriasFragment
 import com.example.lemoncoin.fragments.ContasFragment
 import com.example.lemoncoin.fragments.HomeFragment
 import com.example.lemoncoin.fragments.RelatoriosFragment
+import com.google.firebase.auth.FirebaseAuth
 
 //import com.example.lemoncoin.fragments.
 
@@ -69,6 +72,8 @@ class HomeActivity : AppCompatActivity() {
         }
 
         binding.includeButtonLogout.btnLogout.setOnClickListener() {
+            val intent = Intent(this, LoginActivity::class.java)
+            startActivity(intent)
             finish()
         }
     }
@@ -85,5 +90,17 @@ class HomeActivity : AppCompatActivity() {
 
             .commit()                   //Finaliza a aplicação
         binding.drawerLayout.closeDrawer(GravityCompat.START)
+    }
+
+    private fun testarAutenticacao() {
+        val auth = FirebaseAuth.getInstance()
+        auth.signInWithEmailAndPassword("teste@example.com", "senha123") // Substitua por credenciais válidas ou crie uma nova conta
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    Log.i("FirebaseTest", "Autenticação bem-sucedida: ${auth.currentUser?.email}")
+                } else {
+                    Log.e("FirebaseTest", "Erro na autenticação: ${task.exception?.message}")
+                }
+            }
     }
 }

@@ -2,11 +2,13 @@ package com.example.lemoncoin
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.lemoncoin.databinding.ActivityLoginBinding
+import com.google.firebase.auth.FirebaseAuth
 import com.example.lemoncoin.databinding.ActivityMainBinding
 
 class LoginActivity : AppCompatActivity() {
@@ -15,6 +17,19 @@ class LoginActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        fun testarAutenticacao() {
+            val auth = FirebaseAuth.getInstance()
+            auth.signInWithEmailAndPassword("teste@example.com", "senha123") // Substitua por credenciais válidas ou crie uma nova conta
+                .addOnCompleteListener { task ->
+                    if (task.isSuccessful) {
+                        Log.i("FirebaseTest", "Autenticação bem-sucedida: ${auth.currentUser?.email}")
+                    } else {
+                        Log.e("FirebaseTest", "Erro na autenticação: ${task.exception?.message}")
+                    }
+                }
+        }
+
         binding = ActivityLoginBinding.inflate(layoutInflater)
 //        enableEdgeToEdge()
         setContentView(binding.root)
@@ -24,8 +39,9 @@ class LoginActivity : AppCompatActivity() {
             insets
         }
         binding.btnEntrar.setOnClickListener(){
-            val intent = Intent(this, HomeActivity::class.java)
-            startActivity(intent)
+              testarAutenticacao()
+//            val intent = Intent(this, HomeActivity::class.java)
+//            startActivity(intent)
         }
 
         binding.hpkSemConta.setOnClickListener(){
