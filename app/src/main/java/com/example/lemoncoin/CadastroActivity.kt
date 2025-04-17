@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import android.util.Log
+import android.widget.Toast
 import com.example.lemoncoin.databinding.ActivityCadastroBinding
 
 
@@ -32,8 +33,11 @@ class CadastroActivity : AppCompatActivity() {
         }
 
         binding.btnCadastrar.setOnClickListener(){
-            val intent = Intent(this, HomeActivity::class.java)
+            // adicionar aqui a função de cadastrar
+            Toast.makeText(this, "Usuário cadastrado!", Toast.LENGTH_SHORT).show()
+            val intent = Intent(this, LoginActivity::class.java)
             startActivity(intent)
+            finish()
         }
 
         binding.toolbar.imgLogo.setOnClickListener(){

@@ -3,13 +3,13 @@ package com.example.lemoncoin
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.lemoncoin.databinding.ActivityLoginBinding
 import com.google.firebase.auth.FirebaseAuth
-import com.example.lemoncoin.databinding.ActivityMainBinding
+import kotlinx.coroutines.flow.callbackFlow
 
 class LoginActivity : AppCompatActivity() {
 
@@ -18,15 +18,23 @@ class LoginActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        fun testarAutenticacao() {
+        fun autenticar(callback: (Boolean) -> Unit) {
+            val email = binding.inputUsuario.text.toString()
+            val senha = binding.inputSenha.text.toString()
+            if (email.isEmpty() || senha.isEmpty()) {
+                Toast.makeText(this, "Preencha todos os campos", Toast.LENGTH_SHORT).show()
+                return
+            }
             val auth = FirebaseAuth.getInstance()
-            auth.signInWithEmailAndPassword("hebertruan@gmail.com", "hebert") // Substitua por credenciais válidas ou crie uma nova conta
+
+            auth.signInWithEmailAndPassword(email, senha)
                 .addOnCompleteListener { task ->
                     if (task.isSuccessful) {
                         Log.i("FirebaseTest", "Autenticação bem-sucedida: ${auth.currentUser?.email}")
+                        callback(true)
                     } else {
                         Log.e("FirebaseTest", "Erro na autenticação: ${task.exception?.message}")
-                        Log.e("FirebaseTest", "Felipe vacilão")
+                        callback(false)
                     }
                 }
         }
@@ -40,9 +48,15 @@ class LoginActivity : AppCompatActivity() {
             insets
         }
         binding.btnEntrar.setOnClickListener(){
-            //testarAutenticacao()
-            val intent = Intent(this, HomeActivity::class.java)
-            startActivity(intent)
+            autenticar { sucesso ->
+                if (sucesso) {
+                    val intent = Intent(this, HomeActivity::class.java)
+                    startActivity(intent)
+                    finish()
+                } else {
+                    Toast.makeText(this, "Usuário ou senha incorreto", Toast.LENGTH_SHORT).show()
+                }
+            }
         }
 
         binding.hpkSemConta.setOnClickListener(){
@@ -50,6 +64,7 @@ class LoginActivity : AppCompatActivity() {
             startActivity(intent)
         }
         binding.toolbar.imgLogo.setOnClickListener(){
+            startActivity(Intent(this, MainActivity::class.java))
             finish()
         }
     }

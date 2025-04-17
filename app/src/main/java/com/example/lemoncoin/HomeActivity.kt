@@ -91,16 +91,4 @@ class HomeActivity : AppCompatActivity() {
             .commit()                   //Finaliza a aplicação
         binding.drawerLayout.closeDrawer(GravityCompat.START)
     }
-
-    private fun testarAutenticacao() {
-        val auth = FirebaseAuth.getInstance()
-        auth.signInWithEmailAndPassword("teste@example.com", "senha123") // Substitua por credenciais válidas ou crie uma nova conta
-            .addOnCompleteListener { task ->
-                if (task.isSuccessful) {
-                    Log.i("FirebaseTest", "Autenticação bem-sucedida: ${auth.currentUser?.email}")
-                } else {
-                    Log.e("FirebaseTest", "Erro na autenticação: ${task.exception?.message}")
-                }
-            }
-    }
 }
