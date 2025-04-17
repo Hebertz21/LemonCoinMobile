@@ -45,7 +45,6 @@ class CadastroActivity : AppCompatActivity() {
         }
     }
 
-    //essa desgraça não funciona, não sei pq...
     override fun onStart() {
         Log.d(TAG, "onStart: entrou no start de cadastro")
         super.onStart()
