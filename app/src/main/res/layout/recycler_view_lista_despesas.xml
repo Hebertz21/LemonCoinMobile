@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/input_text_padrao"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/txtViewContaRvDespesa"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="Conta:"
+            android:textColor="@color/buttons"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="@+id/txtViewDataRvDespesa"
+            app:layout_constraintTop_toBottomOf="@+id/txtViewCategoriaRvDespesa" />
+
+        <TextView
+            android:id="@+id/txtViewCategoriaRvDespesa"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="Categoria:"
+            android:textColor="@color/buttons"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="@+id/txtViewDataRvDespesa"
+            app:layout_constraintTop_toBottomOf="@+id/txtViewValorRvDespesa" />
+
+        <TextView
+            android:id="@+id/txtViewValorRvDespesa"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="Valor:"
+            android:textColor="@color/buttons"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="@+id/txtViewDataRvDespesa"
+            app:layout_constraintTop_toBottomOf="@+id/txtViewNomeRvDespesa" />
+
+        <TextView
+            android:id="@+id/txtViewDataRvDespesa"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="12dp"
+            android:text="Data:"
+            android:textColor="@color/buttons"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/txtViewNomeRvDespesa"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="Nome:"
+            android:textColor="@color/buttons"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="@+id/txtViewDataRvDespesa"
+            app:layout_constraintTop_toBottomOf="@+id/txtViewDataRvDespesa" />
+
+        <TextView
+            android:id="@+id/txtDataRvDespesas"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:text="TextView"
+            android:textColor="@color/buttons"
+            app:layout_constraintStart_toEndOf="@+id/txtViewDataRvDespesa"
+            app:layout_constraintTop_toTopOf="@+id/txtViewDataRvDespesa" />
+
+        <TextView
+            android:id="@+id/txtNomeRvDespesas"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:text="TextView"
+            android:textColor="@color/buttons"
+            app:layout_constraintStart_toEndOf="@+id/txtViewNomeRvDespesa"
+            app:layout_constraintTop_toTopOf="@+id/txtViewNomeRvDespesa" />
+
+        <TextView
+            android:id="@+id/txtValorRvDespesas"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:text="TextView"
+            android:textColor="@color/buttons"
+            app:layout_constraintStart_toEndOf="@+id/txtViewValorRvDespesa"
+            app:layout_constraintTop_toTopOf="@+id/txtViewValorRvDespesa" />
+
+        <TextView
+            android:id="@+id/txtCategoriaRvDespesas"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:text="TextView"
+            android:textColor="@color/buttons"
+            app:layout_constraintStart_toEndOf="@+id/txtViewCategoriaRvDespesa"
+            app:layout_constraintTop_toTopOf="@+id/txtViewCategoriaRvDespesa" />
+
+        <TextView
+            android:id="@+id/txtContaRvDespesas"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:text="TextView"
+            android:textColor="@color/buttons"
+            app:layout_constraintStart_toEndOf="@+id/txtViewContaRvDespesa"
+            app:layout_constraintTop_toTopOf="@+id/txtViewContaRvDespesa" />
+
+        <ImageButton
+            android:id="@+id/imageButton"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:contentDescription="Editar"
+            android:scaleType="centerCrop"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/imageButton2"
+            app:layout_constraintTop_toBottomOf="@+id/txtContaRvDespesas"
+            app:srcCompat="@drawable/ic_pencil" />
+
+        <ImageButton
+            android:id="@+id/imageButton2"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:contentDescription="Remover"
+            android:scaleType="centerCrop"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/imageButton"
+            app:srcCompat="@drawable/icon_delete" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

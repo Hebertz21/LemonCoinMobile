@@ -34,8 +34,8 @@
             android:id="@+id/scrollView2"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginBottom="16dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
             android:background="@color/background"
             android:contentDescription="Abaixe a tela"
             app:layout_constraintBottom_toTopOf="@+id/btnAddDespesas"
@@ -48,7 +48,15 @@
                 android:id="@+id/linearLayoutDespesas"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical" />
+                android:orientation="vertical">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvListDespesas"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    tools:itemCount="24"
+                    tools:listitem="@layout/recycler_view_lista_despesas" />
+            </LinearLayout>
         </ScrollView>
 
         <Button
