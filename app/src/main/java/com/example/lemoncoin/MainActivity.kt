@@ -33,7 +33,6 @@ class MainActivity : AppCompatActivity() {
         binding.includeButtonLogin.btnLoginInicio.setOnClickListener(){
             val intent = Intent(this, LoginActivity::class.java)
             startActivity(intent)
-            finish()
         }
     }
 

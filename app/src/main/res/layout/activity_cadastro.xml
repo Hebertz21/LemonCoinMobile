@@ -122,6 +122,7 @@
                 android:layout_height="wrap_content"
                 android:background="@color/transparente"
                 android:hint="Telefone:"
+                android:inputType="number"
                 android:textColor="@color/textView"
                 android:textColorHighlight="@color/textView"
                 android:textColorHint="@color/textView"
