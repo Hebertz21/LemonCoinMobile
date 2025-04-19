@@ -10,7 +10,9 @@ import android.widget.*
 import java.text.SimpleDateFormat
 import java.util.*
 import com.example.lemoncoin.databinding.ActivityCadastroBinding
+import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.auth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.santalu.maskara.Mask
 import com.santalu.maskara.MaskChangedListener
@@ -144,6 +146,7 @@ class CadastroActivity : AppCompatActivity() {
                                 "Cadastro completo com sucesso!",
                                 Toast.LENGTH_SHORT
                             ).show()
+                            Firebase.auth.signOut()
                             finish()
                         } else {
                             Toast.makeText(

@@ -14,7 +14,9 @@ import com.example.lemoncoin.fragments.CategoriasFragment
 import com.example.lemoncoin.fragments.ContasFragment
 import com.example.lemoncoin.fragments.HomeFragment
 import com.example.lemoncoin.fragments.RelatoriosFragment
+import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.auth
 
 //import com.example.lemoncoin.fragments.
 
@@ -74,6 +76,7 @@ class HomeActivity : AppCompatActivity() {
         binding.includeButtonLogout.btnLogout.setOnClickListener() {
             val intent = Intent(this, LoginActivity::class.java)
             startActivity(intent)
+            Firebase.auth.signOut()
             finish()
         }
     }

@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
@@ -17,7 +18,6 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        Log.d(TAG, "onCreate: entrou no create da main")
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -31,13 +31,13 @@ class MainActivity : AppCompatActivity() {
         //supportActionBar?.hide() //esconde a actionBar
 
         binding.includeButtonLogin.btnLoginInicio.setOnClickListener(){
-            val intent = Intent(this, LoginActivity::class.java)
-            startActivity(intent)
+            try {
+                FirebaseAuth.getInstance()
+                val intent = Intent(this, LoginActivity::class.java)
+                startActivity(intent)
+            } catch (ex : Exception){
+                Toast.makeText(null, "Houve um erro no servidor", Toast.LENGTH_SHORT).show()
+            }
         }
-    }
-
-    override fun onStart() {
-        super.onStart()
-        Log.d(TAG, "onStart: entrou no onStart")
     }
 }

@@ -8,7 +8,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.lemoncoin.databinding.ActivityLoginBinding
+import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.auth
 import kotlinx.coroutines.flow.callbackFlow
 
 class LoginActivity : AppCompatActivity() {
@@ -17,6 +19,18 @@ class LoginActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        fun testarLogin() {
+            val usuario = FirebaseAuth.getInstance().currentUser
+
+            if (usuario != null) {
+                val intent = Intent(this, HomeActivity::class.java)
+                startActivity(intent)
+                finish()
+            }
+        }
+
+        testarLogin()
 
         fun autenticar(callback: (Boolean) -> Unit) {
             val email = binding.inputUsuario.text.toString()
