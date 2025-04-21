@@ -9,6 +9,7 @@ import androidx.core.view.GravityCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
 import com.example.lemoncoin.databinding.ActivityHomeBinding
 import com.example.lemoncoin.fragments.CategoriasFragment
 import com.example.lemoncoin.fragments.ContasFragment
@@ -88,6 +89,7 @@ class HomeActivity : AppCompatActivity() {
         }
 
         binding.include.imgLogo.setOnClickListener {
+            supportFragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE)
             val fragmentAtual = supportFragmentManager.findFragmentById(R.id.fragmentContainer)
             if (fragmentAtual !is HomeFragment) {
                 openFragment(HomeFragment())
