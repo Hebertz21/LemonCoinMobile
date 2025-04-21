@@ -19,21 +19,20 @@ class RelatoriosFragment : Fragment() {
         _binding = FragmentRelatoriosBinding.inflate(inflater, container, false)
 
         binding.txtDespesas.setOnClickListener {
-            trocarFragment(DespesasFragment())
+            openFragment(DespesasFragment())
         }
 
         //Chama Receitas
         binding.txtReceitas.setOnClickListener() {
-            trocarFragment(ReceitasFragment())
+            openFragment(ReceitasFragment())
         }
 
         return binding.root
     }
 
-    private fun trocarFragment(fragment: androidx.fragment.app.Fragment) {
+    private fun openFragment(fragment: androidx.fragment.app.Fragment) {
         parentFragmentManager.beginTransaction()
             .replace(R.id.fragmentContainerRelatorios, fragment)
-            .addToBackStack(null) //
             .commit()
     }
 

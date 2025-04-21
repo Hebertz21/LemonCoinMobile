@@ -25,6 +25,7 @@ class HomeActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         binding = ActivityHomeBinding.inflate(layoutInflater)  //inflando o layout da tela
         setContentView(binding.root)
 
@@ -51,26 +52,47 @@ class HomeActivity : AppCompatActivity() {
 
         // Configuração do clique para abrir o fragmento Contas
         binding.txtContas.setOnClickListener { //Função do clique Contas
-            openFragment(ContasFragment())
+            val fragmentAtual = supportFragmentManager.findFragmentById(R.id.fragmentContainer)
+            if (fragmentAtual !is ContasFragment) {
+                if (fragmentAtual is HomeFragment) {
+                    openFragment(ContasFragment(), true)
+                } else {
+                    openFragment(ContasFragment())
+                }
+            }
         }
-
-        /*//Despesas
-        binding.txtDespesas.setOnClickListener {
-            openFragment(RelatoriosFragment())
-        }*/
 
         //Relatorios
         binding.txtRelatorios.setOnClickListener {
-            openFragment(RelatoriosFragment())
+            val fragmentAtual = supportFragmentManager.findFragmentById(R.id.fragmentContainer)
+            if (fragmentAtual !is RelatoriosFragment) {
+                if (fragmentAtual is HomeFragment) {
+                    openFragment(RelatoriosFragment(), true)
+                } else {
+                    openFragment(RelatoriosFragment())
+                }
+            }
         }
 
         //Categorias
         binding.txtCategorias.setOnClickListener {
-            openFragment(CategoriasFragment())
+            val fragmentAtual = supportFragmentManager.findFragmentById(R.id.fragmentContainer)
+            if (fragmentAtual !is CategoriasFragment) {
+                if (fragmentAtual is HomeFragment) {
+                    openFragment(CategoriasFragment(), true)
+                } else {
+                    openFragment(CategoriasFragment())
+                }
+            }
+
         }
 
         binding.include.imgLogo.setOnClickListener {
-            openFragment(HomeFragment())
+            val fragmentAtual = supportFragmentManager.findFragmentById(R.id.fragmentContainer)
+            if (fragmentAtual !is HomeFragment) {
+                openFragment(HomeFragment())
+            }
+
         }
 
         binding.includeButtonLogout.btnLogout.setOnClickListener() {
@@ -82,16 +104,20 @@ class HomeActivity : AppCompatActivity() {
     }
 
     //função para abrir fragment
-    private fun openFragment(fragment: Fragment) {
-        supportFragmentManager.beginTransaction() //
-            .replace(R.id.fragmentContainer, fragment)
-            /*Replace substitui, ele pega o R.id e coloca
-             o id recebido atraves do argumento que foi passado */
-
-            .addToBackStack(null) // Permite voltar ao fragmento anterior depois de apertar
-            //o voltar do celular
-
-            .commit()                   //Finaliza a aplicação
+    private fun openFragment(fragment: Fragment, retornavel: Boolean = false) {
+        if (retornavel) {
+            supportFragmentManager.beginTransaction() //
+                .replace(R.id.fragmentContainer, fragment)
+                /*Replace substitui, ele pega o R.id e coloca
+                 o id recebido atraves do argumento que foi passado */
+                .addToBackStack(null) // Permite voltar ao fragmento anterior depois de apertar
+                //o voltar do celular
+                .commit()//Finaliza a aplicação
+        } else {
+            supportFragmentManager.beginTransaction() //realiza a mudança sem salvar o fragment
+                .replace(R.id.fragmentContainer, fragment)
+                .commit()
+        }
         binding.drawerLayout.closeDrawer(GravityCompat.START)
     }
 }
