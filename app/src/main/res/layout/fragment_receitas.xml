@@ -48,7 +48,15 @@
                 android:id="@+id/linearLayoutReceitas"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical" />
+                android:orientation="vertical" >
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvListReceitas"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    tools:itemCount="24"
+                    tools:listitem="@layout/recycler_view_lista_movimentacoes" />
+            </LinearLayout>
         </ScrollView>
 
         <Button

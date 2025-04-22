@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.lemoncoin.R
+import com.example.lemoncoin.databinding.FragmentDespesasBinding
 
 class AddDespesasFragment : Fragment() {
 

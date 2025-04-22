@@ -17,7 +17,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
-            android:id="@+id/txtViewContaRvDespesa"
+            android:id="@+id/txtViewContaRvMovimentacao"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
@@ -25,11 +25,11 @@
             android:textColor="@color/buttons"
             android:textSize="14sp"
             android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="@+id/txtViewDataRvDespesa"
-            app:layout_constraintTop_toBottomOf="@+id/txtViewCategoriaRvDespesa" />
+            app:layout_constraintStart_toStartOf="@+id/txtViewDataRvMovimentacao"
+            app:layout_constraintTop_toBottomOf="@+id/txtViewCategoriaRvMovimentacaoa" />
 
         <TextView
-            android:id="@+id/txtViewCategoriaRvDespesa"
+            android:id="@+id/txtViewCategoriaRvMovimentacaoa"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
@@ -37,11 +37,11 @@
             android:textColor="@color/buttons"
             android:textSize="14sp"
             android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="@+id/txtViewDataRvDespesa"
-            app:layout_constraintTop_toBottomOf="@+id/txtViewValorRvDespesa" />
+            app:layout_constraintStart_toStartOf="@+id/txtViewDataRvMovimentacao"
+            app:layout_constraintTop_toBottomOf="@+id/txtViewValorRvMovimentacao" />
 
         <TextView
-            android:id="@+id/txtViewValorRvDespesa"
+            android:id="@+id/txtViewValorRvMovimentacao"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
@@ -49,11 +49,11 @@
             android:textColor="@color/buttons"
             android:textSize="14sp"
             android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="@+id/txtViewDataRvDespesa"
-            app:layout_constraintTop_toBottomOf="@+id/txtViewNomeRvDespesa" />
+            app:layout_constraintStart_toStartOf="@+id/txtViewDataRvMovimentacao"
+            app:layout_constraintTop_toBottomOf="@+id/txtViewNomeRvMovimentacao" />
 
         <TextView
-            android:id="@+id/txtViewDataRvDespesa"
+            android:id="@+id/txtViewDataRvMovimentacao"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
@@ -65,7 +65,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/txtViewNomeRvDespesa"
+            android:id="@+id/txtViewNomeRvMovimentacao"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
@@ -73,76 +73,78 @@
             android:textColor="@color/buttons"
             android:textSize="14sp"
             android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="@+id/txtViewDataRvDespesa"
-            app:layout_constraintTop_toBottomOf="@+id/txtViewDataRvDespesa" />
+            app:layout_constraintStart_toStartOf="@+id/txtViewDataRvMovimentacao"
+            app:layout_constraintTop_toBottomOf="@+id/txtViewDataRvMovimentacao" />
 
         <TextView
-            android:id="@+id/txtDataRvDespesas"
+            android:id="@+id/txtDataRvMovimentacao"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:text="TextView"
             android:textColor="@color/buttons"
-            app:layout_constraintStart_toEndOf="@+id/txtViewDataRvDespesa"
-            app:layout_constraintTop_toTopOf="@+id/txtViewDataRvDespesa" />
+            app:layout_constraintStart_toEndOf="@+id/txtViewDataRvMovimentacao"
+            app:layout_constraintTop_toTopOf="@+id/txtViewDataRvMovimentacao" />
 
         <TextView
-            android:id="@+id/txtNomeRvDespesas"
+            android:id="@+id/txtNomeRvMovimentacao"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:text="TextView"
             android:textColor="@color/buttons"
-            app:layout_constraintStart_toEndOf="@+id/txtViewNomeRvDespesa"
-            app:layout_constraintTop_toTopOf="@+id/txtViewNomeRvDespesa" />
+            app:layout_constraintStart_toEndOf="@+id/txtViewNomeRvMovimentacao"
+            app:layout_constraintTop_toTopOf="@+id/txtViewNomeRvMovimentacao" />
 
         <TextView
-            android:id="@+id/txtValorRvDespesas"
+            android:id="@+id/txtValorRvMovimentacao"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:text="TextView"
             android:textColor="@color/buttons"
-            app:layout_constraintStart_toEndOf="@+id/txtViewValorRvDespesa"
-            app:layout_constraintTop_toTopOf="@+id/txtViewValorRvDespesa" />
+            app:layout_constraintStart_toEndOf="@+id/txtViewValorRvMovimentacao"
+            app:layout_constraintTop_toTopOf="@+id/txtViewValorRvMovimentacao" />
 
         <TextView
-            android:id="@+id/txtCategoriaRvDespesas"
+            android:id="@+id/txtCategoriaRvMovimentacao"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:text="TextView"
             android:textColor="@color/buttons"
-            app:layout_constraintStart_toEndOf="@+id/txtViewCategoriaRvDespesa"
-            app:layout_constraintTop_toTopOf="@+id/txtViewCategoriaRvDespesa" />
+            app:layout_constraintStart_toEndOf="@+id/txtViewCategoriaRvMovimentacaoa"
+            app:layout_constraintTop_toTopOf="@+id/txtViewCategoriaRvMovimentacaoa" />
 
         <TextView
-            android:id="@+id/txtContaRvDespesas"
+            android:id="@+id/txtContaRvMovimentacao"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:text="TextView"
             android:textColor="@color/buttons"
-            app:layout_constraintStart_toEndOf="@+id/txtViewContaRvDespesa"
-            app:layout_constraintTop_toTopOf="@+id/txtViewContaRvDespesa" />
+            app:layout_constraintStart_toEndOf="@+id/txtViewContaRvMovimentacao"
+            app:layout_constraintTop_toTopOf="@+id/txtViewContaRvMovimentacao" />
 
         <ImageButton
             android:id="@+id/imageButton"
             android:layout_width="48dp"
             android:layout_height="48dp"
+            android:background="@color/transparente"
             android:contentDescription="Editar"
-            android:scaleType="centerCrop"
+            android:scaleType="center"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/imageButton2"
-            app:layout_constraintTop_toBottomOf="@+id/txtContaRvDespesas"
+            app:layout_constraintTop_toBottomOf="@+id/txtContaRvMovimentacao"
             app:srcCompat="@drawable/ic_pencil" />
 
         <ImageButton
             android:id="@+id/imageButton2"
             android:layout_width="48dp"
             android:layout_height="48dp"
+            android:background="@color/transparente"
             android:contentDescription="Remover"
-            android:scaleType="centerCrop"
+            android:scaleType="center"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/imageButton"
             app:srcCompat="@drawable/icon_delete" />

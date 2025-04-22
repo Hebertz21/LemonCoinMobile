@@ -19,45 +19,37 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <Spinner
-            android:id="@+id/spnDiaReceita"
-            android:layout_width="82dp"
-            android:layout_height="60dp"
-            android:layout_marginTop="8dp"
-            android:background="@drawable/input_text_padrao"
-            android:backgroundTint="@color/textView"
-            android:foreground="@drawable/ic_down_green"
-            android:foregroundGravity="right"
-            app:layout_constraintEnd_toStartOf="@+id/spnMesReceita"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintHorizontal_chainStyle="spread_inside"
-            app:layout_constraintStart_toStartOf="@+id/txtDataReceita"
-            app:layout_constraintTop_toBottomOf="@+id/txtDataReceita" />
-
-        <Spinner
-            android:id="@+id/spnMesReceita"
-            android:layout_width="136dp"
-            android:layout_height="60dp"
-            android:background="@drawable/input_text_padrao"
-            android:backgroundTint="@color/textView"
-            android:foreground="@drawable/ic_down_green"
-            android:foregroundGravity="right"
-            app:layout_constraintEnd_toStartOf="@+id/spnAnoReceita"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/spnDiaReceita"
-            app:layout_constraintTop_toTopOf="@+id/spnDiaReceita" />
-
-        <Spinner
-            android:id="@+id/spnAnoReceita"
-            android:layout_width="96dp"
-            android:layout_height="60dp"
-            android:background="@drawable/input_text_padrao"
-            android:backgroundTint="@color/textView"
-            android:foreground="@drawable/ic_down_green"
-            android:foregroundGravity="right"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/layoutDataReceita"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:hint="Data:"
+            android:textColorHint="@color/textView"
+            app:boxStrokeColor="@color/textView"
+            app:cursorColor="@color/textView"
+            app:hintTextColor="@color/textView"
             app:layout_constraintEnd_toStartOf="@+id/guideDireita"
-            app:layout_constraintStart_toEndOf="@+id/spnMesReceita"
-            app:layout_constraintTop_toTopOf="@+id/spnDiaReceita" />
+            app:layout_constraintStart_toStartOf="@+id/spnRecorrenciaReceita"
+            app:layout_constraintTop_toBottomOf="@+id/spnRecorrenciaReceita">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etDataReceitas"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:background="@drawable/input_text_padrao"
+                android:backgroundTint="@color/textView"
+                android:drawableEnd="@drawable/ic_down_green"
+                android:focusable="false"
+                android:inputType="none"
+                android:paddingEnd="0dp"
+                android:paddingRight="0dp"
+                android:textColor="@color/textView"
+                android:textColorHighlight="@color/textView"
+                android:textColorHint="@color/textView"
+                android:textColorLink="@color/textView" />
+        </com.google.android.material.textfield.TextInputLayout>
+
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/layoutInputNomeReceita"
@@ -139,17 +131,6 @@
             app:layout_constraintStart_toStartOf="@+id/layoutInputValorReceita"
             app:layout_constraintTop_toBottomOf="@+id/layoutInputValorReceita" />
 
-        <TextView
-            android:id="@+id/txtDataReceita"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text="Data:"
-            android:textColor="@color/textView"
-            android:textSize="20sp"
-            app:layout_constraintStart_toStartOf="@+id/spnRecorrenciaReceita"
-            app:layout_constraintTop_toBottomOf="@+id/spnRecorrenciaReceita" />
-
         <Button
             android:id="@+id/btnAddReceita"
             style="@style/Buttons"
@@ -164,7 +145,7 @@
             app:layout_constraintEnd_toStartOf="@+id/btnCancelarCategoria"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/spnMesReceita" />
+            app:layout_constraintTop_toBottomOf="@+id/layoutDataReceita" />
 
         <Button
             android:id="@+id/btnCancelarCategoria"
