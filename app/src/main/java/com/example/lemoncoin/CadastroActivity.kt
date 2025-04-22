@@ -137,7 +137,7 @@ class CadastroActivity : AppCompatActivity() {
                         if (dadosSalvos) {
                             Toast.makeText(
                                 this,
-                                "Cadastro completo com sucesso!",
+                                "Cadastro feito com sucesso!",
                                 Toast.LENGTH_SHORT
                             ).show()
                             Firebase.auth.signOut()
@@ -164,6 +164,7 @@ class CadastroActivity : AppCompatActivity() {
         binding.etDataNascimento.setOnClickListener {
             val datePicker = MaterialDatePicker.Builder.datePicker()
                 .setTitleText("Selecione a data de nascimento")
+                .setTheme(R.style.datePicker)
                 .build()
 
             datePicker.addOnPositiveButtonClickListener { millis ->
@@ -174,11 +175,5 @@ class CadastroActivity : AppCompatActivity() {
 
             datePicker.show(supportFragmentManager, "DATE_PICKER")
         }
-
-
-
-
-
-
     }
 }

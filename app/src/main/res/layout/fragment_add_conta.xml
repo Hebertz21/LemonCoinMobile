@@ -69,6 +69,7 @@
             android:id="@+id/layoutInputSaldo"
             android:layout_width="0dp"
             android:layout_height="match_parent"
+            android:layout_marginStart="16dp"
             android:background="@color/transparente"
             android:textColorHint="@color/textView"
             app:boxBackgroundColor="@color/transparente"

@@ -6,18 +6,37 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.lemoncoin.R
+import com.example.lemoncoin.databinding.FragmentAddReceitasBinding
+import com.google.android.material.datepicker.MaterialDatePicker
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
 
 class AddReceitasFragment : Fragment() {
+
+    private var _binding: FragmentAddReceitasBinding? = null
+    private val binding get() = _binding!!
 
     override fun onCreateView(  //Metodo que constroi a visualização do fragment
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(   //Cria a visualização
-            R.layout.fragment_add_receitas,  //R chama o layout, o containerView e
-            container,
-            false // anexa ao elemento raiz automaticamente
-        )
+        _binding = FragmentAddReceitasBinding.inflate(inflater,
+            container, false)
+
+        binding.etDataReceitas.setOnClickListener{
+            val datePicker = MaterialDatePicker.Builder.datePicker()
+                .setTitleText("Selecione a data")
+                .setTheme(R.style.datePicker)
+                .build()
+            datePicker.addOnPositiveButtonClickListener { millis ->
+                val dataformatada = SimpleDateFormat("dd/MM/yyyy",
+                    Locale.getDefault()).format(Date(millis))
+                binding.etDataReceitas.setText(dataformatada)
+            }
+            datePicker.show(parentFragmentManager, "Date_Picker")
+        }
+        return binding.root
     }
 }

@@ -27,11 +27,15 @@
             android:hint="Data:"
             android:textColorHint="@color/textView"
             app:boxStrokeColor="@color/textView"
+            app:counterTextColor="@color/textView"
             app:cursorColor="@color/textView"
             app:hintTextColor="@color/textView"
             app:layout_constraintEnd_toStartOf="@+id/guideDireita"
             app:layout_constraintStart_toStartOf="@+id/spnRecorrenciaReceita"
-            app:layout_constraintTop_toBottomOf="@+id/spnRecorrenciaReceita">
+            app:layout_constraintTop_toBottomOf="@+id/spnRecorrenciaReceita"
+            app:placeholderTextColor="@color/textView"
+            app:prefixTextColor="@color/textView"
+            app:suffixTextColor="@color/textView">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/etDataReceitas"
@@ -39,11 +43,13 @@
                 android:layout_height="60dp"
                 android:background="@drawable/input_text_padrao"
                 android:backgroundTint="@color/textView"
-                android:drawableEnd="@drawable/ic_down_green"
+                android:drawableEnd="@drawable/ic_calendar"
                 android:focusable="false"
                 android:inputType="none"
-                android:paddingEnd="0dp"
+                android:paddingTop="0dp"
+                android:paddingEnd="15dp"
                 android:paddingRight="0dp"
+                android:paddingBottom="0dp"
                 android:textColor="@color/textView"
                 android:textColorHighlight="@color/textView"
                 android:textColorHint="@color/textView"
