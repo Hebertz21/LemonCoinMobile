@@ -127,26 +127,26 @@
             app:layout_constraintTop_toTopOf="@+id/txtViewContaRvMovimentacao" />
 
         <ImageButton
-            android:id="@+id/imageButton"
+            android:id="@+id/imgBtnEditar"
             android:layout_width="48dp"
             android:layout_height="48dp"
             android:background="@color/transparente"
             android:contentDescription="Editar"
             android:scaleType="center"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/imageButton2"
+            app:layout_constraintEnd_toStartOf="@+id/imgBtnDelete"
             app:layout_constraintTop_toBottomOf="@+id/txtContaRvMovimentacao"
             app:srcCompat="@drawable/ic_pencil" />
 
         <ImageButton
-            android:id="@+id/imageButton2"
+            android:id="@+id/imgBtnDelete"
             android:layout_width="48dp"
             android:layout_height="48dp"
             android:background="@color/transparente"
             android:contentDescription="Remover"
             android:scaleType="center"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/imageButton"
+            app:layout_constraintTop_toTopOf="@+id/imgBtnEditar"
             app:srcCompat="@drawable/icon_delete" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
