@@ -11,4 +11,5 @@
     <color name="textButtons">#FF000000</color>
     <color name="sppinerHome">#212620</color>
     <color name="borderHome">#6B6B6B</color>
+    <color name="borderListaContas">#7a7a65</color>
 </resources>

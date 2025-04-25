@@ -18,4 +18,5 @@
     <color name="transparente">#00FFFFFF</color>
     <color name="sppinerHome">#d8e6aa</color>
     <color name="borderHome">#C5C396</color>
+    <color name="borderListaContas">#a39e58</color>
 </resources>

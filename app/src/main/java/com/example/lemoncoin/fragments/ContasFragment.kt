@@ -24,6 +24,7 @@ class ContasFragment : Fragment() {  //É preciso um constructor vazio para a cl
         binding.btnAddContas.setOnClickListener(){
             trocarFragment(AddContasFragment())
         }
+
         return binding.root
     }
     private fun trocarFragment(fragment: androidx.fragment.app.Fragment) {

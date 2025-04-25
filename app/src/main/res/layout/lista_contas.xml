@@ -2,13 +2,13 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-             android:layout_height="match_parent">
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="400dp"
-        android:layout_height="409dp"
-        android:background="@drawable/background_rounded_white"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/background_lista_contas"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -16,7 +16,8 @@
 
         <ScrollView
             android:layout_width="wrap_content"
-            android:layout_height="407dp"
+            android:layout_height="340dp"
+            android:layout_margin="10dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -27,89 +28,335 @@
                 android:layout_height="wrap_content"
                 app:columnCount="3">
 
-                <ImageView
-                    android:id="@+id/imageView7"
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    android:layout_margin="15dp"
-                    tools:srcCompat="@drawable/nubank" />
+                <LinearLayout
+                    android:id="@+id/linearNubank"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
 
-                <ImageView
-                    android:id="@+id/imageView8"
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    android:layout_margin="15dp"
-                    tools:srcCompat="@drawable/banco_do_brasil" />
+                    <ImageView
+                        android:id="@+id/imgNubank"
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
+                        android:layout_marginStart="15dp"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginTop="25dp"
+                        android:layout_marginEnd="15dp"
+                        android:layout_marginRight="15dp"
+                        android:layout_marginBottom="0dp"
+                        app:srcCompat="@drawable/nubank"
+                        tools:srcCompat="@drawable/nubank" />
 
-                <ImageView
-                    android:id="@+id/imageView9"
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    android:layout_margin="15dp"
-                    tools:srcCompat="@mipmap/bradesco" />
 
-                <ImageView
-                    android:id="@+id/imageView10"
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    android:layout_margin="15dp"
-                    tools:srcCompat="@drawable/caixa" />
+                    <TextView
+                        android:id="@+id/txtViewNubank"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Nubank"
+                        android:textAlignment="center" />
+                </LinearLayout>
 
-                <ImageView
-                    android:id="@+id/imageView2"
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    android:layout_margin="15dp"
-                    tools:srcCompat="@drawable/itau" />
+                <LinearLayout
+                    android:id="@+id/linearBB"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
 
-                <ImageView
-                    android:id="@+id/imageView3"
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    android:layout_margin="15dp"
-                    tools:srcCompat="@mipmap/santander" />
+                    <ImageView
+                        android:id="@+id/imgBB"
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
+                        android:layout_marginStart="15dp"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginTop="25dp"
+                        android:layout_marginEnd="15dp"
+                        android:layout_marginRight="15dp"
+                        android:layout_marginBottom="0dp"
+                        app:srcCompat="@drawable/banco_do_brasil"
+                        tools:srcCompat="@drawable/banco_do_brasil" />
 
-                <ImageView
-                    android:id="@+id/imageView4"
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    android:layout_margin="15dp"
-                    tools:srcCompat="@drawable/picpay" />
 
-                <ImageView
-                    android:id="@+id/imageView5"
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    android:layout_margin="15dp"
-                    tools:srcCompat="@drawable/sicredi" />
+                    <TextView
+                        android:id="@+id/txtViewBB"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Banco do Brasil"
+                        android:textAlignment="center" />
+                </LinearLayout>
 
-                <ImageView
-                    android:id="@+id/imageView6"
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    android:layout_margin="15dp"
-                    tools:srcCompat="@drawable/mercado_pago" />
+                <LinearLayout
+                    android:id="@+id/linearBradesco"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
 
-                <ImageView
-                    android:id="@+id/imageView11"
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    android:layout_margin="15dp"
-                    tools:srcCompat="@drawable/inter" />
+                    <ImageView
+                        android:id="@+id/imgBradesco"
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
+                        android:layout_marginStart="15dp"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginTop="25dp"
+                        android:layout_marginEnd="15dp"
+                        android:layout_marginRight="15dp"
+                        android:layout_marginBottom="0dp"
+                        app:srcCompat="@drawable/bradesco"
+                        tools:srcCompat="@drawable/bradesco" />
 
-                <ImageView
-                    android:id="@+id/imageView12"
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    android:layout_margin="15dp"
-                    tools:srcCompat="@drawable/stone" />
+                    <TextView
+                        android:id="@+id/textViewBradesco"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Bradesco"
+                        android:textAlignment="center" />
+                </LinearLayout>
 
-                <ImageView
-                    android:id="@+id/imageView13"
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    android:layout_margin="15dp"
-                    tools:srcCompat="@drawable/wise" />
+                <LinearLayout
+                    android:id="@+id/linearCaixa"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:id="@+id/imgCaixa"
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
+                        android:layout_marginStart="15dp"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginTop="25dp"
+                        android:layout_marginEnd="15dp"
+                        android:layout_marginRight="15dp"
+                        android:layout_marginBottom="0dp"
+                        app:srcCompat="@drawable/caixa"
+                        tools:srcCompat="@drawable/caixa" />
+
+
+                    <TextView
+                        android:id="@+id/textViewCaixa"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Caixa"
+                        android:textAlignment="center" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/linearItau"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:id="@+id/imgItau"
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
+                        android:layout_marginStart="15dp"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginTop="25dp"
+                        android:layout_marginEnd="15dp"
+                        android:layout_marginRight="15dp"
+                        android:layout_marginBottom="0dp"
+                        app:srcCompat="@drawable/itau"
+                        tools:srcCompat="@drawable/itau" />
+
+                    <TextView
+                        android:id="@+id/textViewItau"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Itaú"
+                        android:textAlignment="center" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/linearSantander"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:id="@+id/imageViewSantander"
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
+                        android:layout_marginStart="15dp"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginTop="25dp"
+                        android:layout_marginEnd="15dp"
+                        android:layout_marginRight="15dp"
+                        android:layout_marginBottom="0dp"
+                        app:srcCompat="@drawable/santander"
+                        tools:srcCompat="@mipmap/santander" />
+
+                    <TextView
+                        android:id="@+id/textViewSantander"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Santander"
+                        android:textAlignment="center" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/linearPicpay"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:id="@+id/imageViewPicpay"
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
+                        android:layout_marginStart="15dp"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginTop="15dp"
+                        android:layout_marginEnd="15dp"
+                        android:layout_marginRight="15dp"
+                        android:layout_marginBottom="0dp"
+                        app:srcCompat="@drawable/picpay"
+                        tools:srcCompat="@drawable/picpay" />
+
+                    <TextView
+                        android:id="@+id/textViewPicpay"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="top"
+                        android:text="PicPay"
+                        android:textAlignment="center" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/linearSicredi"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:id="@+id/imgSicredi"
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
+                        android:layout_marginStart="15dp"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginTop="15dp"
+                        android:layout_marginEnd="15dp"
+                        android:layout_marginRight="15dp"
+                        android:layout_marginBottom="0dp"
+                        app:srcCompat="@drawable/sicredi"
+                        tools:srcCompat="@drawable/sicredi" />
+
+                    <TextView
+                        android:id="@+id/txtViewSicredi"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Sicredi"
+                        android:textAlignment="center" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/linearMercadoPago"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:id="@+id/imgMercadoPago"
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
+                        android:layout_marginStart="15dp"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginTop="15dp"
+                        android:layout_marginEnd="15dp"
+                        android:layout_marginRight="15dp"
+                        android:layout_marginBottom="0dp"
+                        app:srcCompat="@drawable/mercado_pago"
+                        tools:srcCompat="@drawable/mercado_pago" />
+
+                    <TextView
+                        android:id="@+id/txtViewMercadoPago"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Mercado Pago"
+                        android:textAlignment="center" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/linearInter"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:id="@+id/imgInter"
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
+                        android:layout_marginStart="15dp"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginTop="15dp"
+                        android:layout_marginEnd="15dp"
+                        android:layout_marginRight="15dp"
+                        app:srcCompat="@drawable/inter"
+                        tools:srcCompat="@drawable/inter" />
+
+                    <TextView
+                        android:id="@+id/txtView3Inter"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="15dp"
+                        android:text="Inter"
+                        android:textAlignment="center" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/linearStone"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:id="@+id/imgStone"
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
+                        android:layout_marginStart="15dp"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginTop="15dp"
+                        android:layout_marginEnd="15dp"
+                        android:layout_marginRight="15dp"
+                        app:srcCompat="@drawable/stone"
+                        tools:srcCompat="@drawable/stone" />
+
+                    <TextView
+                        android:id="@+id/txtViewStone"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="15dp"
+                        android:text="Stone"
+                        android:textAlignment="center" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/linearWise"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:id="@+id/imageView13"
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
+                        android:layout_marginStart="15dp"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginTop="15dp"
+                        android:layout_marginEnd="15dp"
+                        android:layout_marginRight="15dp"
+                        app:srcCompat="@drawable/wise"
+                        tools:srcCompat="@drawable/wise" />
+
+                    <TextView
+                        android:id="@+id/txtViewWise"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="15dp"
+                        android:text="Wise"
+                        android:textAlignment="center" />
+                </LinearLayout>
+
+
             </androidx.gridlayout.widget.GridLayout>
         </ScrollView>
     </androidx.constraintlayout.widget.ConstraintLayout>
