@@ -104,7 +104,7 @@
                         tools:srcCompat="@drawable/bradesco" />
 
                     <TextView
-                        android:id="@+id/textViewBradesco"
+                        android:id="@+id/txtViewBradesco"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="Bradesco"
@@ -132,7 +132,7 @@
 
 
                     <TextView
-                        android:id="@+id/textViewCaixa"
+                        android:id="@+id/txtViewCaixa"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="Caixa"
@@ -159,7 +159,7 @@
                         tools:srcCompat="@drawable/itau" />
 
                     <TextView
-                        android:id="@+id/textViewItau"
+                        android:id="@+id/txtViewItau"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="Itaú"
@@ -186,7 +186,7 @@
                         tools:srcCompat="@mipmap/santander" />
 
                     <TextView
-                        android:id="@+id/textViewSantander"
+                        android:id="@+id/txtViewSantander"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="Santander"
@@ -213,7 +213,7 @@
                         tools:srcCompat="@drawable/picpay" />
 
                     <TextView
-                        android:id="@+id/textViewPicpay"
+                        android:id="@+id/txtViewPicpay"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="top"
@@ -294,7 +294,7 @@
                         tools:srcCompat="@drawable/inter" />
 
                     <TextView
-                        android:id="@+id/txtView3Inter"
+                        android:id="@+id/txtViewInter"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="15dp"
