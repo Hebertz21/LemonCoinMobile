@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.view.setPadding
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.setFragmentResultListener
 import com.example.lemoncoin.R
@@ -26,6 +27,7 @@ class AddContasFragment : Fragment() {  //É preciso um constructor vazio para a
             val txtConta = bundle.getString("txtConta")
             binding.imgConta.setImageResource(imgResId)
             binding.textViewConta.text = txtConta
+            //binding.imgConta.setPadding(20,20,20,20)
         }
     }
 

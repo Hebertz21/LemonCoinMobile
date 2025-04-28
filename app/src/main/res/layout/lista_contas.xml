@@ -53,7 +53,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="Nubank"
-                        android:textAlignment="center" />
+                        android:textAlignment="center"
+                        android:textColor="@color/textView" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -81,7 +82,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="Banco do Brasil"
-                        android:textAlignment="center" />
+                        android:textAlignment="center"
+                        android:textColor="@color/textView" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -108,7 +110,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="Bradesco"
-                        android:textAlignment="center" />
+                        android:textAlignment="center"
+                        android:textColor="@color/textView" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -136,7 +139,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="Caixa"
-                        android:textAlignment="center" />
+                        android:textAlignment="center"
+                        android:textColor="@color/textView" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -163,7 +167,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="Itaú"
-                        android:textAlignment="center" />
+                        android:textAlignment="center"
+                        android:textColor="@color/textView" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -190,7 +195,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="Santander"
-                        android:textAlignment="center" />
+                        android:textAlignment="center"
+                        android:textColor="@color/textView" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -218,7 +224,8 @@
                         android:layout_height="wrap_content"
                         android:gravity="top"
                         android:text="PicPay"
-                        android:textAlignment="center" />
+                        android:textAlignment="center"
+                        android:textColor="@color/textView" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -245,7 +252,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="Sicredi"
-                        android:textAlignment="center" />
+                        android:textAlignment="center"
+                        android:textColor="@color/textView" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -272,7 +280,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="Mercado Pago"
-                        android:textAlignment="center" />
+                        android:textAlignment="center"
+                        android:textColor="@color/textView" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -299,7 +308,8 @@
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="15dp"
                         android:text="Inter"
-                        android:textAlignment="center" />
+                        android:textAlignment="center"
+                        android:textColor="@color/textView" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -326,7 +336,8 @@
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="15dp"
                         android:text="Stone"
-                        android:textAlignment="center" />
+                        android:textAlignment="center"
+                        android:textColor="@color/textView" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -353,7 +364,8 @@
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="15dp"
                         android:text="Wise"
-                        android:textAlignment="center" />
+                        android:textAlignment="center"
+                        android:textColor="@color/textView" />
                 </LinearLayout>
 
 

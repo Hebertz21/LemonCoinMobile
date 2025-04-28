@@ -30,17 +30,16 @@
         android:layout_marginTop="28dp"
         android:background="@drawable/rounded_image_lapis"
         android:clipToOutline="true"
-        android:padding="8dp"
-        app:layout_constraintTop_toBottomOf="@+id/textView8"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
+        app:layout_constraintTop_toBottomOf="@+id/textView8">
 
         <ImageView
             android:id="@+id/imgConta"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:padding="20dp"
-            android:scaleType="centerCrop"
+            android:padding="28dp"
+            android:scaleType="fitCenter"
             android:src="@drawable/lapis" />
     </FrameLayout>
 

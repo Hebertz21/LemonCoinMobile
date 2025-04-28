@@ -30,6 +30,7 @@ class ListaContas : DialogFragment() {
         }
         binding.linearBB.setOnClickListener {
             selectConta(R.drawable.banco_do_brasil, binding.txtViewBB.text.toString())
+
         }
         binding.linearBradesco.setOnClickListener {
             selectConta(R.drawable.bradesco, binding.txtViewBradesco.text.toString())
