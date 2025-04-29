@@ -1,5 +1,6 @@
 package com.example.lemoncoin
 
+import ConfirmExitDialogFragment
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -98,12 +99,24 @@ class HomeActivity : AppCompatActivity() {
         }
 
         binding.includeButtonLogout.btnLogout.setOnClickListener() {
-            val intent = Intent(this, LoginActivity::class.java)
-            startActivity(intent)
-            Firebase.auth.signOut()
-            finish()
+            ConfirmExitDialogFragment().show(supportFragmentManager, "confirmExit")
         }
+
+        supportFragmentManager.setFragmentResultListener("exitRequestKey", this) { _, bundle ->
+            val confirmedExit = bundle.getBoolean("confirmedExit")
+            if (confirmedExit) {
+                Firebase.auth.signOut()
+                val intent = Intent(this, LoginActivity::class.java)
+                startActivity(intent)
+                finish()
+            }
+            else{
+                binding.drawerLayout.closeDrawer(GravityCompat.START)
+            }
+        }
+
     }
+
 
     //função para abrir fragment
     private fun openFragment(fragment: Fragment, retornavel: Boolean = false) {

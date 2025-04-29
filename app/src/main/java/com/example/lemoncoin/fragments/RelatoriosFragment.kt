@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.example.lemoncoin.R
 import com.example.lemoncoin.databinding.FragmentRelatoriosBinding
@@ -16,21 +17,27 @@ class RelatoriosFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentRelatoriosBinding.inflate(inflater, container, false)
-
-        binding.txtDespesas.setOnClickListener {
+      _binding = FragmentRelatoriosBinding.inflate(inflater, container, false)
+      binding.txtDespesas.setOnClickListener {
             openFragment(DespesasFragment())
+            binding.txtDespesas.backgroundTintList = null
+            binding.txtDespesas.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.buttonsPressed))
+            binding.txtReceitas.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.buttons))
+
         }
 
         //Chama Receitas
         binding.txtReceitas.setOnClickListener() {
             openFragment(ReceitasFragment())
+            binding.txtReceitas.backgroundTintList = null
+            binding.txtReceitas.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.buttonsPressed))
+            binding.txtDespesas.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.buttons))
         }
 
         return binding.root
     }
 
-    private fun openFragment(fragment: androidx.fragment.app.Fragment) {
+    private fun openFragment(fragment: Fragment) {
         parentFragmentManager.beginTransaction()
             .replace(R.id.fragmentContainerRelatorios, fragment)
             .commit()
