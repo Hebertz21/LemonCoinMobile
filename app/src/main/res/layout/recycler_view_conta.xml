@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_gravity="center"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center_horizontal"
+        android:paddingTop="16dp">
+        <ImageView
+            android:id="@+id/imgConta"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            app:srcCompat="@drawable/lapis"
+            tools:layout_editor_absoluteX="48dp"
+            tools:layout_editor_absoluteY="16dp" />
+    
+        <TextView
+            android:id="@+id/txtNomeConta"
+            android:layout_width="120dp"
+            android:layout_height="30dp"
+            android:text="nomeConta"
+            android:textAlignment="center"
+            android:textSize="21sp"
+            app:layout_constraintTop_toBottomOf="@+id/imgConta"
+            tools:layout_editor_absoluteX="48dp" />
+    
+        <TextView
+            android:id="@+id/txtSaldo"
+            android:layout_width="120dp"
+            android:layout_height="30dp"
+            android:text="R$ 00,00"
+            android:textAlignment="center"
+            android:textSize="20sp"
+            app:layout_constraintTop_toBottomOf="@+id/txtNomeConta"
+            tools:layout_editor_absoluteX="48dp" />
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
