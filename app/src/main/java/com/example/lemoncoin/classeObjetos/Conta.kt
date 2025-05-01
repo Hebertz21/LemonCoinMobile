@@ -1,4 +1,4 @@
-package com.example.lemoncoin.ClasseObjetos
+package com.example.lemoncoin.classeObjetos
 
 data class Conta (
     val nome: String,

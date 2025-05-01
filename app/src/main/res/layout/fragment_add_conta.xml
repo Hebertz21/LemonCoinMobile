@@ -89,6 +89,7 @@
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/inputSaldo"
+                android:inputType="number"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@color/transparente"
