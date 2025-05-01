@@ -4,14 +4,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_gravity="center"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
+        android:layout_height="250dp"
         android:gravity="center_horizontal"
-        android:paddingTop="16dp">
+        android:orientation="vertical"
+        tools:layout_editor_absoluteX="72dp"
+        tools:layout_editor_absoluteY="-1dp">
+
         <ImageView
             android:id="@+id/imgConta"
             android:layout_width="120dp"
@@ -19,7 +21,7 @@
             app:srcCompat="@drawable/lapis"
             tools:layout_editor_absoluteX="48dp"
             tools:layout_editor_absoluteY="16dp" />
-    
+
         <TextView
             android:id="@+id/txtNomeConta"
             android:layout_width="120dp"
@@ -29,7 +31,7 @@
             android:textSize="21sp"
             app:layout_constraintTop_toBottomOf="@+id/imgConta"
             tools:layout_editor_absoluteX="48dp" />
-    
+
         <TextView
             android:id="@+id/txtSaldo"
             android:layout_width="120dp"

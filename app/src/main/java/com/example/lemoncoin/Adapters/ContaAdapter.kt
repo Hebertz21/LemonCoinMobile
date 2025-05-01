@@ -20,7 +20,7 @@ class ContaAdapter(private val contas: List<Conta>) :
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val conta = contas[position]
         holder.binding.txtNomeConta.text = conta.nome
-        holder.binding.txtSaldo.text = conta.saldo
+        holder.binding.txtSaldo.text = conta.saldo.toString()
         holder.binding.imgConta.setImageResource(conta.iconeResId)
     }
 

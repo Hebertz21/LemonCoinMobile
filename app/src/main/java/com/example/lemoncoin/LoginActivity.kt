@@ -20,7 +20,7 @@ class LoginActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        fun testarLogin() {
+        fun testarLogin() {//verifica se o usuário já esta logado, se sim, leva direto pra tela home
             val usuario = FirebaseAuth.getInstance().currentUser
 
             if (usuario != null) {
