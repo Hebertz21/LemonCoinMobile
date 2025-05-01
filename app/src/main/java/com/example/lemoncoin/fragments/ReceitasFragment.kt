@@ -5,7 +5,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.lemoncoin.ClasseObjetos.RvMovimentacoesClasse
 import com.example.lemoncoin.R
+import com.example.lemoncoin.adapters.ListaDespesasAdapter
 import com.example.lemoncoin.databinding.FragmentReceitasBinding
 
 class ReceitasFragment : Fragment() {
@@ -24,6 +27,15 @@ class ReceitasFragment : Fragment() {
         binding.btnAddReceitas.setOnClickListener(){
             trocarFragment(AddReceitasFragment())
         }
+
+        val listaDespesas = listOf(
+            RvMovimentacoesClasse("Conta de Luz", 100.0, "01/05/2025", "Despesas", "Bradesco"),
+            RvMovimentacoesClasse("Aluguel", 1200.0, "01/05/2025", "Despesas", "Banco do brasil"),
+            RvMovimentacoesClasse("Venda", 2000.0, "02/05/2025", "Receitas", "PicPay")
+        )
+
+        binding.rvListaReceitas.adapter = ListaDespesasAdapter(listaDespesas)
+        binding.rvListaReceitas.layoutManager = LinearLayoutManager(requireContext())
 
         return binding.root
     }

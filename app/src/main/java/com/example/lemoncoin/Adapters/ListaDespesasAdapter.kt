@@ -25,15 +25,15 @@ class ListaDespesasAdapter(private val lista: List<RvMovimentacoesClasse>) :
     }
 
     override fun onBindViewHolder(holder: DespesaViewHolder, position: Int) {
-        val despesa = lista[position]
+        val movimentacoes = lista[position]
         //Cria a lista despesa
         //Holder associa cada item ao seu campo
         //Uma coisa é uma coisa, outra coisa é outra coisa
-        holder.binding.txtNomeRvMovimentacao.text = despesa.nome
-        holder.binding.txtValorRvMovimentacao.text = "R$ ${despesa.valor}"
-        holder.binding.txtDataRvMovimentacao.text = despesa.data
-        holder.binding.txtCategoriaRvMovimentacao.text = despesa.categoria
-        holder.binding.txtContaRvMovimentacao.text = despesa.conta
+        holder.binding.txtNomeRvMovimentacao.text = movimentacoes.nome
+        holder.binding.txtValorRvMovimentacao.text = "R$ ${movimentacoes.valor}"
+        holder.binding.txtDataRvMovimentacao.text = movimentacoes.data
+        holder.binding.txtCategoriaRvMovimentacao.text = movimentacoes.categoria
+        holder.binding.txtContaRvMovimentacao.text = movimentacoes.conta
     }
 
     override fun getItemCount(): Int = lista.size
