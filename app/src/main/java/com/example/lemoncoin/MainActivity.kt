@@ -19,6 +19,18 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        fun testarLogin() {//verifica se o usuário já esta logado, se sim, leva direto pra tela home
+            val usuario = FirebaseAuth.getInstance().currentUser
+
+            if (usuario != null) {
+                val intent = Intent(this, HomeActivity::class.java)
+                startActivity(intent)
+                finish()
+            }
+        }
+        testarLogin()
+
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 

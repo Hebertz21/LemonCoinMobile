@@ -99,10 +99,6 @@ class CadastroActivity : AppCompatActivity() {
             val dataNascimento = binding.etDataNascimento.text.toString().trim()
             val telefone = listener.masked
 
-
-            //val calendar = Calendar.getInstance()
-            //val dataNascimento = calendar.time
-
             var genero: String = ""
             if (binding.rbtnMasculino.isChecked) {
                 genero = "M"

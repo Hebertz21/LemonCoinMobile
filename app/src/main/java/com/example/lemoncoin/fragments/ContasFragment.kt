@@ -70,7 +70,7 @@ class ContasFragment : Fragment() {  //É preciso um constructor vazio para a cl
                     }
 
                     if (nome != null && saldo != null) {
-                        val conta = Conta(nome, saldo, img)
+                        val conta = Conta(nome, saldo, img, id = document.id)
                         listaContas.add(conta)
                     } else {
                         Log.w("Firestore", "Documento com campos nulos: ${document.id}")
@@ -87,11 +87,11 @@ class ContasFragment : Fragment() {  //É preciso um constructor vazio para a cl
         }
 
         binding.btnAddContas.setOnClickListener(){
-            trocarFragment(AddContasFragment())
+            openFragment(AddContasFragment())
         }
 
     }
-    private fun trocarFragment(fragment: androidx.fragment.app.Fragment) {
+    private fun openFragment(fragment: androidx.fragment.app.Fragment) {
         parentFragmentManager.beginTransaction()
             .replace(R.id.fragmentContainer, fragment)
             .addToBackStack(null) //
