@@ -12,6 +12,7 @@ import androidx.core.view.WindowInsetsCompat
 import com.example.lemoncoin.databinding.ActivityHomeBinding
 import com.example.lemoncoin.databinding.ActivityMainBinding
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 
 class MainActivity : AppCompatActivity() {
 
@@ -20,16 +21,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        fun testarLogin() {//verifica se o usuário já esta logado, se sim, leva direto pra tela home
-            val usuario = FirebaseAuth.getInstance().currentUser
-
-            if (usuario != null) {
-                val intent = Intent(this, HomeActivity::class.java)
-                startActivity(intent)
-                finish()
-            }
-        }
-        testarLogin()
+        testarConexao()
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -39,17 +31,43 @@ class MainActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-        //code
-        //supportActionBar?.hide() //esconde a actionBar
 
         binding.includeButtonLogin.btnLoginInicio.setOnClickListener(){
             try {
-                FirebaseAuth.getInstance()
-                val intent = Intent(this, LoginActivity::class.java)
-                startActivity(intent)
+                testarConexao()
             } catch (ex : Exception){
                 Toast.makeText(null, "Houve um erro no servidor", Toast.LENGTH_SHORT).show()
             }
+        }
+    }
+
+    private fun testarConexao() {
+        val db = FirebaseFirestore.getInstance()
+        db.collection("usuarios").get()
+            .addOnSuccessListener { result ->
+                if(!(result.isEmpty)) {
+                    Log.d("FIREBASE_TEST", "Conexão bem-sucedida! ${result.size()}")
+                    testarLogin()
+                } else {
+                    Log.e("FIREBASE_TEST", "Erro ao conectar: sem rede")
+                    Toast.makeText(this, "Erro ao conectar com banco de dados",
+                        Toast.LENGTH_SHORT).show()
+                }
+            }
+            .addOnFailureListener { exception ->
+                Log.e("FIREBASE_TEST", "Erro ao conectar: ${exception.message}")
+                Toast.makeText(this, "Erro ao conectar com banco de dados",
+                    Toast.LENGTH_SHORT).show()
+            }
+    }
+
+    private fun testarLogin() {//verifica se o usuário já esta logado, se sim, leva direto pra tela home
+        val usuario = FirebaseAuth.getInstance().currentUser
+
+        if (usuario != null) {
+            val intent = Intent(this, HomeActivity::class.java)
+            startActivity(intent)
+            finish()
         }
     }
 }
