@@ -70,7 +70,6 @@ class ContaAdapter(private val contas: MutableList<Conta>) :
                                     Toast.LENGTH_LONG).show()
                              }
                     }
-
                     dialog.dismiss()
                 }
                 .setNegativeButton("Não") { dialog, _ ->

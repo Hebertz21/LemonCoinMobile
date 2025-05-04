@@ -8,5 +8,6 @@ data class RvMovimentacoesClasse(
     val data: Date,
     val categoria: String,
     val conta: String,
-    val tipo: String = ""
+    val tipo: String = "",
+    val id: String
 )

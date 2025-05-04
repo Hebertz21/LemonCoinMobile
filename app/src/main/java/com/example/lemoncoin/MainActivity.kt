@@ -54,7 +54,7 @@ class MainActivity : AppCompatActivity() {
             .addOnSuccessListener { result ->
                 if(result.exists()) { //se o documento não existir, significa que não está conectado
                     val fromCache = result.metadata.isFromCache
-                    if (!fromCache) {
+                    if (!fromCache) { //se não estiver no cache, significa que está conectado
                         Log.d("FIREBASE_TEST", "Conexão bem-sucedida!")
                         testarLogin()
                     } else {

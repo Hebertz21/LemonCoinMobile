@@ -1,8 +1,10 @@
 package com.example.lemoncoin.adapters
 
+import android.app.AlertDialog
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.example.lemoncoin.classeObjetos.RvMovimentacoesClasse
 import com.example.lemoncoin.databinding.RecyclerViewListaMovimentacoesBinding
@@ -11,8 +13,9 @@ import com.google.firebase.firestore.FirebaseFirestore
 import java.text.NumberFormat
 import java.text.SimpleDateFormat
 import java.util.Locale
+import java.util.concurrent.Executors
 
-class ListaDespesasAdapter(private val lista: List<RvMovimentacoesClasse>) :
+class ListaDespesasAdapter(private val lista: MutableList<RvMovimentacoesClasse>) :
     RecyclerView.Adapter<ListaDespesasAdapter.DespesaViewHolder>() {
 
     inner class DespesaViewHolder(val binding: RecyclerViewListaMovimentacoesBinding) :
@@ -26,14 +29,14 @@ class ListaDespesasAdapter(private val lista: List<RvMovimentacoesClasse>) :
     }
 
     override fun onBindViewHolder(holder: DespesaViewHolder, position: Int) {
-        val movimentacoes = lista[position]
+        val movimentacao = lista[position]
 
-        val valor = movimentacoes.valor
+        val valor = movimentacao.valor
         val valorFormatado = NumberFormat
             .getCurrencyInstance(Locale("pt", "BR")).format(valor)
 
         val dateFormat = SimpleDateFormat("dd/MM/yyyy", Locale("pt", "BR"))
-        val data = dateFormat.format(movimentacoes.data)
+        val data = dateFormat.format(movimentacao.data)
 
         val user = FirebaseAuth.getInstance().currentUser
         val db = FirebaseFirestore.getInstance()
@@ -43,7 +46,7 @@ class ListaDespesasAdapter(private val lista: List<RvMovimentacoesClasse>) :
             .collection("usuarios") //pasta usuários
             .document(user?.uid.toString()) //pasta do usuário atual
             .collection("contas") //contas do usuário atual
-            .document(movimentacoes.conta)
+            .document(movimentacao.conta)
         Log.i(null, "Terminou a busca de contas")
 
         val nomeConta = conta.get().addOnSuccessListener { document ->
@@ -60,7 +63,7 @@ class ListaDespesasAdapter(private val lista: List<RvMovimentacoesClasse>) :
             .collection("usuarios") //pasta usuários
             .document(user?.uid.toString()) //pasta do usuário atual
             .collection("categorias") //categorias do usuário atual
-            .document(movimentacoes.categoria)
+            .document(movimentacao.categoria)
 
         val nomeCategoria = categoria.get().addOnSuccessListener { document ->
             if (document.exists()) {
@@ -71,9 +74,48 @@ class ListaDespesasAdapter(private val lista: List<RvMovimentacoesClasse>) :
             }
         }
 
-        holder.binding.txtNomeRvMovimentacao.text = movimentacoes.nome
+        holder.binding.txtNomeRvMovimentacao.text = movimentacao.nome
         holder.binding.txtValorRvMovimentacao.text = valorFormatado
         holder.binding.txtDataRvMovimentacao.text = data
+
+        holder.binding.imgBtnEditar.setOnClickListener {
+            Toast.makeText(holder.itemView.context, "btn editar", Toast.LENGTH_SHORT).show()
+        }
+
+        holder.binding.imgBtnDelete.setOnClickListener {
+            //mensagem de confirmação
+            val builder = AlertDialog.Builder(holder.itemView.context)
+            builder.setTitle("Excluir despesa")
+                .setMessage("Deseja realmente excluir a despesa ${movimentacao.nome} (${data})?")
+                .setPositiveButton("Sim") { dialog, _ ->
+                    val executor = Executors.newSingleThreadExecutor()
+                    executor.execute {
+                        db.collection("usuarios")
+                            .document(user?.uid.toString())
+                            .collection("movimentações")
+                            .document(movimentacao.id)
+                            .delete()
+                            .addOnSuccessListener {
+                                val context = holder.itemView.context
+                                Toast.makeText(context, "Despesa excluída com sucesso",
+                                    Toast.LENGTH_LONG).show()
+                                lista.removeAt(position)
+                                notifyItemRemoved(position)
+                                notifyItemRangeChanged(position, lista.size)
+                            }
+                            .addOnFailureListener { e ->
+                                val context = holder.itemView.context
+                                Toast.makeText(context, "Erro ao excluir despesa: $e",
+                                    Toast.LENGTH_LONG).show()
+                            }
+                    }
+                    dialog.dismiss()
+                }
+                .setNegativeButton("Não") { dialog, _ ->
+                    dialog.dismiss()
+                }
+                .show()
+        }
     }
 
     override fun getItemCount(): Int = lista.size

@@ -72,7 +72,8 @@ class DespesasFragment : Fragment() {
                                 data = data,
                                 categoria = categoriaId,
                                 conta = contaId,
-                                tipo = tipo
+                                tipo = tipo,
+                                id = document.id
                             )
                             listaDespesas.add(movimentacao)
                         }

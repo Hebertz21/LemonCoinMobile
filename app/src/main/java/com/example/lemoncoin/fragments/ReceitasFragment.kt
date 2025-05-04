@@ -71,7 +71,8 @@ class ReceitasFragment : Fragment() {
                                 data = data,
                                 categoria = categoriaId,
                                 conta = contaId,
-                                tipo = tipo
+                                tipo = tipo,
+                                id = document.id
                             )
                             listaReceitas.add(movimentacao)
                         }

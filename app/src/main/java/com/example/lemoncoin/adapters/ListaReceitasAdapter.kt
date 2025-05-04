@@ -1,6 +1,8 @@
 package com.example.lemoncoin.adapters
 
+import android.app.AlertDialog
 import android.util.Log
+import android.widget.Toast
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -12,9 +14,10 @@ import com.google.firebase.firestore.FirebaseFirestore
 import java.text.NumberFormat
 import java.util.Locale
 import java.text.SimpleDateFormat
+import java.util.concurrent.Executors
 
 
-class ListaReceitasAdapter(private val lista: List<RvMovimentacoesClasse>) :
+class ListaReceitasAdapter(private val lista: MutableList<RvMovimentacoesClasse>) :
     RecyclerView.Adapter<ListaReceitasAdapter.ReceitaViewHolder>() {
     inner class ReceitaViewHolder(val binding: RecyclerViewListaMovimentacoesBinding) :
         RecyclerView.ViewHolder(binding.root)
@@ -27,14 +30,14 @@ class ListaReceitasAdapter(private val lista: List<RvMovimentacoesClasse>) :
     }
 
     override fun onBindViewHolder(holder: ReceitaViewHolder, position: Int) {
-        val movimentacoes = lista[position]
+        val movimentacao = lista[position]
 
-        val valor = movimentacoes.valor
+        val valor = movimentacao.valor
         val valorFormatado = NumberFormat
             .getCurrencyInstance(Locale("pt", "BR")).format(valor)
 
         val dateFormat = SimpleDateFormat("dd/MM/yyyy", Locale("pt", "BR"))
-        val data = dateFormat.format(movimentacoes.data)
+        val data = dateFormat.format(movimentacao.data)
 
         val user = FirebaseAuth.getInstance().currentUser
         val db = FirebaseFirestore.getInstance()
@@ -44,14 +47,14 @@ class ListaReceitasAdapter(private val lista: List<RvMovimentacoesClasse>) :
             .collection("usuarios") //pasta usuários
             .document(user?.uid.toString()) //pasta do usuário atual
             .collection("contas") //contas do usuário atual
-            .document(movimentacoes.conta)
+            .document(movimentacao.conta)
 
         val nomeConta = conta.get().addOnSuccessListener { document ->
             if (document.exists()) {
                 val nomeConta = document.getString("nome")
                 holder.binding.txtContaRvMovimentacao.text = nomeConta
             } else {
-                holder.binding.txtContaRvMovimentacao.text = ""
+                holder.binding.txtContaRvMovimentacao.text = "Nenhuma conta vinculada"
             }
         }
 
@@ -60,20 +63,59 @@ class ListaReceitasAdapter(private val lista: List<RvMovimentacoesClasse>) :
             .collection("usuarios") //pasta usuários
             .document(user?.uid.toString()) //pasta do usuário atual
             .collection("categorias") //categorias do usuário atual
-            .document(movimentacoes.categoria)
+            .document(movimentacao.categoria)
 
         val nomeCategoria = categoria.get().addOnSuccessListener { document ->
             if (document.exists()) {
                 val nomeCategoria = document.getString("nome")
                 holder.binding.txtCategoriaRvMovimentacao.text = nomeCategoria
             } else {
-                holder.binding.txtCategoriaRvMovimentacao.text = ""
+                holder.binding.txtCategoriaRvMovimentacao.text = "Nenhuma categoria vinculada"
             }
         }
 
-        holder.binding.txtNomeRvMovimentacao.text = movimentacoes.nome
+        holder.binding.txtNomeRvMovimentacao.text = movimentacao.nome
         holder.binding.txtValorRvMovimentacao.text = valorFormatado
         holder.binding.txtDataRvMovimentacao.text = data
+
+        holder.binding.imgBtnEditar.setOnClickListener {
+            Toast.makeText(holder.itemView.context, "btn editar", Toast.LENGTH_SHORT).show()
+        }
+
+        holder.binding.imgBtnDelete.setOnClickListener {
+            //mensagem de confirmação
+            val builder = AlertDialog.Builder(holder.itemView.context)
+            builder.setTitle("Excluir receita")
+                .setMessage("Deseja realmente excluir a receita ${movimentacao.nome} (${data})?")
+                .setPositiveButton("Sim") { dialog, _ ->
+                    val executor = Executors.newSingleThreadExecutor()
+                    executor.execute {
+                        db.collection("usuarios")
+                            .document(user?.uid.toString())
+                            .collection("movimentações")
+                            .document(movimentacao.id)
+                            .delete()
+                            .addOnSuccessListener {
+                                val context = holder.itemView.context
+                                Toast.makeText(context, "Receita excluída com sucesso",
+                                    Toast.LENGTH_LONG).show()
+                                lista.removeAt(position)
+                                notifyItemRemoved(position)
+                                notifyItemRangeChanged(position, lista.size)
+                            }
+                            .addOnFailureListener { e ->
+                                val context = holder.itemView.context
+                                Toast.makeText(context, "Erro ao excluir receita: $e",
+                                    Toast.LENGTH_LONG).show()
+                            }
+                    }
+                    dialog.dismiss()
+                }
+                .setNegativeButton("Não") { dialog, _ ->
+                    dialog.dismiss()
+                }
+                .show()
+        }
     }
 
     override fun getItemCount(): Int = lista.size
