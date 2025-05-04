@@ -51,7 +51,7 @@ class ListaDespesasAdapter(private val lista: List<RvMovimentacoesClasse>) :
                 val nomeConta = document.getString("nome")
                 holder.binding.txtContaRvMovimentacao.text = nomeConta
             } else {
-                holder.binding.txtContaRvMovimentacao.text = ""
+                holder.binding.txtContaRvMovimentacao.text = "Nenhuma conta vinculada"
             }
         }
 
@@ -67,7 +67,7 @@ class ListaDespesasAdapter(private val lista: List<RvMovimentacoesClasse>) :
                 val nomeCategoria = document.getString("nome")
                 holder.binding.txtCategoriaRvMovimentacao.text = nomeCategoria
             } else {
-                holder.binding.txtCategoriaRvMovimentacao.text = ""
+                holder.binding.txtCategoriaRvMovimentacao.text = "Nenhuma categoria vinculada"
             }
         }
 
