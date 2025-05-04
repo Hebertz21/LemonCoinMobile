@@ -15,8 +15,9 @@ import java.util.concurrent.Executors
 import java.util.Locale
 
 private val db = FirebaseFirestore.getInstance()
-private val userId = FirebaseAuth.getInstance().currentUser
-class ContaAdapter(private val contas: List<Conta>) :
+private val userId = FirebaseAuth.getInstance().currentUser?.uid.toString()
+
+class ContaAdapter(private val contas: MutableList<Conta>) :
     RecyclerView.Adapter<ContaAdapter.ViewHolder>() {
 
     inner class ViewHolder(val binding: RecyclerViewContaBinding) :
@@ -41,8 +42,9 @@ class ContaAdapter(private val contas: List<Conta>) :
         holder.itemView.setOnClickListener {
             Toast.makeText(holder.itemView.context, "clicado: ${conta.nome}", Toast.LENGTH_SHORT).show()
         }
-
+        //quando segura o item
         holder.itemView.setOnLongClickListener {
+            //mensagem de confirmação
             val builder = AlertDialog.Builder(holder.itemView.context)
             builder.setTitle("Excluir conta")
                 .setMessage("Deseja realmente excluir a conta ${conta.nome}?")
@@ -50,12 +52,23 @@ class ContaAdapter(private val contas: List<Conta>) :
                     val executor = Executors.newSingleThreadExecutor()
                     executor.execute {
                         db.collection("usuarios")
-                            .document(userId?.uid.toString())
+                            .document(userId)
                             .collection("contas")
                             .document(conta.id)
                             .delete()
-                            .addOnSuccessListener { println("Conta excluída com sucesso") }
-                            .addOnFailureListener { e -> println("Erro ao excluir conta: $e") }
+                            .addOnSuccessListener {
+                                val context = holder.itemView.context
+                                Toast.makeText(context, "Conta excluída com sucesso",
+                                    Toast.LENGTH_LONG).show()
+                                contas.removeAt(position)
+                                notifyItemRemoved(position)
+                                notifyItemRangeChanged(position, contas.size)
+                            }
+                            .addOnFailureListener { e ->
+                                val context = holder.itemView.context
+                                Toast.makeText(context, "Erro ao excluir conta: $e",
+                                    Toast.LENGTH_LONG).show()
+                             }
                     }
 
                     dialog.dismiss()

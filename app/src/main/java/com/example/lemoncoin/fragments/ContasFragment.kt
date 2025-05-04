@@ -35,6 +35,15 @@ class ContasFragment : Fragment() {  //É preciso um constructor vazio para a cl
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        buscarContas()
+
+        binding.btnAddContas.setOnClickListener(){
+            openFragment(AddContasFragment())
+        }
+
+    }
+
+    private fun buscarContas() {
         val user = FirebaseAuth.getInstance().currentUser
         val db = FirebaseFirestore.getInstance()
         val dbContas = db
@@ -85,12 +94,8 @@ class ContasFragment : Fragment() {  //É preciso um constructor vazio para a cl
                 Log.e("Firestore", "Erro ao buscar documentos", it.exception)
             }
         }
-
-        binding.btnAddContas.setOnClickListener(){
-            openFragment(AddContasFragment())
-        }
-
     }
+
     private fun openFragment(fragment: androidx.fragment.app.Fragment) {
         parentFragmentManager.beginTransaction()
             .replace(R.id.fragmentContainer, fragment)
