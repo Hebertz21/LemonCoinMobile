@@ -30,11 +30,9 @@ class MainActivity : AppCompatActivity() {
         }
 
         binding.includeButtonLogin.btnLoginInicio.setOnClickListener(){
-            try {
-                testarConexao()
-            } catch (ex : Exception){
-                Toast.makeText(null, "Houve um erro no servidor", Toast.LENGTH_SHORT).show()
-            }
+            val intent = Intent(this, HomeActivity::class.java)
+            startActivity(intent)
+            finish()
         }
     }
 
