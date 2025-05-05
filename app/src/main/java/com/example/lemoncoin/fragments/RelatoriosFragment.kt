@@ -30,6 +30,7 @@ class RelatoriosFragment : Fragment() {
         binding.txtReceitas.setOnClickListener() {
             openFragment(ReceitasFragment())
             binding.txtReceitas.backgroundTintList = null
+            binding.txtDespesas.backgroundTintList = null
             binding.txtReceitas.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.buttonsPressed))
             binding.txtDespesas.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.buttons))
         }

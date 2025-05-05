@@ -31,6 +31,7 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:background="@color/buttonsPressed"
+        android:backgroundTint="@color/buttonsPressed"
         android:clickable="true"
         android:focusable="true"
         android:gravity="center|center_vertical"

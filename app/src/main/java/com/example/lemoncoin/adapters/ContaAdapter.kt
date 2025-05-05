@@ -6,7 +6,9 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
+import com.example.lemoncoin.R
 import com.example.lemoncoin.classeObjetos.Conta
+import com.example.lemoncoin.databinding.FragmentContasBinding
 import com.example.lemoncoin.databinding.RecyclerViewContaBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -14,11 +16,17 @@ import java.text.NumberFormat
 import java.util.concurrent.Executors
 import java.util.Locale
 
-private val db = FirebaseFirestore.getInstance()
-private val userId = FirebaseAuth.getInstance().currentUser?.uid.toString()
 
-class ContaAdapter(private val contas: MutableList<Conta>) :
+
+private var _binding: ContaAdapter? = null
+private val binding get() = _binding!!
+
+class ContaAdapter(private val contas: MutableList<Conta>,
+                   private val onContaClick: (Conta) -> Unit) :
     RecyclerView.Adapter<ContaAdapter.ViewHolder>() {
+
+    private val db = FirebaseFirestore.getInstance()
+    private val userId = FirebaseAuth.getInstance().currentUser?.uid.toString()
 
     inner class ViewHolder(val binding: RecyclerViewContaBinding) :
         RecyclerView.ViewHolder(binding.root)
@@ -40,8 +48,11 @@ class ContaAdapter(private val contas: MutableList<Conta>) :
 
         //ao clicar no item
         holder.itemView.setOnClickListener {
-            Toast.makeText(holder.itemView.context, "clicado: ${conta.nome}", Toast.LENGTH_SHORT).show()
+            //Toast.makeText(holder.itemView.context, "clicado: ${conta.nome}", Toast.LENGTH_SHORT).show()
+            onContaClick(conta)
+
         }
+
         //quando segura o item
         holder.itemView.setOnLongClickListener {
             //mensagem de confirmação

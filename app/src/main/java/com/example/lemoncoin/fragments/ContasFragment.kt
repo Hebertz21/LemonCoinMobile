@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
+import com.example.lemoncoin.AtualizarContaFragment
 import com.example.lemoncoin.adapters.ContaAdapter
 import com.example.lemoncoin.classeObjetos.Conta
 import com.example.lemoncoin.R
@@ -67,7 +68,7 @@ class ContasFragment : Fragment() {  //É preciso um constructor vazio para a cl
                         "Bradesco" -> R.drawable.bradesco
                         "Caixa" -> R.drawable.caixa
                         "Inter" -> R.drawable.inter
-                        "Itau" -> R.drawable.itau
+                        "Itaú" -> R.drawable.itau
                         "Mercado Pago" -> R.drawable.mercado_pago
                         "Nubank" -> R.drawable.nubank
                         "PicPay" -> R.drawable.picpay
@@ -79,14 +80,17 @@ class ContasFragment : Fragment() {  //É preciso um constructor vazio para a cl
                     }
 
                     if (nome != null && saldo != null) {
-                        val conta = Conta(nome, saldo, img, id = document.id)
-                        listaContas.add(conta)
+                        listaContas.add(Conta(nome, saldo, img, document.id))
+
                     } else {
                         Log.w("Firestore", "Documento com campos nulos: ${document.id}")
                     }
                 }
                 Log.i(null, "lista de contas: $listaContas")
-                val adapter = ContaAdapter(listaContas)
+                val adapter = ContaAdapter(listaContas) { contaSelecionada ->
+                    val fragment = AtualizarContaFragment.newInstance(contaSelecionada.id)
+                    openFragment(fragment)
+                }
                 binding.recyclerContas.layoutManager = GridLayoutManager(requireContext(), 2)
                 binding.recyclerContas.adapter = adapter
 

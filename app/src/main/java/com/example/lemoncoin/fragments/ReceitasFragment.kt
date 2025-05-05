@@ -53,7 +53,7 @@ class ReceitasFragment : Fragment() {
             if (it.isSuccessful) {
                 for (document in it.result) {
                     Log.i(null, "entrou no ID: ${document.id}")
-                    val categoriaId = document.getString("categoriaId")
+                    val categoriaId = document.get("categoriaId")?.toString()
                     val contaId = document.getString("contaId")
                     val data = document.getDate("data")
                     val nome = document.getString("nome")
