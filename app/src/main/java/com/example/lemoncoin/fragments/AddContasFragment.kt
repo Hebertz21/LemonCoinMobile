@@ -33,7 +33,7 @@ class AddContasFragment : Fragment() {  //É preciso um constructor vazio para a
     private fun salvarDadosConta(
         nome: String,
         saldo: Number,
-        descricao: String?,
+        descricao: String?, //? No final faz a var aceitar valores nulos
         callback: (Boolean, String?) -> Unit
     ) {
         val userId = Firebase.auth.currentUser?.uid

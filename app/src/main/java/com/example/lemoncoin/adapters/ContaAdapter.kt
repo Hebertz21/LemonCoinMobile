@@ -21,9 +21,9 @@ import java.util.Locale
 private var _binding: ContaAdapter? = null
 private val binding get() = _binding!!
 
-class ContaAdapter(private val contas: MutableList<Conta>,
+class ContaAdapter(private val contas: MutableList<Conta>, //Conta é um list
                    private val onContaClick: (Conta) -> Unit) :
-    RecyclerView.Adapter<ContaAdapter.ViewHolder>() {
+    RecyclerView.Adapter<ContaAdapter.ViewHolder>() {  //ViewHolder atua na visualização
 
     private val db = FirebaseFirestore.getInstance()
     private val userId = FirebaseAuth.getInstance().currentUser?.uid.toString()
@@ -37,12 +37,13 @@ class ContaAdapter(private val contas: MutableList<Conta>,
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val conta = contas[position]
+        val conta = contas[position]    //vetor para contas
         val valor = conta.saldo
+        //val descricao = conta.
         val saldoFormatado = NumberFormat
             .getCurrencyInstance(Locale("pt", "BR")).format(valor)
 
-        holder.binding.txtNomeConta.text = conta.nome
+        holder.binding.txtNomeConta.text = conta.nome   //Holder atua como um auxiliar do Binding
         holder.binding.txtSaldo.text = saldoFormatado
         holder.binding.imgConta.setImageResource(conta.iconeResId)
 

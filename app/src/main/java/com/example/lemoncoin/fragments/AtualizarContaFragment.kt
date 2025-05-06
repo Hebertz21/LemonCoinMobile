@@ -52,6 +52,7 @@ class AtualizarContaFragment : Fragment() {
         binding.btnConfirmar.setOnClickListener {
             val nome = binding.textViewConta.text.toString().trim()
             val saldoText = binding.inputSaldo.text.toString().trim()
+            val descricao = binding.InputDescricao.text.toString().trim()
             val saldo = saldoText.toDoubleOrNull()
 
             if (nome.isEmpty() || saldo == null) {
@@ -61,9 +62,10 @@ class AtualizarContaFragment : Fragment() {
 
             if (userId == null || contaId == null) return@setOnClickListener
 
-            val dadosAtualizados = mapOf(
+            val dadosAtualizados = mapOf( //O que atualiza e manda para DB
                 "nome" to nome,
-                "saldo" to saldo
+                "saldo" to saldo,
+                "descricao" to descricao
             )
 
             firestore.collection("usuarios")
@@ -93,9 +95,28 @@ class AtualizarContaFragment : Fragment() {
                 if (document != null && document.exists()) {
                     val nome = document.getString("nome")
                     val saldo = document.getDouble("saldo")
+                    val descricao = document.getString("descricao")
+
+                    val img = when(nome) {
+                        "Banco do Brasil" -> R.drawable.banco_do_brasil
+                        "Bradesco" -> R.drawable.bradesco
+                        "Caixa" -> R.drawable.caixa
+                        "Inter" -> R.drawable.inter
+                        "Itaú" -> R.drawable.itau
+                        "Mercado Pago" -> R.drawable.mercado_pago
+                        "Nubank" -> R.drawable.nubank
+                        "PicPay" -> R.drawable.picpay
+                        "Santander" -> R.drawable.santander
+                        "Sicredi" -> R.drawable.sicredi
+                        "Stone" -> R.drawable.stone
+                        "Wise" -> R.drawable.wise
+                        else -> R.drawable.lapis
+                    }
 
                     binding.textViewConta.setText(nome)
                     binding.inputSaldo.setText(saldo?.toString() ?: "")
+                    binding.InputDescricao.setText(descricao)
+                    binding.imgConta.setImageResource(img)
                 }
             }
             .addOnFailureListener {
@@ -103,9 +124,6 @@ class AtualizarContaFragment : Fragment() {
             }
     }
 
-    private fun atualizarConta() {
-
-    }
 
     override fun onDestroyView() {
         super.onDestroyView()
