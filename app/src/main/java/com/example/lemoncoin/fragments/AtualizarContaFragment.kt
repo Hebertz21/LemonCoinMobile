@@ -1,14 +1,21 @@
 package com.example.lemoncoin
 
+import android.app.AlertDialog
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.example.lemoncoin.databinding.FragmentAtualizarContaBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import java.text.NumberFormat
+import java.util.Locale
+import java.util.concurrent.Executors
 
 class AtualizarContaFragment : Fragment() {
 
@@ -30,6 +37,38 @@ class AtualizarContaFragment : Fragment() {
     private var contaId: String? = null
     private val firestore = FirebaseFirestore.getInstance()
     private val userId = FirebaseAuth.getInstance().currentUser?.uid
+    private var nomeConta: String = ""
+
+    private fun EditText.addMoneyMask(){
+        val locale = Locale("pt", "BR")
+        val currencyFormat = NumberFormat.getCurrencyInstance(locale)
+
+        this.addTextChangedListener(object : TextWatcher {
+            private var current = ""
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+
+            override fun afterTextChanged(s: Editable?) {
+                if (s.toString() != current) {
+                    this@addMoneyMask.removeTextChangedListener(this)
+
+                    val cleanString = s.toString()
+                        .replace("[R$,.\\s]".toRegex(), "")
+                        .trim()
+
+                    val parsed = cleanString.toDoubleOrNull() ?: 0.0
+                    val formatted = currencyFormat.format(parsed / 100)
+
+                    current = formatted
+                    this@addMoneyMask.setText(formatted)
+                    this@addMoneyMask.setSelection(formatted.length)
+
+                    this@addMoneyMask.addTextChangedListener(this)
+                }
+            }
+        })
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,18 +88,39 @@ class AtualizarContaFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         carregarDadosConta()
 
+        val dbContas = firestore
+            .collection("usuarios")
+            .document(userId.toString())
+            .collection("contas")
+            .document(contaId.toString())
+
+
+        dbContas.get().addOnSuccessListener { document ->
+            if (document.exists()) {
+                nomeConta = document.getString("nome").toString()
+            } else{
+                nomeConta = ""
+            }
+        }
+
+        binding.inputSaldo.addMoneyMask()
+
         binding.btnConfirmar.setOnClickListener {
             val nome = binding.textViewConta.text.toString().trim()
-            val saldoText = binding.inputSaldo.text.toString().trim()
             val descricao = binding.InputDescricao.text.toString().trim()
-            val saldo = saldoText.toDoubleOrNull()
+            val saldoText = binding.inputSaldo.text.toString()
+                // Remove caracteres não numéricos (R$, ponto e virgula)
+                .replace("[R$,.\\s]".toRegex(), "")
 
-            if (nome.isEmpty() || saldo == null) {
-                Toast.makeText(context, "Preencha todos os campos corretamente", Toast.LENGTH_SHORT).show()
+            if (nome.isEmpty() || saldoText.isEmpty()) {
+                Toast.makeText(context, "Preencha todos os campos corretamente",
+                    Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
 
             if (userId == null || contaId == null) return@setOnClickListener
+
+            val saldo = saldoText.toDouble() / 100 //divide por 100 para salvar os centavos
 
             val dadosAtualizados = mapOf( //O que atualiza e manda para DB
                 "nome" to nome,
@@ -75,11 +135,43 @@ class AtualizarContaFragment : Fragment() {
                 .update(dadosAtualizados)
                 .addOnSuccessListener {
                     Toast.makeText(context, "Conta atualizada com sucesso", Toast.LENGTH_SHORT).show()
+
                     parentFragmentManager.popBackStack() // Volta para tela anterior
                 }
                 .addOnFailureListener {
                     Toast.makeText(context, "Erro ao atualizar conta", Toast.LENGTH_SHORT).show()
                 }
+        }
+
+        binding.btnExcluir.setOnClickListener(){
+            val builder = AlertDialog.Builder(requireContext())
+            builder.setTitle("Excluir conta")
+                .setMessage("Deseja realmente excluir a conta ${nomeConta}?")
+                .setPositiveButton("Sim") { dialog, _ ->
+                    val executor = Executors.newSingleThreadExecutor()
+                    executor.execute {
+                        firestore.collection("usuarios")
+                            .document(userId.toString())
+                            .collection("contas")
+                            .document(contaId.toString())
+                            .delete()
+                            .addOnSuccessListener {
+                                Toast.makeText(requireContext(), "Conta Excluida com sucesso!",
+                                    Toast.LENGTH_SHORT).show()
+                                parentFragmentManager.popBackStack()
+                            }
+                            .addOnFailureListener { e ->
+                                val context = requireContext()
+                                Toast.makeText(context, "Erro ao excluir conta: $e",
+                                    Toast.LENGTH_LONG).show()
+                            }
+                    }
+                    dialog.dismiss()
+                }
+                .setNegativeButton("Não") { dialog, _ ->
+                    dialog.dismiss()
+                }
+                .show()
         }
     }
 
@@ -114,7 +206,7 @@ class AtualizarContaFragment : Fragment() {
                     }
 
                     binding.textViewConta.setText(nome)
-                    binding.inputSaldo.setText(saldo?.toString() ?: "")
+                    binding.inputSaldo.setText(saldo.toString())
                     binding.InputDescricao.setText(descricao)
                     binding.imgConta.setImageResource(img)
                 }

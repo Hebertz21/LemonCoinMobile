@@ -17,12 +17,13 @@ import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.setFragmentResultListener
 import com.example.lemoncoin.R
 import com.example.lemoncoin.databinding.FragmentAddContaBinding
+import com.google.android.gms.tasks.Task
 import com.google.firebase.Firebase
 import com.google.firebase.auth.auth
+import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FirebaseFirestore
 import java.text.NumberFormat
 import java.util.Locale
-
 //import com.example.lemoncoin.databinding.FragmentContasBinding
 
 class AddContasFragment : Fragment() {  //É preciso um constructor vazio para a classe enviar informações de configurações
@@ -54,6 +55,26 @@ class AddContasFragment : Fragment() {  //É preciso um constructor vazio para a
             }
             .addOnFailureListener { e ->
                 callback(false, e.message)
+            }
+    }
+
+    private fun contaExiste(nome: String, callback: (Boolean) -> Unit) {
+        val db = FirebaseFirestore.getInstance()
+        val userId = Firebase.auth.currentUser?.uid
+        val dbContas = db.collection("usuarios")
+            .document(userId.toString())
+            .collection("contas")
+
+        dbContas.get()
+            .addOnSuccessListener { result ->
+                var existe = false
+                for (document in result) {
+                    if (document.getString("nome") == nome) {
+                        existe = true
+                        break
+                    }
+                }
+                callback(existe)
             }
     }
 
@@ -139,25 +160,28 @@ class AddContasFragment : Fragment() {  //É preciso um constructor vazio para a
             val nome = binding.textViewConta.text.toString()
 
             if(txtSaldo.isNotEmpty() && nome.isNotEmpty() && nome != "Conta"){
-                val saldo = txtSaldo.toDouble() / 100 //divide por 100 para salvar os centavos
-                salvarDadosConta(nome, saldo, descricao) { sucesso, msgErro ->
-                    if (sucesso) {
+                contaExiste(nome) { existe ->
+                    if (existe) {
                         Toast.makeText(
                             requireContext(),
-                            "Conta salva com sucesso!",
+                            "A conta ${nome} já existe!!",
                             Toast.LENGTH_SHORT
                         ).show()
-                        binding.inputSaldo.text?.clear()
-                        binding.InputDescricao.text?.clear()
-                        binding.textViewConta.text = "Conta"
-                        binding.imgConta.setImageResource(R.drawable.lapis)
-                        binding.inputSaldo.requestFocus()
                     } else {
-                        Toast.makeText(
-                            requireContext(),
-                            "erro ao salvar conta: $msgErro",
-                            Toast.LENGTH_LONG
-                        ).show()
+                        //salvar dados da conta
+                        val saldo = txtSaldo.toDouble() / 100 //divide por 100 para salvar os centavos
+                        salvarDadosConta(nome, saldo, descricao) { sucesso, msgErro ->
+                            if (sucesso) {
+                                Toast.makeText(
+                                    requireContext(),
+                                    "Conta salva com sucesso!",
+                                    Toast.LENGTH_SHORT
+                                ).show()
+                                parentFragmentManager.popBackStack()
+                            } else {
+                                Toast.makeText(requireContext(), "erro ao salvar conta: $msgErro", Toast.LENGTH_LONG).show()
+                            }
+                        }
                     }
                 }
             } else {

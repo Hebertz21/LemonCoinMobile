@@ -9,6 +9,7 @@
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/containerAtualizar"
         style="@style/imagemLapis"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -158,7 +159,7 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <Button
-            android:id="@+id/btnCancelar"
+            android:id="@+id/btnExcluir"
             style="@style/Buttons"
             android:layout_width="160dp"
             android:layout_height="70dp"
@@ -182,8 +183,8 @@
             android:textSize="20dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/btnCancelar"
-            app:layout_constraintTop_toTopOf="@+id/btnCancelar" />
+            app:layout_constraintStart_toEndOf="@+id/btnExcluir"
+            app:layout_constraintTop_toTopOf="@+id/btnExcluir" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
