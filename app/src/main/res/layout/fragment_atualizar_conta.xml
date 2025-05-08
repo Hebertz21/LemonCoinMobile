@@ -12,7 +12,7 @@
         android:id="@+id/containerAtualizar"
         style="@style/imagemLapis"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:background="@color/backgroundSecondary"
         android:backgroundTint="@color/backgroundSecondary"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -31,160 +31,169 @@
             android:textColor="@color/titulos"
             android:textSize="35dp"
             android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/constraintAtualizar"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-
-        <FrameLayout
-            android:id="@+id/imgAddConta"
-            android:layout_width="245dp"
-            android:layout_height="245dp"
-            android:layout_marginTop="28dp"
-            android:background="@drawable/rounded_image_lapis"
-            android:clipToOutline="true"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView8">
-
-            <ImageView
-                android:id="@+id/imgConta"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:padding="28dp"
-                android:scaleType="fitCenter"
-                android:src="@drawable/lapis" />
-        </FrameLayout>
-
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/constraintLayout2"
-            android:layout_width="280dp"
-            android:layout_height="80dp"
-            android:layout_marginTop="16dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imgAddConta">
+            android:id="@+id/constraintAtualizar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.5">
 
-            <TextView
-                android:id="@+id/textViewConta"
-                android:layout_width="100dp"
-                android:layout_height="match_parent"
-                android:gravity="center"
-                android:padding="0dp"
-                android:text="Conta"
-                android:textColor="@color/textView"
-                android:textSize="16dp"
-                android:textStyle="bold"
+            <FrameLayout
+                android:id="@+id/imgAddConta"
+                android:layout_width="245dp"
+                android:layout_height="245dp"
+                android:background="@drawable/rounded_image_lapis"
+                android:clipToOutline="true"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    android:id="@+id/imgConta"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:padding="28dp"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/lapis" />
+            </FrameLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraintLayout2"
+                android:layout_width="280dp"
+                android:layout_height="80dp"
+                android:layout_marginTop="16dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/imgAddConta">
+
+                <TextView
+                    android:id="@+id/textViewConta"
+                    android:layout_width="100dp"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:padding="0dp"
+                    android:text="Conta"
+                    android:textColor="@color/textView"
+                    android:textSize="16dp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/layoutInputSaldo"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="16dp"
+                    android:background="@color/transparente"
+                    android:textAlignment="viewStart"
+                    android:textColorHint="@color/textView"
+                    app:boxBackgroundColor="@color/transparente"
+                    app:boxStrokeColor="@color/transparente"
+                    app:counterTextColor="@color/textView"
+                    app:cursorColor="@color/textView"
+                    app:helperTextTextColor="@color/textView"
+                    app:hintTextColor="@color/textView"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/textViewConta"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:placeholderTextColor="@color/textView"
+                    app:prefixTextColor="@color/textView"
+                    app:suffixTextColor="@color/textView">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/inputSaldo"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@color/transparente"
+                        android:hint="Saldo: R$"
+                        android:inputType="numberDecimal"
+                        android:paddingStart="6dp"
+                        android:textColor="@color/textView"
+                        android:textColorHighlight="@color/textView"
+                        android:textColorHint="@color/textView" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <View
+                    android:id="@+id/linhaNaoPossuoConta2"
+                    android:layout_width="0dp"
+                    android:layout_height="2dp"
+                    android:background="@color/black"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/layoutInputSaldo"
+                android:id="@+id/layoutInputDescricao"
                 android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_marginStart="16dp"
-                android:background="@color/transparente"
-                android:textAlignment="viewStart"
+                android:layout_height="100dp"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/input_text_padrao"
                 android:textColorHint="@color/textView"
-                app:boxBackgroundColor="@color/transparente"
-                app:boxStrokeColor="@color/transparente"
-                app:counterTextColor="@color/textView"
                 app:cursorColor="@color/textView"
                 app:helperTextTextColor="@color/textView"
                 app:hintTextColor="@color/textView"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/textViewConta"
-                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/constraintLayout2"
+                app:layout_constraintStart_toStartOf="@+id/constraintLayout2"
+                app:layout_constraintTop_toBottomOf="@+id/constraintLayout2"
                 app:placeholderTextColor="@color/textView"
                 app:prefixTextColor="@color/textView"
                 app:suffixTextColor="@color/textView">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/inputSaldo"
+                    android:id="@+id/InputDescricao"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:background="@color/transparente"
-                    android:hint="Saldo: R$"
-                    android:inputType="numberDecimal"
-                    android:paddingStart="6dp"
+                    android:gravity="start"
+                    android:hint="Descrição:"
+                    android:maxLines="6"
+                    android:scrollbars="vertical"
                     android:textColor="@color/textView"
                     android:textColorHighlight="@color/textView"
-                    android:textColorHint="@color/textView" />
+                    android:textColorHint="@color/textView"
+                    android:verticalScrollbarPosition="right" />
             </com.google.android.material.textfield.TextInputLayout>
 
-            <View
-                android:id="@+id/linhaNaoPossuoConta2"
-                android:layout_width="0dp"
-                android:layout_height="2dp"
-                android:background="@color/black"
-                app:layout_constraintBottom_toBottomOf="parent"
+            <Button
+                android:id="@+id/btnExcluir"
+                style="@style/Buttons"
+                android:layout_width="160dp"
+                android:layout_height="70dp"
+                android:padding="8dp"
+                android:text="Excluir conta"
+                android:textColor="@color/textButton"
+                android:textSize="20dp"
+                app:layout_constraintEnd_toStartOf="@+id/btnConfirmar"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/btnConfirmar" />
+
+            <Button
+                android:id="@+id/btnConfirmar"
+                style="@style/Buttons"
+                android:layout_width="160dp"
+                android:layout_height="70dp"
+                android:layout_marginTop="24dp"
+                android:text="Editar conta"
+                android:textColor="@color/textButton"
+                android:textSize="20dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toStartOf="parent" />
+                app:layout_constraintStart_toEndOf="@+id/btnExcluir"
+                app:layout_constraintTop_toBottomOf="@+id/layoutInputDescricao" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/layoutInputDescricao"
-            android:layout_width="0dp"
-            android:layout_height="100dp"
-            android:layout_marginTop="8dp"
-            android:background="@drawable/input_text_padrao"
-            android:textColorHint="@color/textView"
-            app:cursorColor="@color/textView"
-            app:helperTextTextColor="@color/textView"
-            app:hintTextColor="@color/textView"
-            app:layout_constraintEnd_toEndOf="@+id/constraintLayout2"
-            app:layout_constraintStart_toStartOf="@+id/constraintLayout2"
-            app:layout_constraintTop_toBottomOf="@+id/constraintLayout2"
-            app:placeholderTextColor="@color/textView"
-            app:prefixTextColor="@color/textView"
-            app:suffixTextColor="@color/textView">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/InputDescricao"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/transparente"
-                android:gravity="start"
-                android:hint="Descrição:"
-                android:maxLines="6"
-                android:scrollbars="vertical"
-                android:textColor="@color/textView"
-                android:textColorHighlight="@color/textView"
-                android:textColorHint="@color/textView"
-                android:verticalScrollbarPosition="right" />
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <Button
-            android:id="@+id/btnExcluir"
-            style="@style/Buttons"
-            android:layout_width="160dp"
-            android:layout_height="70dp"
-            android:layout_marginTop="32dp"
-            android:padding="8dp"
-            android:text="Excluir conta"
-            android:textColor="@color/textButton"
-            android:textSize="20dp"
-            app:layout_constraintEnd_toStartOf="@+id/btnConfirmar"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/layoutInputDescricao" />
-
-        <Button
-            android:id="@+id/btnConfirmar"
-            style="@style/Buttons"
-            android:layout_width="160dp"
-            android:layout_height="70dp"
-            android:text="Editar conta"
-            android:textColor="@color/textButton"
-            android:textSize="20dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/btnExcluir"
-            app:layout_constraintTop_toTopOf="@+id/btnExcluir" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

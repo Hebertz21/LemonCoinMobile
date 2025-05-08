@@ -5,6 +5,8 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.content.ContentProviderCompat.requireContext
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.example.lemoncoin.R
 import com.example.lemoncoin.classeObjetos.Conta
@@ -87,7 +89,17 @@ class ContaAdapter(private val contas: MutableList<Conta>, //Conta é um list
                 .setNegativeButton("Não") { dialog, _ ->
                     dialog.dismiss()
                 }
-                .show()
+            val dialog = builder.create()
+
+            dialog.setOnShowListener {
+                val btnSim = dialog.getButton(AlertDialog.BUTTON_POSITIVE)
+                val btnNao = dialog.getButton(AlertDialog.BUTTON_NEGATIVE)
+
+                btnSim.setTextColor(ContextCompat.getColor(holder.itemView.context, R.color.textView))
+                btnNao.setTextColor(ContextCompat.getColor(holder.itemView.context, R.color.textView))
+
+            }
+            dialog.show()
             true
         }
     }

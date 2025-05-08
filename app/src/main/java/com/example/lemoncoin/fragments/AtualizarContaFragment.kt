@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.example.lemoncoin.databinding.FragmentAtualizarContaBinding
 import com.google.firebase.auth.FirebaseAuth
@@ -143,11 +144,12 @@ class AtualizarContaFragment : Fragment() {
                 }
         }
 
-        binding.btnExcluir.setOnClickListener(){
+        binding.btnExcluir.setOnClickListener {
             val builder = AlertDialog.Builder(requireContext())
             builder.setTitle("Excluir conta")
-                .setMessage("Deseja realmente excluir a conta ${nomeConta}?")
+                .setMessage("Deseja realmente excluir a conta $nomeConta?")
                 .setPositiveButton("Sim") { dialog, _ ->
+
                     val executor = Executors.newSingleThreadExecutor()
                     executor.execute {
                         firestore.collection("usuarios")
@@ -156,14 +158,19 @@ class AtualizarContaFragment : Fragment() {
                             .document(contaId.toString())
                             .delete()
                             .addOnSuccessListener {
-                                Toast.makeText(requireContext(), "Conta Excluida com sucesso!",
-                                    Toast.LENGTH_SHORT).show()
+                                Toast.makeText(
+                                    requireContext(),
+                                    "Conta excluída com sucesso!",
+                                    Toast.LENGTH_SHORT
+                                ).show()
                                 parentFragmentManager.popBackStack()
                             }
                             .addOnFailureListener { e ->
-                                val context = requireContext()
-                                Toast.makeText(context, "Erro ao excluir conta: $e",
-                                    Toast.LENGTH_LONG).show()
+                                Toast.makeText(
+                                    requireContext(),
+                                    "Erro ao excluir conta: $e",
+                                    Toast.LENGTH_LONG
+                                ).show()
                             }
                     }
                     dialog.dismiss()
@@ -171,8 +178,20 @@ class AtualizarContaFragment : Fragment() {
                 .setNegativeButton("Não") { dialog, _ ->
                     dialog.dismiss()
                 }
-                .show()
+
+            val dialog = builder.create()
+
+            dialog.setOnShowListener {
+                val btnSim = dialog.getButton(AlertDialog.BUTTON_POSITIVE)
+                val btnNao = dialog.getButton(AlertDialog.BUTTON_NEGATIVE)
+
+                btnSim.setTextColor(ContextCompat.getColor(requireContext(), R.color.textView))
+                btnNao.setTextColor(ContextCompat.getColor(requireContext(), R.color.textView))
+            }
+
+            dialog.show()
         }
+
     }
 
     private fun carregarDadosConta() {

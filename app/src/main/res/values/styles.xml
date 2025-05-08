@@ -52,9 +52,8 @@
         <item name="android:textColor">@color/black</item>
     </style>
 
+    <!-- Buttons calendar -->
     <style name="datePicker" parent="ThemeOverlay.MaterialComponents.MaterialCalendar">
-
-        <!-- Buttons -->
         <item name="buttonBarPositiveButtonStyle">@style/textButtonDatePicker</item>
         <item name="buttonBarNegativeButtonStyle">@style/textButtonDatePicker</item>
     </style>
