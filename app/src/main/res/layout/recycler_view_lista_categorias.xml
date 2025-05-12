@@ -6,16 +6,18 @@
     android:layout_height="wrap_content">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="320dp"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
         android:background="@drawable/input_text_padrao"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageButton
-            android:id="@+id/imgBtnEditarCategoria"
+            android:id="@+id/imgBtnDeleteCategoria"
             android:layout_width="48dp"
             android:layout_height="48dp"
             android:background="@color/transparente"
@@ -26,25 +28,25 @@
             app:srcCompat="@drawable/icon_delete" />
 
         <ImageButton
-            android:id="@+id/imgBtnDeleteCategoria"
+            android:id="@+id/imgBtnEditarCategoria"
             android:layout_width="48dp"
             android:layout_height="48dp"
             android:background="@color/transparente"
             android:contentDescription="Editar"
             android:scaleType="center"
-            app:layout_constraintEnd_toStartOf="@+id/imgBtnEditarCategoria"
-            app:layout_constraintTop_toTopOf="@+id/imgBtnEditarCategoria"
+            app:layout_constraintEnd_toStartOf="@+id/imgBtnDeleteCategoria"
+            app:layout_constraintTop_toTopOf="@+id/imgBtnDeleteCategoria"
             app:srcCompat="@drawable/ic_pencil" />
 
-        <TextView
+        <EditText
             android:id="@+id/txtCategoria"
-            android:layout_width="wrap_content"
+            android:layout_width="190dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:text="TextView"
-            android:textSize="16sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:hint="Nova categoria"
+            android:imeOptions="actionDone"
+            android:inputType="textCapWords"
+            android:padding="16dp"
+            android:textSize="18sp"
+            tools:ignore="MissingConstraints" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

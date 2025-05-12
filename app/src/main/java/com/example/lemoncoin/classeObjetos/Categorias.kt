@@ -1,6 +1,6 @@
 package com.example.lemoncoin.classeObjetos
 
 data class Categorias(
-    val nome: String,
-    val id: String
+    var nome: String,
+    var id: String? = null
 )
