@@ -18,7 +18,7 @@
 
         <ScrollView
             android:id="@+id/scrollView2"
-            android:layout_width="324dp"
+            android:layout_width="wrap_content"
             android:layout_height="0dp"
             android:layout_marginTop="16dp"
             android:layout_marginBottom="16dp"
@@ -31,10 +31,18 @@
             app:layout_constraintTop_toBottomOf="@+id/textView10">
 
             <LinearLayout
-                android:id="@+id/linearLayoutReceitas"
+                android:id="@+id/linearLayoutCategorias"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical" />
+                android:orientation="vertical">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvListaCategorias"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    tools:itemCount="5"
+                    tools:listitem="@layout/recycler_view_lista_categorias" />
+            </LinearLayout>
         </ScrollView>
 
         <androidx.constraintlayout.widget.Guideline
