@@ -1,11 +1,17 @@
+// CategoriasAdapter.kt
 package com.example.lemoncoin.adapters
 
+import android.app.AlertDialog
 import android.content.Context
 import android.util.Log
 import android.view.LayoutInflater
+import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
+import com.example.lemoncoin.R
 import com.example.lemoncoin.classeObjetos.Categorias
 import com.example.lemoncoin.databinding.RecyclerViewListaCategoriasBinding
 import com.google.firebase.auth.FirebaseAuth
@@ -15,10 +21,8 @@ class CategoriasAdapter(
     private val lista: MutableList<Categorias>
 ) : RecyclerView.Adapter<CategoriasAdapter.CategoriasViewHolder>() {
 
-
-    private val editingPositions = mutableSetOf<Int>() //Posições em modo de edição
-
-    private val db = FirebaseFirestore.getInstance()
+    private val editingPositions = mutableSetOf<Int>() // posições em modo edição
+    private val db  = FirebaseFirestore.getInstance()
     private val uid = FirebaseAuth.getInstance().currentUser?.uid
 
     inner class CategoriasViewHolder(val binding: RecyclerViewListaCategoriasBinding) :
@@ -26,43 +30,63 @@ class CategoriasAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CategoriasViewHolder {
         val binding = RecyclerViewListaCategoriasBinding.inflate(
-            LayoutInflater.from(parent.context),
-            parent,
-            false
+            LayoutInflater.from(parent.context), parent, false
         )
         return CategoriasViewHolder(binding)
     }
 
+    override fun getItemCount(): Int = lista.size
+
     override fun onBindViewHolder(holder: CategoriasViewHolder, position: Int) {
-        val categoria = lista[position]
-        val txtCategorias = holder.binding.txtCategoria
-        val btnEditar = holder.binding.imgBtnEditarCategoria
+        val categoria    = lista[position]
+        val txtCategoria = holder.binding.txtCategoria
+        val btnEditar    = holder.binding.imgBtnEditarCategoria
+        val btnDeletar   = holder.binding.imgBtnDeleteCategoria
 
+
+        txtCategoria.imeOptions = EditorInfo.IME_ACTION_DONE
+        txtCategoria.setSingleLine(true)
+        txtCategoria.setOnEditorActionListener { _, actionId, _ ->
+            if (actionId == EditorInfo.IME_ACTION_DONE) {
+                txtCategoria.clearFocus()  // dispara o OnFocusChangeListener
+                true
+            } else false
+        }
+
+        // Detecta novoItem e se está em modo edição
         val novoItem = categoria.id == null
+        val editing  = editingPositions.contains(position) || novoItem
 
-        txtCategorias.setText(categoria.nome)
-        val editing = editingPositions.contains(position)
-        txtCategorias.isEnabled = editing
-        txtCategorias.isFocusable = editing
-        txtCategorias.isFocusableInTouchMode = editing
+        // 3) Preenche texto e habilita/desabilita
+        txtCategoria.setText(categoria.nome)
+        txtCategoria.isEnabled             = editing
+        txtCategoria.isFocusable           = editing
+        txtCategoria.isFocusableInTouchMode = editing
 
-
-        btnEditar.setOnClickListener {
-            if (editingPositions.add(position)) {
-                notifyItemChanged(position)
-                // pede foco e mostra teclado
-                txtCategorias.post {
-                    txtCategorias.requestFocus()
-                    val imm = txtCategorias.context
-                        .getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-                    imm.showSoftInput(txtCategorias, InputMethodManager.SHOW_IMPLICIT)
-                }
+        // 4) Se em edição, pede foco e abre teclado
+        if (editing) {
+            txtCategoria.post {
+                txtCategoria.requestFocus()
+                txtCategoria.setSelection(txtCategoria.text?.length ?: 0)
+                val imm = txtCategoria.context
+                    .getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                imm.showSoftInput(txtCategoria, InputMethodManager.SHOW_IMPLICIT)
             }
         }
 
-        txtCategorias.setOnFocusChangeListener { _, hasFocus ->
-            if (!hasFocus && editingPositions.contains(position)) {
-                val novoNome = txtCategorias.text.toString().trim()
+        // 5) Remove flag de edição automática em novoItem
+        if (novoItem) editingPositions.remove(position)
+
+        // 6) Botão Editar ativa modo edição
+        btnEditar.setOnClickListener {
+            editingPositions.add(position)
+            notifyItemChanged(position)
+        }
+
+        //Ao perder foco, salva e então remove edição
+        txtCategoria.setOnFocusChangeListener { _, hasFocus ->
+            if (!hasFocus && editing) {
+                val novoNome = txtCategoria.text.toString().trim()
                 if (novoNome.isNotEmpty()) {
                     uid?.let { userId ->
                         val ref = db.collection("usuarios")
@@ -78,27 +102,75 @@ class CategoriasAdapter(
                                 .addOnFailureListener { e ->
                                     Log.e("CAT_ADAPTER", "Erro no update", e)
                                 }
+                            // após update, remove edição
+                            editingPositions.remove(position)
+                            notifyItemChanged(position)
                         } else {
-                            //Adiciona o novo nome no BD
+                            // ADD novo e somente tira foco após sucesso/falha
                             ref.add(mapOf("nome" to novoNome))
                                 .addOnSuccessListener { docRef ->
                                     Log.d("CAT_ADAPTER", "Criou categoria ${docRef.id}")
-                                    // guarda o id no objeto local
                                     categoria.id = docRef.id
+                                    // agora que salvou, remove foco e edição
+                                    txtCategoria.clearFocus()
+                                    editingPositions.remove(position)
+                                    notifyItemChanged(position)
                                 }
                                 .addOnFailureListener { e ->
                                     Log.e("CAT_ADAPTER", "Erro no add", e)
+                                    txtCategoria.clearFocus()
+                                    editingPositions.remove(position)
+                                    notifyItemChanged(position)
                                 }
                         }
                         categoria.nome = novoNome
                         lista[holder.adapterPosition] = categoria
                     }
+                } else {
+                    //texto vazio: só sai do modo edição
+                    txtCategoria.clearFocus()
+                    editingPositions.remove(position)
+                    notifyItemChanged(position)
                 }
-                editingPositions.remove(position)
-                notifyItemChanged(position)
             }
         }
-    }
 
-    override fun getItemCount(): Int = lista.size
+        // Delete
+        btnDeletar.setOnClickListener {
+            val builder = AlertDialog.Builder(holder.itemView.context)
+            builder.setTitle("Excluir categoria")
+                .setMessage("Deseja realmente excluir '${categoria.nome}'?")
+                .setPositiveButton("Sim") { dialog, _ ->
+                    categoria.id?.let { catId ->
+                        db.collection("usuarios")
+                            .document(uid.toString())
+                            .collection("categorias")
+                            .document(catId)
+                            .delete()
+                            .addOnSuccessListener {
+                                Toast.makeText(
+                                    holder.itemView.context,
+                                    "Categoria excluída com sucesso",
+                                    Toast.LENGTH_LONG
+                                ).show()
+                                lista.removeAt(position)
+                                notifyItemRemoved(position)
+                                notifyItemRangeChanged(position, lista.size)
+                            }
+                    }
+                    dialog.dismiss()
+                }
+                .setNegativeButton("Não") { dialog, _ ->
+                    dialog.dismiss()
+                }
+            val dialog = builder.create()
+            dialog.setOnShowListener {
+                dialog.getButton(AlertDialog.BUTTON_POSITIVE)
+                    .setTextColor(ContextCompat.getColor(holder.itemView.context, R.color.textView))
+                dialog.getButton(AlertDialog.BUTTON_NEGATIVE)
+                    .setTextColor(ContextCompat.getColor(holder.itemView.context, R.color.textView))
+            }
+            dialog.show()
+        }
+    }
 }

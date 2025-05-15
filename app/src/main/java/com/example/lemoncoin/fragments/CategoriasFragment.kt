@@ -31,10 +31,12 @@ class CategoriasFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        // 1) Setup RecyclerView e Adapter
         adapter = CategoriasAdapter(listaCategorias)
         binding.rvListaCategorias.layoutManager = LinearLayoutManager(requireContext())
         binding.rvListaCategorias.adapter = adapter
 
+        // 2) Carrega categorias existentes
         val uid = FirebaseAuth.getInstance().currentUser?.uid ?: return
         FirebaseFirestore.getInstance()
             .collection("usuarios")
@@ -45,34 +47,18 @@ class CategoriasFragment : Fragment() {
             .addOnSuccessListener { docs ->
                 listaCategorias.clear()
                 docs.forEach { doc ->
-                    val nome = doc.getString("nome") ?: ""
-                    listaCategorias.add(Categorias(nome = nome, id = doc.id))
+                    listaCategorias.add(Categorias(nome = doc.getString("nome") ?: "", id = doc.id))
                 }
-                adapter.notifyDataSetChanged() //Informa o RV que houve mudança
+                adapter.notifyDataSetChanged() // informa mudanças
             }
 
-
+        // 3) Botão Add: insere item novo, rola e foca
         binding.btnAddCategoria.setOnClickListener {
             listaCategorias.add(Categorias(nome = "", id = null))
             val newPos = listaCategorias.lastIndex
             adapter.notifyItemInserted(newPos)
-
-            // rola e foca no EditText do novo item:
-            binding.rvListaCategorias.postDelayed({
-                binding.rvListaCategorias.scrollToPosition(newPos)
-                val vh = binding.rvListaCategorias
-                    .findViewHolderForAdapterPosition(newPos)
-                        as? CategoriasAdapter.CategoriasViewHolder
-                vh?.binding?.txtCategoria?.let { edit ->
-                    edit.requestFocus()
-                    val imm = edit.context
-                        .getSystemService(Context.INPUT_METHOD_SERVICE)
-                            as InputMethodManager
-                    imm.showSoftInput(edit, InputMethodManager.SHOW_IMPLICIT)
-                }
-            }, 200)
+            binding.rvListaCategorias.scrollToPosition(newPos)
         }
-
 
     }
 
