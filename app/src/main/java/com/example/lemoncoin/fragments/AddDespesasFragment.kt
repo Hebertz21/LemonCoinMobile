@@ -3,6 +3,7 @@ package com.example.lemoncoin.fragments
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -24,6 +25,52 @@ class AddDespesasFragment : Fragment() {
 
     private var _binding: FragmentAddDespesasBinding? = null
     private val binding get() = _binding!!
+    private val firestore = FirebaseFirestore.getInstance()
+    private var modo = "add"
+
+    companion object { //caso abra a tela no modo editar
+        private const val ARG_DESPESA_ID = "despesa_id"
+
+        fun newInstance(id: String): AddDespesasFragment {
+            val fragment = AddDespesasFragment()
+            val args = Bundle()
+            args.putString(ARG_DESPESA_ID, id)
+            fragment.arguments = args
+            return fragment
+        }
+    }
+
+    private fun carregarDadosDespesa() {
+        Log.i(null, "id enviado: ${arguments?.getString(ARG_DESPESA_ID)}")
+        val userId = FirebaseAuth.getInstance().currentUser?.uid ?: return
+        val movId = arguments?.getString(ARG_DESPESA_ID) ?: return
+        modo = "edit"
+
+       firestore.collection("usuarios")
+            .document(userId)
+            .collection("movimentações")
+            .document(movId)
+            .get()
+            .addOnSuccessListener { document ->
+                if (document != null && document.exists()) {
+                    val nome = document.getString("nome")
+                    val valor = document.getDouble("valor")
+                    val data = document.getDate("data")
+                    val categoriaId = document.getString("categoriaId")
+                    val contaId = document.getString("contaId")
+
+                    binding.inputNomeDespesa.setText(nome)
+                    binding.inputValorDespesa.setText(valor.toString())
+                    val dataFormatada = SimpleDateFormat(
+                        "dd/MM/yyyy",
+                        Locale.getDefault()).format(data)
+                    binding.etDataDespesa.setText(dataFormatada)
+                }
+            }
+
+        binding.btnAddDespesa.text = "Editar"
+        binding.textViewTitulo.text = "Editar Despesa"
+    }
 
     private fun EditText.addMoneyMask(){
         val locale = Locale("pt", "BR")
@@ -69,6 +116,8 @@ class AddDespesasFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        carregarDadosDespesa() //caso esteja no modo editar
 
         //configuração do datepicker
         binding.etDataDespesa.setOnClickListener {
@@ -158,11 +207,20 @@ class AddDespesasFragment : Fragment() {
                     "contaId" to contaId,
                     "tipo" to "Despesa"
                 )
-                FirebaseFirestore.getInstance()
-                    .collection("usuarios")
-                    .document(uid)
-                    .collection("movimentações")
-                    .add(despesa)
+                if (modo == "add") {
+                    FirebaseFirestore.getInstance()
+                        .collection("usuarios")
+                        .document(uid)
+                        .collection("movimentações")
+                        .add(despesa)
+                } else if (modo == "edit") {
+                    val despesaId = arguments?.getString(ARG_DESPESA_ID) ?: return@setOnClickListener
+                    FirebaseFirestore.getInstance()
+                        .collection("usuarios")
+                        .document(uid)
+                        .collection("movimentações")
+                        .document(despesaId).set(despesa)
+                }
 
                 parentFragmentManager.popBackStack()
                 Toast.makeText(requireContext(),

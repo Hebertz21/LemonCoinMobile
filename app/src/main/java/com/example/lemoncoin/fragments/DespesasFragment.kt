@@ -81,7 +81,10 @@ class DespesasFragment : Fragment() {
                     }
                 }
                 Log.i(null, "lista de movimentações: $listaDespesas")
-                val adapter = ListaDespesasAdapter(listaDespesas)
+                val adapter = ListaDespesasAdapter(listaDespesas) { movimentacaoSelecionada ->
+                    val fragment = AddDespesasFragment.newInstance(movimentacaoSelecionada.id)
+                    trocarFragment(fragment)
+                }
                 binding.rvListaDespesas.layoutManager = LinearLayoutManager(requireContext())
                 binding.rvListaDespesas.adapter = adapter
 

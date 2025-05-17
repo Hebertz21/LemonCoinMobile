@@ -15,7 +15,8 @@ import java.text.SimpleDateFormat
 import java.util.Locale
 import java.util.concurrent.Executors
 
-class ListaDespesasAdapter(private val lista: MutableList<RvMovimentacoesClasse>) :
+class ListaDespesasAdapter(private val lista: MutableList<RvMovimentacoesClasse>,
+                            private val onEditClick: (RvMovimentacoesClasse) -> Unit) :
     RecyclerView.Adapter<ListaDespesasAdapter.DespesaViewHolder>() {
 
     inner class DespesaViewHolder(val binding: RecyclerViewListaMovimentacoesBinding) :
@@ -79,7 +80,7 @@ class ListaDespesasAdapter(private val lista: MutableList<RvMovimentacoesClasse>
         holder.binding.txtDataRvMovimentacao.text = data
 
         holder.binding.imgBtnEditar.setOnClickListener {
-            Toast.makeText(holder.itemView.context, "btn editar", Toast.LENGTH_SHORT).show()
+            onEditClick(movimentacao)
         }
 
         holder.binding.imgBtnDelete.setOnClickListener {

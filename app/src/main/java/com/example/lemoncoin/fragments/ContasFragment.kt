@@ -87,7 +87,7 @@ class ContasFragment : Fragment() {  //É preciso um constructor vazio para a cl
                     }
                 }
                 Log.i(null, "lista de contas: $listaContas")
-                val adapter = ContaAdapter(listaContas) { contaSelecionada ->
+                val adapter = ContaAdapter(listaContas) { contaSelecionada -> //quado clica na conta
                     val fragment = AtualizarContaFragment.newInstance(contaSelecionada.id)
                     openFragment(fragment)
                 }
