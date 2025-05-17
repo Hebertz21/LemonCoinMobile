@@ -51,9 +51,7 @@ class ContaAdapter(private val contas: MutableList<Conta>, //Conta é um list
 
         //ao clicar no item
         holder.itemView.setOnClickListener {
-            //Toast.makeText(holder.itemView.context, "clicado: ${conta.nome}", Toast.LENGTH_SHORT).show()
             onContaClick(conta)
-
         }
 
         //quando segura o item

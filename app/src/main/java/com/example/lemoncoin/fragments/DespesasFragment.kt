@@ -2,7 +2,6 @@ package com.example.lemoncoin.fragments
 
 import android.os.Bundle
 import android.util.Log
-import java.util.Date
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -98,7 +97,7 @@ class DespesasFragment : Fragment() {
 
     private fun trocarFragment(fragment: Fragment) {
         parentFragmentManager.beginTransaction()
-            .replace(R.id.fragmentContainerRelatorios, fragment)
+            .replace(R.id.fragmentContainerMovimentacoes, fragment)
             .addToBackStack(null) //
             .commit()
     }

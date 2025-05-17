@@ -94,7 +94,7 @@ class ReceitasFragment : Fragment() {
 
     private fun trocarFragment(fragment: androidx.fragment.app.Fragment){
         parentFragmentManager.beginTransaction()
-            .replace(R.id.fragmentContainerRelatorios, fragment)
+            .replace(R.id.fragmentContainerMovimentacoes, fragment)
             .addToBackStack(null) //
             .commit()
     }

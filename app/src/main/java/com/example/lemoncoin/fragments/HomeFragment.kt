@@ -34,6 +34,7 @@ class HomeFragment : Fragment() {
     private fun trocarFragment(fragment: androidx.fragment.app.Fragment) {
         parentFragmentManager.beginTransaction()
             .replace(R.id.fragmentContainer, fragment)
+            .addToBackStack(null)
             .commit()
     }
     override fun onDestroyView() {

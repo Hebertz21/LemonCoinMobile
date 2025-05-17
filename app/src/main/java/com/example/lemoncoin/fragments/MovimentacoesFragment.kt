@@ -7,17 +7,17 @@ import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.example.lemoncoin.R
-import com.example.lemoncoin.databinding.FragmentRelatoriosBinding
+import com.example.lemoncoin.databinding.FragmentMovimentacoesBinding
 
-class RelatoriosFragment : Fragment() {
-    private var _binding: FragmentRelatoriosBinding? = null
+class MovimentacoesFragment : Fragment() {
+    private var _binding: FragmentMovimentacoesBinding? = null
     private val binding get() = _binding!! // Uso seguro do binding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-      _binding = FragmentRelatoriosBinding.inflate(inflater, container, false)
+      _binding = FragmentMovimentacoesBinding.inflate(inflater, container, false)
       binding.txtDespesas.setOnClickListener {
             openFragment(DespesasFragment())
             binding.txtDespesas.backgroundTintList = null
@@ -40,7 +40,7 @@ class RelatoriosFragment : Fragment() {
 
     private fun openFragment(fragment: Fragment) {
         parentFragmentManager.beginTransaction()
-            .replace(R.id.fragmentContainerRelatorios, fragment)
+            .replace(R.id.fragmentContainerMovimentacoes, fragment)
             .commit()
     }
 

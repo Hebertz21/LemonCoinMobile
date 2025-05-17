@@ -32,8 +32,8 @@
             app:cursorColor="@color/textView"
             app:hintTextColor="@color/textView"
             app:layout_constraintEnd_toStartOf="@+id/guideDireita"
-            app:layout_constraintStart_toStartOf="@+id/spnRecorrenciaReceita"
-            app:layout_constraintTop_toBottomOf="@+id/spnRecorrenciaReceita"
+            app:layout_constraintStart_toStartOf="@+id/spnContaReceita"
+            app:layout_constraintTop_toBottomOf="@+id/spnContaReceita"
             app:placeholderTextColor="@color/textView"
             app:prefixTextColor="@color/textView"
             app:suffixTextColor="@color/textView">
@@ -92,22 +92,22 @@
             android:layout_width="0dp"
             android:layout_height="65dp"
             android:layout_marginTop="32dp"
-            android:layout_marginEnd="8dp"
             android:background="@drawable/input_text_padrao"
             android:textColorHint="@color/textView"
             app:boxStrokeColor="@color/textView"
             app:cursorColor="@color/textView"
             app:hintTextColor="@color/textView"
-            app:layout_constraintEnd_toStartOf="@+id/guideline10"
+            app:layout_constraintEnd_toStartOf="@+id/guideline13"
             app:layout_constraintStart_toStartOf="@+id/layoutInputNomeReceita"
             app:layout_constraintTop_toBottomOf="@+id/layoutInputNomeReceita">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/inputValorReceita"
-                android:layout_width="match_parent"
+                android:layout_width="168dp"
                 android:layout_height="wrap_content"
                 android:background="@color/transparente"
                 android:hint="Valor: R$"
+                android:inputType="numberDecimal"
                 android:textColor="@color/textView"
                 android:textColorHighlight="@color/textView"
                 android:textColorHint="@color/textView"
@@ -129,7 +129,7 @@
             app:layout_constraintGuide_percent="0.93" />
 
         <Spinner
-            android:id="@+id/spnRecorrenciaReceita"
+            android:id="@+id/spnContaReceita"
             android:layout_width="0dp"
             android:layout_height="65dp"
             android:layout_marginTop="32dp"
@@ -149,13 +149,12 @@
             android:text="ADICIONAR"
             android:textSize="18sp"
             android:textStyle="bold"
-            app:layout_constraintEnd_toStartOf="@+id/btnCancelarCategoria"
+            app:layout_constraintEnd_toStartOf="@+id/btnCancelar"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/layoutDataReceita" />
-
         <Button
-            android:id="@+id/btnCancelarCategoria"
+            android:id="@+id/btnCancelar"
             style="@style/Buttons"
             android:layout_width="150dp"
             android:layout_height="75dp"
@@ -168,6 +167,7 @@
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/btnAddReceita"
             app:layout_constraintTop_toTopOf="@+id/btnAddReceita" />
+
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline13"
@@ -187,10 +187,10 @@
             android:id="@+id/spnCategoriaReceita"
             android:layout_width="0dp"
             android:layout_height="65dp"
-            android:layout_marginStart="8dp"
+            android:layout_marginStart="13dp"
             android:background="@drawable/input_text_padrao"
             app:layout_constraintEnd_toStartOf="@+id/guideDireita"
-            app:layout_constraintStart_toStartOf="@+id/guideline10"
+            app:layout_constraintStart_toEndOf="@+id/layoutInputValorReceita"
             app:layout_constraintTop_toTopOf="@+id/layoutInputValorReceita" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

@@ -3,8 +3,6 @@ package com.example.lemoncoin
 import ConfirmExitDialogFragment
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
-import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.core.view.ViewCompat
@@ -15,9 +13,8 @@ import com.example.lemoncoin.databinding.ActivityHomeBinding
 import com.example.lemoncoin.fragments.CategoriasFragment
 import com.example.lemoncoin.fragments.ContasFragment
 import com.example.lemoncoin.fragments.HomeFragment
-import com.example.lemoncoin.fragments.RelatoriosFragment
+import com.example.lemoncoin.fragments.MovimentacoesFragment
 import com.google.firebase.Firebase
-import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.auth
 
 //import com.example.lemoncoin.fragments.
@@ -65,13 +62,13 @@ class HomeActivity : AppCompatActivity() {
         }
 
         //Relatorios
-        binding.txtRelatorios.setOnClickListener {
+        binding.txtMovimentacoes.setOnClickListener {
             val fragmentAtual = supportFragmentManager.findFragmentById(R.id.fragmentContainer)
-            if (fragmentAtual !is RelatoriosFragment) {
+            if (fragmentAtual !is MovimentacoesFragment) {
                 if (fragmentAtual is HomeFragment) {
-                    openFragment(RelatoriosFragment(), true)
+                    openFragment(MovimentacoesFragment(), true)
                 } else {
-                    openFragment(RelatoriosFragment())
+                    openFragment(MovimentacoesFragment())
                 }
             }
         }

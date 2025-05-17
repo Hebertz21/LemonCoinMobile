@@ -49,7 +49,7 @@ class CadastroActivity : AppCompatActivity() {
             nome: String,
             email: String,
             telefone: String,
-            dataNascimento: String,
+            dataNascimento: Date,
             genero: String,
             callback: (Boolean, String?) -> Unit
         ) {
@@ -96,7 +96,8 @@ class CadastroActivity : AppCompatActivity() {
             val senha = binding.inputSenha.text.toString().trim()
             val confirmarSenha = binding.inputConfSenha.text.toString().trim()
             val nome = binding.inputNome.text.toString().trim()
-            val dataNascimento = binding.etDataNascimento.text.toString().trim()
+            val txtData = binding.etDataNascimento.text.toString().trim()
+            val dataNascimento = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).parse(txtData)
             val telefone = listener.masked
 
             var genero: String = ""
@@ -113,7 +114,7 @@ class CadastroActivity : AppCompatActivity() {
                 confirmarSenha.isEmpty() ||
                 nome.isEmpty() ||
                 telefone.isEmpty() ||
-                dataNascimento.isEmpty() ||
+                txtData.isEmpty() ||
                 genero.isEmpty() ||
                 !listener.isDone)
             {

@@ -11,7 +11,7 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.example.lemoncoin.R
-import com.example.lemoncoin.databinding.FragmentAddReceitasBinding
+import com.example.lemoncoin.databinding.FragmentAddDespesasBinding
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -20,9 +20,9 @@ import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
 
-class AddReceitasFragment : Fragment() {
+class AddDespesasFragment : Fragment() {
 
-    private var _binding: FragmentAddReceitasBinding? = null
+    private var _binding: FragmentAddDespesasBinding? = null
     private val binding get() = _binding!!
 
     private fun EditText.addMoneyMask(){
@@ -61,7 +61,7 @@ class AddReceitasFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = FragmentAddReceitasBinding.inflate(inflater,
+        _binding = FragmentAddDespesasBinding.inflate(inflater,
             container, false)
 
         return binding.root
@@ -70,15 +70,18 @@ class AddReceitasFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.etDataReceitas.setOnClickListener{
+        //configuração do datepicker
+        binding.etDataDespesa.setOnClickListener {
             val datePicker = MaterialDatePicker.Builder.datePicker()
                 .setTitleText("Selecione a data")
                 .setTheme(R.style.datePicker)
                 .build()
             datePicker.addOnPositiveButtonClickListener { millis ->
-                val dataformatada = SimpleDateFormat("dd/MM/yyyy",
-                    Locale.getDefault()).format(Date(millis))
-                binding.etDataReceitas.setText(dataformatada)
+                val dataformatada = SimpleDateFormat(
+                    "dd/MM/yyyy",
+                    Locale.getDefault()
+                ).format(Date(millis))
+                binding.etDataDespesa.setText(dataformatada)
             }
             datePicker.show(parentFragmentManager, "Date_Picker")
         }
@@ -101,8 +104,9 @@ class AddReceitasFragment : Fragment() {
                     listaCategoriasId.add(doc.id)
                 }
             }
+
         val categoriaAdapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, categoriasNome)
-        binding.spnCategoriaReceita.adapter = categoriaAdapter
+        binding.spnCategoriaDespesa.adapter = categoriaAdapter
 
         //configuração do spinner de contas
         var contasNome : MutableList<String> = mutableListOf("Selecione Conta")
@@ -120,20 +124,20 @@ class AddReceitasFragment : Fragment() {
                 }
             }
         val contaAdapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, contasNome)
-        binding.spnContaReceita.adapter = contaAdapter
+        binding.spnContaDespesa.adapter = contaAdapter
 
-        binding.inputValorReceita.addMoneyMask()
+        binding.inputValorDespesa.addMoneyMask()
 
-        binding.btnCancelar.setOnClickListener(){
+        binding.btnCancelar.setOnClickListener {
             parentFragmentManager.popBackStack()
         }
 
-        binding.btnAddReceita.setOnClickListener(){
-            val nome = binding.inputNomeReceita.text.toString()
-            val txtValor = binding.inputValorReceita.text.toString()
-            val txtData = binding.etDataReceitas.text.toString()
-            val categoriaPosition = binding.spnCategoriaReceita.selectedItemPosition
-            val contaPosition = binding.spnContaReceita.selectedItemPosition
+        binding.btnAddDespesa.setOnClickListener {
+            val nome = binding.inputNomeDespesa.text.toString()
+            val txtValor = binding.inputValorDespesa.text.toString()
+            val txtData = binding.etDataDespesa.text.toString()
+            val categoriaPosition = binding.spnCategoriaDespesa.selectedItemPosition
+            val contaPosition = binding.spnContaDespesa.selectedItemPosition
 
             if (nome.isNotEmpty() &&
                 txtValor.isNotEmpty() &&
@@ -152,7 +156,7 @@ class AddReceitasFragment : Fragment() {
                     "data" to data,
                     "categoriaId" to categoriaId,
                     "contaId" to contaId,
-                    "tipo" to "Receita"
+                    "tipo" to "Despesa"
                 )
                 FirebaseFirestore.getInstance()
                     .collection("usuarios")
@@ -169,6 +173,5 @@ class AddReceitasFragment : Fragment() {
                     "Preencha todos os campos", Toast.LENGTH_SHORT).show()
             }
         }
-
     }
 }

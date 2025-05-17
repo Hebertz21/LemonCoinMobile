@@ -74,7 +74,7 @@
         app:layout_constraintTop_toTopOf="@+id/guideSuperior" />
 
     <androidx.fragment.app.FragmentContainerView
-        android:id="@+id/fragmentContainerRelatorios"
+        android:id="@+id/fragmentContainerMovimentacoes"
         android:name="com.example.lemoncoin.fragments.DespesasFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

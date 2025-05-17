@@ -110,11 +110,11 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/txtRelatorios"
+                android:id="@+id/txtMovimentacoes"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="10dp"
-                android:text="RELATÓRIOS"
+                android:text="MOVIMENTAÇÕES"
                 android:textColor="@color/textView"
                 android:textColorHighlight="@color/textView"
                 android:textColorHint="@color/textView"
