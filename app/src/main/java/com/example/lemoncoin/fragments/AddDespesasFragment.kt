@@ -68,8 +68,8 @@ class AddDespesasFragment : Fragment() {
                 }
             }
 
-        binding.btnAddDespesa.text = "Editar"
-        binding.textViewTitulo.text = "Editar Despesa"
+        binding.btnAddDespesa.text = "EDITAR"
+        binding.textViewTitulo.text = "EDITAR DESPESA"
     }
 
     private fun EditText.addMoneyMask(){

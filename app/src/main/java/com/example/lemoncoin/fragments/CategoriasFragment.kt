@@ -31,12 +31,13 @@ class CategoriasFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // 1) Setup RecyclerView e Adapter
+         //RecyclerView e Adapter
         adapter = CategoriasAdapter(listaCategorias)
+
         binding.rvListaCategorias.layoutManager = LinearLayoutManager(requireContext())
         binding.rvListaCategorias.adapter = adapter
 
-        // 2) Carrega categorias existentes
+        // Carrega categorias existentes
         val uid = FirebaseAuth.getInstance().currentUser?.uid ?: return
         FirebaseFirestore.getInstance()
             .collection("usuarios")
@@ -52,12 +53,13 @@ class CategoriasFragment : Fragment() {
                 adapter.notifyDataSetChanged() // informa mudanças
             }
 
-        // 3) Botão Add: insere item novo, rola e foca
+        // Botão Add: insere item novo, rola e foca
         binding.btnAddCategoria.setOnClickListener {
             listaCategorias.add(Categorias(nome = "", id = null))
             val newPos = listaCategorias.lastIndex
             adapter.notifyItemInserted(newPos)
             binding.rvListaCategorias.scrollToPosition(newPos)
+            adapter.entrarEmEdicao(newPos)
         }
 
     }

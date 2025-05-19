@@ -17,6 +17,8 @@ import com.example.lemoncoin.databinding.RecyclerViewListaCategoriasBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 
+
+
 class CategoriasAdapter(
     private val lista: MutableList<Categorias>
 ) : RecyclerView.Adapter<CategoriasAdapter.CategoriasViewHolder>() {
@@ -27,6 +29,8 @@ class CategoriasAdapter(
 
     inner class CategoriasViewHolder(val binding: RecyclerViewListaCategoriasBinding) :
         RecyclerView.ViewHolder(binding.root)
+
+    var infoAdd: Boolean = false
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CategoriasViewHolder {
         val binding = RecyclerViewListaCategoriasBinding.inflate(
@@ -43,6 +47,11 @@ class CategoriasAdapter(
         val btnEditar    = holder.binding.imgBtnEditarCategoria
         val btnDeletar   = holder.binding.imgBtnDeleteCategoria
 
+        if (editingPositions.contains(position)) {
+            btnEditar.setImageResource(R.drawable.icon_done)
+        } else {
+            btnEditar.setImageResource(R.drawable.ic_pencil)
+        }
 
         txtCategoria.imeOptions = EditorInfo.IME_ACTION_DONE
         txtCategoria.setSingleLine(true)
@@ -57,13 +66,13 @@ class CategoriasAdapter(
         val novoItem = categoria.id == null
         val editing  = editingPositions.contains(position) || novoItem
 
-        // 3) Preenche texto e habilita/desabilita
+        //Preenche texto e habilita/desabilita
         txtCategoria.setText(categoria.nome)
         txtCategoria.isEnabled             = editing
         txtCategoria.isFocusable           = editing
         txtCategoria.isFocusableInTouchMode = editing
 
-        // 4) Se em edição, pede foco e abre teclado
+         //Se em edição, pede foco e abre teclado
         if (editing) {
             txtCategoria.post {
                 txtCategoria.requestFocus()
@@ -74,68 +83,63 @@ class CategoriasAdapter(
             }
         }
 
-        // 5) Remove flag de edição automática em novoItem
+        //  Remove flag de edição automática em novoItem
         if (novoItem) editingPositions.remove(position)
 
-        // 6) Botão Editar ativa modo edição
+        // Botão Editar ativa modo edição
         btnEditar.setOnClickListener {
-            editingPositions.add(position)
-            notifyItemChanged(position)
+            if (editingPositions.contains(position)) {
+
+                holder.binding.txtCategoria.clearFocus()
+            } else {
+                editingPositions.add(position)
+                notifyItemChanged(position)
+            }
         }
 
         //Ao perder foco, salva e então remove edição
         txtCategoria.setOnFocusChangeListener { _, hasFocus ->
-            if (!hasFocus && editing) {
+            if (!hasFocus) {
                 val novoNome = txtCategoria.text.toString().trim()
-                if (novoNome.isNotEmpty()) {
+                if (novoNome.isEmpty()) {
+                    // só sai do modo edição
+                } else {
                     uid?.let { userId ->
                         val ref = db.collection("usuarios")
                             .document(userId)
                             .collection("categorias")
-                        if (categoria.id != null) {
-                            // UPDATE existente
-                            ref.document(categoria.id!!)
-                                .update("nome", novoNome)
-                                .addOnSuccessListener {
-                                    Log.d("CAT_ADAPTER", "Atualizou ${categoria.id} → $novoNome")
-                                }
-                                .addOnFailureListener { e ->
-                                    Log.e("CAT_ADAPTER", "Erro no update", e)
-                                }
-                            // após update, remove edição
-                            editingPositions.remove(position)
-                            notifyItemChanged(position)
-                        } else {
-                            // ADD novo e somente tira foco após sucesso/falha
+
+                        if (categoria.id == null) {
+                            // ADD
                             ref.add(mapOf("nome" to novoNome))
                                 .addOnSuccessListener { docRef ->
-                                    Log.d("CAT_ADAPTER", "Criou categoria ${docRef.id}")
                                     categoria.id = docRef.id
-                                    // agora que salvou, remove foco e edição
-                                    txtCategoria.clearFocus()
+                                    categoria.nome = novoNome
+                                    lista[position] = categoria
+                                    Log.d("CAT_ADAPTER", "Criou ${docRef.id}")
+                                    // agora sim remove edição e fecha teclado
                                     editingPositions.remove(position)
                                     notifyItemChanged(position)
                                 }
-                                .addOnFailureListener { e ->
-                                    Log.e("CAT_ADAPTER", "Erro no add", e)
-                                    txtCategoria.clearFocus()
+                        } else {
+                            // UPDATE
+                            ref.document(categoria.id!!)
+                                .update("nome", novoNome)
+                                .addOnSuccessListener {
+                                    categoria.nome = novoNome
+                                    lista[position] = categoria
+                                    Log.d("CAT_ADAPTER", "Atualizou ${categoria.id}")
                                     editingPositions.remove(position)
                                     notifyItemChanged(position)
                                 }
                         }
-                        categoria.nome = novoNome
-                        lista[holder.adapterPosition] = categoria
                     }
-                } else {
-                    //texto vazio: só sai do modo edição
-                    txtCategoria.clearFocus()
-                    editingPositions.remove(position)
-                    notifyItemChanged(position)
                 }
             }
         }
 
-        // Delete
+
+        //Delete
         btnDeletar.setOnClickListener {
             val builder = AlertDialog.Builder(holder.itemView.context)
             builder.setTitle("Excluir categoria")
@@ -173,4 +177,9 @@ class CategoriasAdapter(
             dialog.show()
         }
     }
+    fun entrarEmEdicao(posicao: Int) {
+        editingPositions.add(posicao)
+        notifyItemChanged(posicao)
+    }
+
 }

@@ -138,36 +138,37 @@
             app:layout_constraintStart_toStartOf="@+id/layoutInputValorReceita"
             app:layout_constraintTop_toBottomOf="@+id/layoutInputValorReceita" />
 
+
         <Button
             android:id="@+id/btnAddReceita"
+            style="@style/Buttons"
+            android:layout_width="150dp"
+            android:layout_height="75dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:text="ADICIONAR"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/btnCancelar"
+            app:layout_constraintTop_toTopOf="@+id/btnCancelar" />
+
+        <Button
+            android:id="@+id/btnCancelar"
             style="@style/Buttons"
             android:layout_width="150dp"
             android:layout_height="75dp"
             android:layout_marginTop="32dp"
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
-            android:text="ADICIONAR"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toStartOf="@+id/btnCancelar"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/layoutDataReceita" />
-        <Button
-            android:id="@+id/btnCancelar"
-            style="@style/Buttons"
-            android:layout_width="150dp"
-            android:layout_height="75dp"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp"
             android:text="CANCELAR"
             android:textSize="18sp"
             android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/btnAddReceita"
             app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/btnAddReceita"
-            app:layout_constraintTop_toTopOf="@+id/btnAddReceita" />
-
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/layoutDataReceita" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline13"
