@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.lemoncoin.classeObjetos.RvMovimentacoesClasse
 import com.example.lemoncoin.R
+import com.example.lemoncoin.adapters.ListaDespesasAdapter
 import com.example.lemoncoin.adapters.ListaReceitasAdapter
 import com.example.lemoncoin.databinding.FragmentReceitasBinding
 import com.google.firebase.auth.FirebaseAuth
@@ -80,7 +81,11 @@ class ReceitasFragment : Fragment() {
                         Log.w("Firestore", "Documento com campos nulos: ${document.id}")
                     }
                 }
-                val adapter = ListaReceitasAdapter(listaReceitas)
+                val adapter = ListaDespesasAdapter(listaReceitas) { movimentacaoSelecionada ->
+                    val fragment = AddReceitasFragment.newInstance(movimentacaoSelecionada.id)
+                    trocarFragment(fragment)
+
+                }
                 binding.rvListaReceitas.layoutManager = LinearLayoutManager(requireContext())
                 binding.rvListaReceitas.adapter = adapter
 

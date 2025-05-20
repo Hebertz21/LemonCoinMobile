@@ -3,6 +3,7 @@ package com.example.lemoncoin.fragments
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -24,8 +25,59 @@ class AddReceitasFragment : Fragment() {
 
     private var _binding: FragmentAddReceitasBinding? = null
     private val binding get() = _binding!!
+    private val firestore = FirebaseFirestore.getInstance()
+    private var modo = "add"
 
-    private fun EditText.addMoneyMask(){
+    private var listaCategoriasId: MutableList<String> = mutableListOf()
+    private var listaContasId: MutableList<String> = mutableListOf()
+    private var categoriaIdRecebida: String? = null
+    private var contaIdRecebida: String? = null
+
+    companion object { //caso abra a tela no modo editar
+        private const val ARG_Receita_ID = "receita_id"
+
+        fun newInstance(id: String): AddReceitasFragment {
+            val fragment = AddReceitasFragment()
+            val args = Bundle()
+            args.putString(ARG_Receita_ID, id)
+            fragment.arguments = args
+            return fragment
+        }
+    }
+
+    private fun carregarDadosReceita() {
+        Log.i(null, "id enviado: ${arguments?.getString(ARG_Receita_ID)}")
+        val userId = FirebaseAuth.getInstance().currentUser?.uid ?: return
+        val movId = arguments?.getString(ARG_Receita_ID) ?: return
+        modo = "edit"
+
+        firestore.collection("usuarios")
+            .document(userId)
+            .collection("movimentações")
+            .document(movId)
+            .get()
+            .addOnSuccessListener { document ->
+                if (document != null && document.exists()) {
+                    val nome = document.getString("nome")
+                    val valor = document.getDouble("valor")
+                    val data = document.getDate("data")
+                    categoriaIdRecebida = document.getString("categoriaId")
+                    contaIdRecebida = document.getString("contaId")
+
+                    binding.inputNomeReceita.setText(nome)
+                    binding.inputValorReceita.setText(valor.toString())
+                    val dataFormatada = SimpleDateFormat(
+                        "dd/MM/yyyy",
+                        Locale.getDefault()).format(data)
+                    binding.etDataReceitas.setText(dataFormatada)
+                }
+            }
+
+        binding.btnAddReceita.text = "EDITAR"
+        binding.txtTitulo.text = "EDITAR RECEITA"
+    }
+
+    private fun EditText.addMoneyMask() {
         val locale = Locale("pt", "BR")
         val currencyFormat = NumberFormat.getCurrencyInstance(locale)
 
@@ -39,10 +91,7 @@ class AddReceitasFragment : Fragment() {
                 if (s.toString() != current) {
                     this@addMoneyMask.removeTextChangedListener(this)
 
-                    val cleanString = s.toString()
-                        .replace("[R$,.\\s]".toRegex(), "")
-                        .trim()
-
+                    val cleanString = s.toString().replace("[R$,.\\s]".toRegex(), "").trim()
                     val parsed = cleanString.toDoubleOrNull() ?: 0.0
                     val formatted = currencyFormat.format(parsed / 100)
 
@@ -56,28 +105,26 @@ class AddReceitasFragment : Fragment() {
         })
     }
 
-    override fun onCreateView(  //Metodo que constroi a visualização do fragment
+    override fun onCreateView( //Metodo que constroi a visualização do fragment
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = FragmentAddReceitasBinding.inflate(inflater,
-            container, false)
-
+        _binding = FragmentAddReceitasBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        carregarDadosReceita()
 
-        binding.etDataReceitas.setOnClickListener{
+        binding.etDataReceitas.setOnClickListener {
             val datePicker = MaterialDatePicker.Builder.datePicker()
                 .setTitleText("Selecione a data")
                 .setTheme(R.style.datePicker)
                 .build()
             datePicker.addOnPositiveButtonClickListener { millis ->
-                val dataformatada = SimpleDateFormat("dd/MM/yyyy",
-                    Locale.getDefault()).format(Date(millis))
+                val dataformatada = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(Date(millis))
                 binding.etDataReceitas.setText(dataformatada)
             }
             datePicker.show(parentFragmentManager, "Date_Picker")
@@ -86,7 +133,7 @@ class AddReceitasFragment : Fragment() {
         val uid = FirebaseAuth.getInstance().currentUser?.uid ?: return
 
         //configuração do spinner de categorias
-        var categoriasNome : MutableList<String> = mutableListOf("Selecione Categoria")
+        val categoriasNome: MutableList<String> = mutableListOf("Selecione Categoria")
         var listaCategoriasId : MutableList<String> = mutableListOf()
 
         FirebaseFirestore.getInstance()
@@ -97,16 +144,24 @@ class AddReceitasFragment : Fragment() {
             .get()
             .addOnSuccessListener { docs ->
                 docs.forEach { doc ->
-                    categoriasNome.add(doc.getString("nome") ?: "")
+                    val nome = doc.getString("nome") ?: ""
+                    categoriasNome.add(nome)
                     listaCategoriasId.add(doc.id)
                 }
+
+                val categoriaAdapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, categoriasNome)
+                binding.spnCategoriaReceita.adapter = categoriaAdapter
+
+                if (modo == "edit") {
+                    val pos = listaCategoriasId.indexOf(categoriaIdRecebida)
+                    if (pos >= 0) binding.spnCategoriaReceita.setSelection(pos + 1)
+                }
             }
-        val categoriaAdapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, categoriasNome)
-        binding.spnCategoriaReceita.adapter = categoriaAdapter
 
         //configuração do spinner de contas
-        var contasNome : MutableList<String> = mutableListOf("Selecione Conta")
+        val contasNome: MutableList<String> = mutableListOf("Selecione Conta")
         var listaContasId : MutableList<String> = mutableListOf()
+
         FirebaseFirestore.getInstance()
             .collection("usuarios")
             .document(uid)
@@ -115,20 +170,27 @@ class AddReceitasFragment : Fragment() {
             .get()
             .addOnSuccessListener { docs ->
                 docs.forEach { doc ->
-                    contasNome.add(doc.getString("nome") ?: "")
+                    val nome = doc.getString("nome") ?: ""
+                    contasNome.add(nome)
                     listaContasId.add(doc.id)
                 }
+
+                val contaAdapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, contasNome)
+                binding.spnContaReceita.adapter = contaAdapter
+
+                if (modo == "edit") {
+                    val pos = listaContasId.indexOf(contaIdRecebida)
+                    if (pos >= 0) binding.spnContaReceita.setSelection(pos + 1)
+                }
             }
-        val contaAdapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, contasNome)
-        binding.spnContaReceita.adapter = contaAdapter
 
         binding.inputValorReceita.addMoneyMask()
 
-        binding.btnCancelar.setOnClickListener(){
+        binding.btnCancelar.setOnClickListener {
             parentFragmentManager.popBackStack()
         }
 
-        binding.btnAddReceita.setOnClickListener(){
+        binding.btnAddReceita.setOnClickListener {
             val nome = binding.inputNomeReceita.text.toString()
             val txtValor = binding.inputValorReceita.text.toString()
             val txtData = binding.etDataReceitas.text.toString()
@@ -139,14 +201,14 @@ class AddReceitasFragment : Fragment() {
                 txtValor.isNotEmpty() &&
                 txtData.isNotEmpty() &&
                 categoriaPosition > 0 &&
-                contaPosition > 0)
-            {
+                contaPosition > 0
+            ) {
                 val categoriaId = listaCategoriasId[categoriaPosition - 1]
                 val contaId = listaContasId[contaPosition - 1]
                 val valor = txtValor.replace("[R$,.\\s]".toRegex(), "").trim().toDouble() / 100
                 val data = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).parse(txtData)
 
-                val despesa = hashMapOf(
+                val receita = hashMapOf(
                     "nome" to nome,
                     "valor" to valor,
                     "data" to data,
@@ -154,21 +216,28 @@ class AddReceitasFragment : Fragment() {
                     "contaId" to contaId,
                     "tipo" to "Receita"
                 )
-                FirebaseFirestore.getInstance()
-                    .collection("usuarios")
-                    .document(uid)
-                    .collection("movimentações")
-                    .add(despesa)
+
+                if (modo == "add") {
+                    FirebaseFirestore.getInstance()
+                        .collection("usuarios")
+                        .document(uid)
+                        .collection("movimentações")
+                        .add(receita)
+                } else if (modo == "edit") {
+                    val receitaId = arguments?.getString(ARG_Receita_ID) ?: return@setOnClickListener
+                    FirebaseFirestore.getInstance()
+                        .collection("usuarios")
+                        .document(uid)
+                        .collection("movimentações")
+                        .document(receitaId).set(receita)
+                }
 
                 parentFragmentManager.popBackStack()
                 Toast.makeText(requireContext(),
-                    "Despesa cadastrada com sucesso!", Toast.LENGTH_SHORT).show()
-
+                "Receita atualizada com sucesso!", Toast.LENGTH_SHORT).show()
             } else {
-                Toast.makeText(requireContext(),
-                    "Preencha todos os campos", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), "Preencha todos os campos", Toast.LENGTH_SHORT).show()
             }
         }
-
     }
 }

@@ -5,7 +5,9 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
+import com.example.lemoncoin.R
 import com.example.lemoncoin.classeObjetos.RvMovimentacoesClasse
 import com.example.lemoncoin.databinding.RecyclerViewListaMovimentacoesBinding
 import com.google.firebase.auth.FirebaseAuth
@@ -66,14 +68,14 @@ class ListaDespesasAdapter(private val lista: MutableList<RvMovimentacoesClasse>
             .collection("categorias") //categorias do usuário atual
             .document(movimentacao.categoria)
 
-        val nomeCategoria = categoria.get().addOnSuccessListener { document ->
+        /*val nomeCategoria = categoria.get().addOnSuccessListener { document ->
             if (document.exists()) {
                 val nomeCategoria = document.getString("nome")
                 holder.binding.txtCategoriaRvMovimentacao.text = nomeCategoria
             } else {
                 holder.binding.txtCategoriaRvMovimentacao.text = "Nenhuma categoria vinculada"
             }
-        }
+        }*/
 
         holder.binding.txtNomeRvMovimentacao.text = movimentacao.nome
         holder.binding.txtValorRvMovimentacao.text = valorFormatado
@@ -115,7 +117,19 @@ class ListaDespesasAdapter(private val lista: MutableList<RvMovimentacoesClasse>
                 .setNegativeButton("Não") { dialog, _ ->
                     dialog.dismiss()
                 }
-                .show()
+            val dialog = builder.create()
+
+            dialog.setOnShowListener {
+                val btnSim = dialog.getButton(AlertDialog.BUTTON_POSITIVE)
+                val btnNao = dialog.getButton(AlertDialog.BUTTON_NEGATIVE)
+
+                btnSim.setTextColor(ContextCompat.getColor(holder.itemView.context, R.color.textView))
+                btnNao.setTextColor(ContextCompat.getColor(holder.itemView.context, R.color.textView))
+
+            }
+            dialog.show()
+            true
+
         }
     }
 

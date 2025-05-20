@@ -5,7 +5,9 @@ import android.util.Log
 import android.widget.Toast
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
+import com.example.lemoncoin.R
 import com.example.lemoncoin.classeObjetos.RvMovimentacoesClasse
 import com.example.lemoncoin.databinding.RecyclerViewListaMovimentacoesBinding
 import com.google.android.gms.tasks.OnSuccessListener
@@ -17,7 +19,8 @@ import java.text.SimpleDateFormat
 import java.util.concurrent.Executors
 
 
-class ListaReceitasAdapter(private val lista: MutableList<RvMovimentacoesClasse>) :
+class ListaReceitasAdapter(private val lista: MutableList<RvMovimentacoesClasse>,
+                            private val onEditClick: (RvMovimentacoesClasse) -> Unit) :
     RecyclerView.Adapter<ListaReceitasAdapter.ReceitaViewHolder>() {
     inner class ReceitaViewHolder(val binding: RecyclerViewListaMovimentacoesBinding) :
         RecyclerView.ViewHolder(binding.root)
@@ -79,7 +82,7 @@ class ListaReceitasAdapter(private val lista: MutableList<RvMovimentacoesClasse>
         holder.binding.txtDataRvMovimentacao.text = data
 
         holder.binding.imgBtnEditar.setOnClickListener {
-            Toast.makeText(holder.itemView.context, "btn editar", Toast.LENGTH_SHORT).show()
+            onEditClick(movimentacao)
         }
 
         holder.binding.imgBtnDelete.setOnClickListener {
@@ -114,7 +117,18 @@ class ListaReceitasAdapter(private val lista: MutableList<RvMovimentacoesClasse>
                 .setNegativeButton("Não") { dialog, _ ->
                     dialog.dismiss()
                 }
-                .show()
+            val dialog = builder.create()
+
+            dialog.setOnShowListener {
+                val btnSim = dialog.getButton(AlertDialog.BUTTON_POSITIVE)
+                val btnNao = dialog.getButton(AlertDialog.BUTTON_NEGATIVE)
+
+                btnSim.setTextColor(ContextCompat.getColor(holder.itemView.context, R.color.textView))
+                btnNao.setTextColor(ContextCompat.getColor(holder.itemView.context, R.color.textView))
+
+            }
+            dialog.show()
+            true
         }
     }
 

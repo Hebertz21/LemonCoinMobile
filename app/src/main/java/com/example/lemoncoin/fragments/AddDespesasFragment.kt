@@ -28,6 +28,11 @@ class AddDespesasFragment : Fragment() {
     private val firestore = FirebaseFirestore.getInstance()
     private var modo = "add"
 
+    private var listaCategoriasId: MutableList<String> = mutableListOf()
+    private var listaContasId: MutableList<String> = mutableListOf()
+    private var categoriaIdRecebida: String? = null
+    private var contaIdRecebida: String? = null
+
     companion object { //caso abra a tela no modo editar
         private const val ARG_DESPESA_ID = "despesa_id"
 
@@ -56,8 +61,8 @@ class AddDespesasFragment : Fragment() {
                     val nome = document.getString("nome")
                     val valor = document.getDouble("valor")
                     val data = document.getDate("data")
-                    val categoriaId = document.getString("categoriaId")
-                    val contaId = document.getString("contaId")
+                    categoriaIdRecebida = document.getString("categoriaId")
+                    contaIdRecebida = document.getString("contaId")
 
                     binding.inputNomeDespesa.setText(nome)
                     binding.inputValorDespesa.setText(valor.toString())
@@ -152,10 +157,14 @@ class AddDespesasFragment : Fragment() {
                     categoriasNome.add(doc.getString("nome") ?: "")
                     listaCategoriasId.add(doc.id)
                 }
-            }
+                val categoriaAdapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, categoriasNome)
+                binding.spnCategoriaDespesa.adapter = categoriaAdapter
 
-        val categoriaAdapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, categoriasNome)
-        binding.spnCategoriaDespesa.adapter = categoriaAdapter
+                if (modo == "edit") {
+                    val pos = listaCategoriasId.indexOf(categoriaIdRecebida)
+                    if (pos >= 0) binding.spnCategoriaDespesa.setSelection(pos + 1)
+                }
+            }
 
         //configuração do spinner de contas
         var contasNome : MutableList<String> = mutableListOf("Selecione Conta")
@@ -171,9 +180,15 @@ class AddDespesasFragment : Fragment() {
                     contasNome.add(doc.getString("nome") ?: "")
                     listaContasId.add(doc.id)
                 }
+                val contaAdapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, contasNome)
+                binding.spnContaDespesa.adapter = contaAdapter
+
+                if (modo == "edit") {
+                    val pos = listaContasId.indexOf(contaIdRecebida)
+                    if (pos >= 0) binding.spnContaDespesa.setSelection(pos + 1)
+                }
             }
-        val contaAdapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, contasNome)
-        binding.spnContaDespesa.adapter = contaAdapter
+
 
         binding.inputValorDespesa.addMoneyMask()
 
@@ -224,7 +239,7 @@ class AddDespesasFragment : Fragment() {
 
                 parentFragmentManager.popBackStack()
                 Toast.makeText(requireContext(),
-                    "Despesa cadastrada com sucesso!", Toast.LENGTH_SHORT).show()
+                    "Despesa atualizada com sucesso!", Toast.LENGTH_SHORT).show()
 
             } else {
                 Toast.makeText(requireContext(),
