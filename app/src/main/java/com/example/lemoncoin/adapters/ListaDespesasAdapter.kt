@@ -8,7 +8,7 @@ import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.example.lemoncoin.R
-import com.example.lemoncoin.classeObjetos.RvMovimentacoesClasse
+import com.example.lemoncoin.classeObjetos.Movimentacao
 import com.example.lemoncoin.databinding.RecyclerViewListaMovimentacoesBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -17,8 +17,8 @@ import java.text.SimpleDateFormat
 import java.util.Locale
 import java.util.concurrent.Executors
 
-class ListaDespesasAdapter(private val lista: MutableList<RvMovimentacoesClasse>,
-                            private val onEditClick: (RvMovimentacoesClasse) -> Unit) :
+class ListaDespesasAdapter(private val lista: MutableList<Movimentacao>,
+                           private val onEditClick: (Movimentacao) -> Unit) :
     RecyclerView.Adapter<ListaDespesasAdapter.DespesaViewHolder>() {
 
     inner class DespesaViewHolder(val binding: RecyclerViewListaMovimentacoesBinding) :
@@ -68,14 +68,14 @@ class ListaDespesasAdapter(private val lista: MutableList<RvMovimentacoesClasse>
             .collection("categorias") //categorias do usuário atual
             .document(movimentacao.categoria)
 
-        /*val nomeCategoria = categoria.get().addOnSuccessListener { document ->
+        val nomeCategoria = categoria.get().addOnSuccessListener { document ->
             if (document.exists()) {
                 val nomeCategoria = document.getString("nome")
                 holder.binding.txtCategoriaRvMovimentacao.text = nomeCategoria
             } else {
                 holder.binding.txtCategoriaRvMovimentacao.text = "Nenhuma categoria vinculada"
             }
-        }*/
+        }
 
         holder.binding.txtNomeRvMovimentacao.text = movimentacao.nome
         holder.binding.txtValorRvMovimentacao.text = valorFormatado

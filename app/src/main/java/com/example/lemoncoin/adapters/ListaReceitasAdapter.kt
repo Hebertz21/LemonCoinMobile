@@ -1,16 +1,14 @@
 package com.example.lemoncoin.adapters
 
 import android.app.AlertDialog
-import android.util.Log
 import android.widget.Toast
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.example.lemoncoin.R
-import com.example.lemoncoin.classeObjetos.RvMovimentacoesClasse
+import com.example.lemoncoin.classeObjetos.Movimentacao
 import com.example.lemoncoin.databinding.RecyclerViewListaMovimentacoesBinding
-import com.google.android.gms.tasks.OnSuccessListener
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import java.text.NumberFormat
@@ -19,8 +17,8 @@ import java.text.SimpleDateFormat
 import java.util.concurrent.Executors
 
 
-class ListaReceitasAdapter(private val lista: MutableList<RvMovimentacoesClasse>,
-                            private val onEditClick: (RvMovimentacoesClasse) -> Unit) :
+class ListaReceitasAdapter(private val lista: MutableList<Movimentacao>,
+                           private val onEditClick: (Movimentacao) -> Unit) :
     RecyclerView.Adapter<ListaReceitasAdapter.ReceitaViewHolder>() {
     inner class ReceitaViewHolder(val binding: RecyclerViewListaMovimentacoesBinding) :
         RecyclerView.ViewHolder(binding.root)

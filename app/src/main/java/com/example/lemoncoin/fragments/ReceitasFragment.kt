@@ -7,10 +7,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.lemoncoin.classeObjetos.RvMovimentacoesClasse
+import com.example.lemoncoin.classeObjetos.Movimentacao
 import com.example.lemoncoin.R
 import com.example.lemoncoin.adapters.ListaDespesasAdapter
-import com.example.lemoncoin.adapters.ListaReceitasAdapter
 import com.example.lemoncoin.databinding.FragmentReceitasBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -48,7 +47,7 @@ class ReceitasFragment : Fragment() {
             .collection("movimentações")
         Log.i(null, "Terminou a busca de movimentações")
 
-        val listaReceitas : MutableList<RvMovimentacoesClasse> = mutableListOf()
+        val listaReceitas : MutableList<Movimentacao> = mutableListOf()
 
         dbMovimentacoes.orderBy("data").get().addOnCompleteListener {
             if (it.isSuccessful) {
@@ -66,7 +65,7 @@ class ReceitasFragment : Fragment() {
                         && tipo != null && valor != null)
                     {
                         if (tipo == "Receita") {
-                            val movimentacao = RvMovimentacoesClasse(
+                            val movimentacao = Movimentacao(
                                 nome = nome,
                                 valor = valor,
                                 data = data,
