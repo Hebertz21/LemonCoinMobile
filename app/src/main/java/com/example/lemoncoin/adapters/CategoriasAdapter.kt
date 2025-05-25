@@ -12,7 +12,7 @@ import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.example.lemoncoin.R
-import com.example.lemoncoin.classeObjetos.Categorias
+import com.example.lemoncoin.classeObjetos.Categoria
 import com.example.lemoncoin.databinding.RecyclerViewListaCategoriasBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -20,7 +20,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 
 
 class CategoriasAdapter(
-    private val lista: MutableList<Categorias>
+    private val lista: MutableList<Categoria>
 ) : RecyclerView.Adapter<CategoriasAdapter.CategoriasViewHolder>() {
 
     private val editingPositions = mutableSetOf<Int>() // posições em modo edição

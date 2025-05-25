@@ -62,13 +62,14 @@
         <Button
             android:id="@+id/btnAddDespesas"
             style="@style/Buttons"
-            android:layout_width="155dp"
-            android:layout_height="0dp"
+            android:layout_width="142dp"
+            android:layout_height="74dp"
+            android:textSize="16dp"
+            android:textStyle="bold"
             android:layout_marginEnd="16dp"
             android:layout_marginBottom="24dp"
             android:text="ADICIONAR DESPESA"
             android:textColor="@color/textButton"
-            android:textSize="18dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
 

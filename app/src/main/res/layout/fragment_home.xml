@@ -57,6 +57,7 @@
         android:id="@+id/constMovimentancoes"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:layout_marginTop="10dp"
         android:layout_marginBottom="16dp"
         android:background="@drawable/background_rounded_white"
         android:elevation="20dp"
@@ -117,6 +118,7 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginTop="24dp"
+        android:layout_marginBottom="10dp"
         android:background="@drawable/background_rounded_white"
         android:elevation="20dp"
         app:layout_constraintBottom_toTopOf="@+id/constraintLayout8"
@@ -129,63 +131,139 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:text="CATEGORIAS | GASTOS"
+            android:text="CATEGORIAS | SALDO"
             android:textSize="20sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/RvCategorias"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="11dp"
+            android:layout_marginBottom="20dp"
+            android:fadeScrollbars="false"
+            android:scrollbarStyle="insideInset"
+            android:scrollbars="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView14" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout8"
         android:layout_width="0dp"
-        android:layout_height="85dp"
+        android:layout_height="wrap_content"
         app:layout_constraintBottom_toTopOf="@+id/guideline14"
         app:layout_constraintEnd_toStartOf="@+id/guideline11"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="@+id/guideline9">
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/constraintLayout6"
+            android:id="@+id/containerConta1"
             android:layout_width="0dp"
             android:layout_height="63dp"
             android:background="@drawable/background_rounded_white_menor"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/constraintLayout5"
+            app:layout_constraintEnd_toStartOf="@+id/containerConta2"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintHorizontal_chainStyle="spread_inside"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.5">
 
+            <TextView
+                android:id="@+id/txtConta1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="Clique aqui para adcionar contas "
+                android:textAlignment="center"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/txtSaldo1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:text="R$"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txtConta1" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/constraintLayout7"
+            android:id="@+id/containerVerMais"
             android:layout_width="0dp"
             android:layout_height="63dp"
             android:layout_marginStart="8dp"
             android:background="@drawable/background_rounded_white_menor"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/constraintLayout5"
-            app:layout_constraintTop_toTopOf="@+id/constraintLayout6">
+            app:layout_constraintStart_toEndOf="@+id/containerConta2"
+            app:layout_constraintTop_toTopOf="@+id/containerConta1">
 
+            <TextView
+                android:id="@+id/txtVerMais"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Ver Mais..."
+                android:textAlignment="center"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/constraintLayout5"
+            android:id="@+id/containerConta2"
             android:layout_width="0dp"
             android:layout_height="63dp"
             android:layout_marginStart="8dp"
             android:background="@drawable/background_rounded_white_menor"
-            app:layout_constraintEnd_toStartOf="@+id/constraintLayout7"
+            app:layout_constraintEnd_toStartOf="@+id/containerVerMais"
             app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/constraintLayout6"
-            app:layout_constraintTop_toTopOf="@+id/constraintLayout6">
+            app:layout_constraintStart_toEndOf="@+id/containerConta1"
+            app:layout_constraintTop_toTopOf="@+id/containerConta1">
 
+            <TextView
+                android:id="@+id/txtConta2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="Clique aqui para adcionar contas "
+                android:textAlignment="center"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/txtSaldo2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:text="R$"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txtConta2" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

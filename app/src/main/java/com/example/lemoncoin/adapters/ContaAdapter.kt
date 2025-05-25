@@ -41,7 +41,6 @@ class ContaAdapter(private val contas: MutableList<Conta>, //Conta é um list
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val conta = contas[position]    //vetor para contas
         val valor = conta.saldo
-        //val descricao = conta.
         val saldoFormatado = NumberFormat
             .getCurrencyInstance(Locale("pt", "BR")).format(valor)
 

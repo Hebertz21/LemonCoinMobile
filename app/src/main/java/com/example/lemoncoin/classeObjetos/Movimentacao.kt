@@ -2,7 +2,7 @@ package com.example.lemoncoin.classeObjetos
 
 import java.util.Date
 
-data class RvMovimentacoesClasse(
+data class Movimentacao(
     val nome: String,
     val valor: Double,
     val data: Date,

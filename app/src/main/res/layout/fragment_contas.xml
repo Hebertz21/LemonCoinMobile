@@ -40,7 +40,11 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerContas"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:scrollbars="vertical"
+            android:fadeScrollbars="false"
+            android:scrollbarStyle="insideInset"
+            />
 
     </androidx.gridlayout.widget.GridLayout>
 
