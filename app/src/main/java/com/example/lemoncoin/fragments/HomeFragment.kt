@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.view.size
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -69,6 +70,10 @@ class HomeFragment : Fragment() {
             trocarFragment(ContasFragment())
         }
 
+        binding.constMovimentancoes.setOnClickListener(){
+            trocarFragment(MovimentacoesFragment())
+        }
+
     }
 
     private fun trocarFragment(fragment: Fragment) {
@@ -79,7 +84,9 @@ class HomeFragment : Fragment() {
     }
 
     private fun carregarMovimentacoes() {
-        adapterMovimentacoes = MovimentHomeAdapter(listaMovimentacoes)
+        adapterMovimentacoes = MovimentHomeAdapter(listaMovimentacoes) {
+            trocarFragment(MovimentacoesFragment())
+        }
         binding.rvMovimentacoesHome.layoutManager = LinearLayoutManager(requireContext())
         binding.rvMovimentacoesHome.adapter = adapterMovimentacoes
 

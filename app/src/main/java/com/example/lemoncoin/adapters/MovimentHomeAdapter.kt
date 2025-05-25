@@ -13,7 +13,8 @@ import java.util.Date
 import java.util.Locale
 
 class MovimentHomeAdapter (
-    private val lista: MutableList<Movimentacao>
+    private val lista: MutableList<Movimentacao>,
+    private val onItemClick: () -> Unit
 ) : RecyclerView.Adapter<MovimentHomeAdapter.ViewHolder>() {
 
     inner class ViewHolder(val binding: RecyclerViewMovimentHomeBinding) :
@@ -34,8 +35,10 @@ class MovimentHomeAdapter (
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        holder.itemView.setOnClickListener {
+            onItemClick()
+        }
         val movimentacao = lista[position]
-        var saldo = 0.0
 
         //puxa todas movimentações do usuário
         FirebaseFirestore.getInstance()
@@ -60,13 +63,13 @@ class MovimentHomeAdapter (
                     )
                 }
                 Log.i(null, "Lista de movimentações: ${listaMovimentacoes}")
-
-                val saldoFormatado = NumberFormat
-                    .getCurrencyInstance(Locale("pt", "BR")).format(saldo)
-
-                holder.binding.txtSaldo.text = saldoFormatado
             }
+        val valor = movimentacao.valor
 
+        val valorFormatado = NumberFormat
+            .getCurrencyInstance(Locale("pt", "BR")).format(valor)
+
+        holder.binding.txtSaldo.text = valorFormatado
         holder.binding.txtMovimentacao.text = movimentacao.nome
     }
 

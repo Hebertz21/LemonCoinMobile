@@ -73,6 +73,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:text="HISTÓRICO DE MOVIMENTAÇÕES"
+            android:textColor="@color/titulos"
             android:textSize="20dp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
@@ -81,13 +82,11 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvMovimentacoesHome"
-            android:layout_width="351dp"
-            android:layout_height="267dp"
-            android:layout_marginTop="32dp"
+            android:layout_width="348dp"
+            android:layout_height="263dp"
             android:fadeScrollbars="false"
             android:scrollbarStyle="insideInset"
             android:scrollbars="vertical"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView7" />
@@ -113,6 +112,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:text="CATEGORIAS | SALDO"
+            android:textColor="@color/titulos"
             android:textSize="20sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
