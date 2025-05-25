@@ -11,12 +11,15 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.lemoncoin.AtualizarContaFragment
 import com.example.lemoncoin.R
 import com.example.lemoncoin.adapters.CategoriaHomeAdapter
+import com.example.lemoncoin.adapters.MovimentHomeAdapter
+import com.example.lemoncoin.classeObjetos.Movimentacao
 import com.example.lemoncoin.classeObjetos.Categoria
 import com.example.lemoncoin.classeObjetos.Conta
 import com.example.lemoncoin.databinding.FragmentHomeBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import java.text.NumberFormat
+import java.util.Date
 import java.util.Locale
 
 class HomeFragment : Fragment() {
@@ -25,7 +28,10 @@ class HomeFragment : Fragment() {
     private val binding get() = _binding!!
 
     private val listaCategorias = mutableListOf<Categoria>()
-    private lateinit var adapter : CategoriaHomeAdapter
+    private lateinit var adapterCategorias : CategoriaHomeAdapter
+
+    private val listaMovimentacoes = mutableListOf<Movimentacao>()
+    private lateinit var adapterMovimentacoes : MovimentHomeAdapter
 
     private val userId = FirebaseAuth.getInstance().currentUser?.uid
 
@@ -46,6 +52,7 @@ class HomeFragment : Fragment() {
         try {
             carregarCategorias()
             carregarContas()
+            carregarMovimentacoes()
         } catch (e: Exception) {
             Log.e("HomeFragment", "Erro ao carregar home", e)
         }
@@ -71,6 +78,44 @@ class HomeFragment : Fragment() {
             .commit()
     }
 
+    private fun carregarMovimentacoes() {
+        adapterMovimentacoes = MovimentHomeAdapter(listaMovimentacoes)
+        binding.rvMovimentacoesHome.layoutManager = LinearLayoutManager(requireContext())
+        binding.rvMovimentacoesHome.adapter = adapterMovimentacoes
+
+        if (userId == null) {
+            listaMovimentacoes.clear()
+            if (::adapterMovimentacoes.isInitialized) {
+                adapterMovimentacoes.notifyDataSetChanged()
+            }
+            return
+        }
+
+        FirebaseFirestore.getInstance()
+            .collection("usuarios")
+            .document(userId)
+            .collection("movimentações")
+            .orderBy("data", com.google.firebase.firestore.Query.Direction.DESCENDING)
+            .get()
+            .addOnSuccessListener { docs ->
+                listaMovimentacoes.clear()
+                docs.forEach { doc ->
+                    listaMovimentacoes.add(Movimentacao(
+                        nome = doc.getString("nome") ?: "",
+                        valor = doc.getDouble("valor") ?: 0.0,
+                        data = doc.getDate("data") ?: Date(),
+                        categoria = doc.get("categoriaId").toString(),
+                        conta = doc.getString("contaId") ?: "",
+                        tipo = doc.getString("tipo") ?: "",
+                        id = doc.id
+                    ))
+                }
+                if (::adapterMovimentacoes.isInitialized) adapterMovimentacoes.notifyDataSetChanged()
+                Log.i(null, "115: Lista de movimentações: ${listaMovimentacoes}")
+            }
+            .addOnFailureListener { Log.e("HomeFragment", "Erro ao carregar movimentações", it) }
+    }
+
     private fun carregarContas() {
 
         val listaContas = mutableListOf<Conta>()
@@ -82,7 +127,6 @@ class HomeFragment : Fragment() {
                 binding.txtSaldo1.text = "R$ 0,00"
                 binding.txtConta2.text = "N/A"
                 binding.txtSaldo2.text = "R$ 0,00"
-                // Desabilitar cliques se necessário
                 binding.containerConta1.setOnClickListener(null)
                 binding.containerConta2.setOnClickListener(null)
             }
@@ -173,22 +217,22 @@ class HomeFragment : Fragment() {
     }
 
     private fun carregarCategorias() {
-        adapter = CategoriaHomeAdapter(listaCategorias)
+        adapterCategorias = CategoriaHomeAdapter(listaCategorias)
         binding.RvCategorias.layoutManager = LinearLayoutManager(requireContext())
-        binding.RvCategorias.adapter = adapter
+        binding.RvCategorias.adapter = adapterCategorias
 
         if (userId == null) {
             // Lidar com o caso de usuário não logado, talvez limpar a lista e notificar
             listaCategorias.clear()
-            if (::adapter.isInitialized) { // Verifica antes de notificar
-                adapter.notifyDataSetChanged()
+            if (::adapterCategorias.isInitialized) { // Verifica antes de notificar
+                adapterCategorias.notifyDataSetChanged()
             }
             return
         }
 
         FirebaseFirestore.getInstance()
             .collection("usuarios")
-            .document(userId)
+            .document(userId ?: "")
             .collection("categorias")
             .orderBy("nome")
             .get()
@@ -199,15 +243,15 @@ class HomeFragment : Fragment() {
                 }
                 // Notifica o adapter que o conjunto de dados foi alterado
                 // Isso fará com que o RecyclerView se redesenhe com os novos dados
-                if (::adapter.isInitialized) { // Verifica antes de notificar
-                    adapter.notifyDataSetChanged()
+                if (::adapterCategorias.isInitialized) { // Verifica antes de notificar
+                    adapterCategorias.notifyDataSetChanged()
                 }
             }
             .addOnFailureListener { exception ->
                 Log.e("HomeFragment", "Erro ao carregar categorias", exception)
                 listaCategorias.clear()
-                if (::adapter.isInitialized) {
-                    adapter.notifyDataSetChanged()
+                if (::adapterCategorias.isInitialized) {
+                    adapterCategorias.notifyDataSetChanged()
                 }
             }
             .addOnFailureListener {
