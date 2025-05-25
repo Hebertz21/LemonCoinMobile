@@ -36,6 +36,8 @@ class ContasFragment : Fragment() {  //É preciso um constructor vazio para a cl
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        binding.txtSemConta.visibility = View.GONE
+
         buscarContas()
 
         binding.btnAddContas.setOnClickListener(){
@@ -56,6 +58,10 @@ class ContasFragment : Fragment() {  //É preciso um constructor vazio para a cl
         val listaContas: MutableList<Conta> = mutableListOf()
 
         dbContas.orderBy("nome", Query.Direction.ASCENDING).get().addOnCompleteListener {
+            if (_binding == null) { // <-- VERIFICAÇÃO CRUCIAL
+                Log.d("ContasFragment", "Binding nulo em FragmentContas (success), retornando.")
+                return@addOnCompleteListener
+            }
             if (it.isSuccessful) {
                 for (document in it.result) {
                     Log.i(null, "entrou no ID: ${document.id}")
@@ -79,12 +85,8 @@ class ContasFragment : Fragment() {  //É preciso um constructor vazio para a cl
                         else -> R.drawable.lapis
                     }
 
-                    if (nome != null && saldo != null) {
-                        listaContas.add(Conta(nome, saldo, img, document.id))
+                    listaContas.add(Conta(nome ?: "", saldo ?: 0.0, img, document.id))
 
-                    } else {
-                        Log.w("Firestore", "Documento com campos nulos: ${document.id}")
-                    }
                 }
                 Log.i(null, "lista de contas: $listaContas")
                 val adapter = ContaAdapter(listaContas) { contaSelecionada -> //onContaClick
@@ -96,6 +98,12 @@ class ContasFragment : Fragment() {  //É preciso um constructor vazio para a cl
 
             } else {
                 Log.e("Firestore", "Erro ao buscar documentos", it.exception)
+            }
+            if(listaContas.isEmpty()){
+                binding.txtSemConta.visibility = View.VISIBLE
+                binding.txtSemConta.setOnClickListener(){
+                    openFragment(AddContasFragment())
+                }
             }
         }
     }

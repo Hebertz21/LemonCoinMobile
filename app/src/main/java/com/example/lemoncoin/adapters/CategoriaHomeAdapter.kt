@@ -15,7 +15,8 @@ import java.util.Locale
 
 
 class CategoriaHomeAdapter(
-    private val lista: MutableList<Categoria>
+    private val lista: MutableList<Categoria>,
+    private val onClick: () -> Unit
 ) : RecyclerView.Adapter<CategoriaHomeAdapter.ViewHolder>() {
 
     inner class ViewHolder(val binding: RecyclerViewCategoriaHomeBinding) :
@@ -79,6 +80,10 @@ class CategoriaHomeAdapter(
             }
 
         holder.binding.txtCategoria.text = categoria.nome
+
+        holder.binding.containerCategoria.setOnClickListener {
+            onClick()
+        }
     }
 
     override fun getItemCount(): Int {

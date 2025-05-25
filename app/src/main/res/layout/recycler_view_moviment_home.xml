@@ -7,7 +7,7 @@
     android:layout_height="wrap_content">
 
     <LinearLayout
-        android:id="@+id/containerCategoria"
+        android:id="@+id/containerMovimentacao"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:orientation="horizontal"

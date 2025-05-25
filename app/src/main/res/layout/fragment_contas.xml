@@ -41,11 +41,23 @@
             android:id="@+id/recyclerContas"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:scrollbars="vertical"
             android:fadeScrollbars="false"
             android:scrollbarStyle="insideInset"
-            />
+            android:scrollbars="vertical" />
 
     </androidx.gridlayout.widget.GridLayout>
+
+    <TextView
+        android:id="@+id/txtSemConta"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Clique no icone de + para adicionar contas"
+        android:textColor="@color/titulos"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toTopOf="@+id/gridContas"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

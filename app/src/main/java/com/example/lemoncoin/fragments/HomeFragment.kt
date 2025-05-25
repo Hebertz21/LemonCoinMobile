@@ -50,13 +50,12 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        try {
-            carregarCategorias()
-            carregarContas()
-            carregarMovimentacoes()
-        } catch (e: Exception) {
-            Log.e("HomeFragment", "Erro ao carregar home", e)
-        }
+        carregarCategorias()
+        carregarContas()
+        carregarMovimentacoes()
+
+        binding.txtSemMovimentacao.visibility = View.GONE
+        binding.txtSemCategoria.visibility = View.GONE
 
         binding.btnAddDespesaHome.setOnClickListener(){
             trocarFragment(AddDespesasFragment())
@@ -106,10 +105,22 @@ class HomeFragment : Fragment() {
             .get()
             .addOnSuccessListener { docs ->
                 listaMovimentacoes.clear()
+                if (_binding == null) { // <-- VERIFICAÇÃO CRUCIAL
+                    Log.d("HomeFragment", "Binding nulo em carregarMovimentações (success), retornando.")
+                    return@addOnSuccessListener
+                }
+
                 docs.forEach { doc ->
+                    var valor : Double
+                    if (doc.getString("tipo") == "Despesa"){
+                        valor = doc.getDouble("valor") ?: 0.0
+                        valor = valor * -1
+                    } else {
+                        valor = doc.getDouble("valor") ?: 0.0
+                    }
                     listaMovimentacoes.add(Movimentacao(
                         nome = doc.getString("nome") ?: "",
-                        valor = doc.getDouble("valor") ?: 0.0,
+                        valor = valor ?: 0.0,
                         data = doc.getDate("data") ?: Date(),
                         categoria = doc.get("categoriaId").toString(),
                         conta = doc.getString("contaId") ?: "",
@@ -119,6 +130,13 @@ class HomeFragment : Fragment() {
                 }
                 if (::adapterMovimentacoes.isInitialized) adapterMovimentacoes.notifyDataSetChanged()
                 Log.i(null, "115: Lista de movimentações: ${listaMovimentacoes}")
+
+                if(listaMovimentacoes.isEmpty()){
+                    binding.txtSemMovimentacao.visibility = View.VISIBLE
+                    binding.txtSemMovimentacao.setOnClickListener(){
+                        trocarFragment(MovimentacoesFragment())
+                    }
+                }
             }
             .addOnFailureListener { Log.e("HomeFragment", "Erro ao carregar movimentações", it) }
     }
@@ -168,7 +186,7 @@ class HomeFragment : Fragment() {
                 if(listaContas.size == 0) {
                     binding.containerConta1.visibility = View.GONE
                     binding.containerConta2.visibility = View.GONE
-                    binding.txtVerMais.text = "Clique aqui para adcionar contas"
+                    binding.txtVerMais.text = "Clique aqui para adicionar contas"
                     binding.containerVerMais.setOnClickListener(){
                         trocarFragment(AddContasFragment())
                     }
@@ -203,7 +221,7 @@ class HomeFragment : Fragment() {
                     }
                 } else {
                     binding.containerConta2.visibility = View.GONE
-                    binding.txtVerMais.text = "Clique aqui para adcionar contas"
+                    binding.txtVerMais.text = "Clique aqui para adicionar contas"
                     binding.containerVerMais.setOnClickListener(){
                         trocarFragment(AddContasFragment())
                     }
@@ -224,7 +242,9 @@ class HomeFragment : Fragment() {
     }
 
     private fun carregarCategorias() {
-        adapterCategorias = CategoriaHomeAdapter(listaCategorias)
+        adapterCategorias = CategoriaHomeAdapter(listaCategorias) {
+            trocarFragment(CategoriasFragment())
+        }
         binding.RvCategorias.layoutManager = LinearLayoutManager(requireContext())
         binding.RvCategorias.adapter = adapterCategorias
 
@@ -245,6 +265,10 @@ class HomeFragment : Fragment() {
             .get()
             .addOnSuccessListener { docs ->
                 listaCategorias.clear() // Limpa a lista antes de adicionar novos itens
+                if (_binding == null) { // <-- VERIFICAÇÃO CRUCIAL
+                    Log.d("HomeFragment", "Binding nulo em carregarCategorias (success), retornando.")
+                    return@addOnSuccessListener
+                }
                 docs.forEach { doc ->
                     listaCategorias.add(Categoria(nome = doc.getString("nome") ?: "", id = doc.id))
                 }
@@ -252,6 +276,12 @@ class HomeFragment : Fragment() {
                 // Isso fará com que o RecyclerView se redesenhe com os novos dados
                 if (::adapterCategorias.isInitialized) { // Verifica antes de notificar
                     adapterCategorias.notifyDataSetChanged()
+                }
+                if(listaCategorias.isEmpty()){
+                    binding.txtSemCategoria.visibility = View.VISIBLE
+                    binding.txtSemCategoria.setOnClickListener(){
+                        trocarFragment(CategoriasFragment())
+                    }
                 }
             }
             .addOnFailureListener { exception ->
