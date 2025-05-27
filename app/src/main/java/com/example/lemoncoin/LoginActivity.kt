@@ -1,5 +1,7 @@
 package com.example.lemoncoin
 
+import EsqueciSenha
+import ListaContas
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -73,13 +75,37 @@ class LoginActivity : AppCompatActivity() {
             }
         }
 
-        binding.hpkSemConta.setOnClickListener(){
+        fun abrirCadastro(){
             val intent = Intent(this, CadastroActivity::class.java)
             startActivity(intent)
         }
+
+        fun abrirEsqueciSenha(){
+            val dialog = EsqueciSenha()
+            dialog.show(supportFragmentManager, "esqueci_senha")
+        }
+
+        //Cadastro
+        binding.hpkSemConta.setOnClickListener(){
+            abrirCadastro()
+        }
+
+        binding.linhaNaoPossuoConta.setOnClickListener(){
+            abrirCadastro()
+        }
+
+        //Esqueci Senha
+        binding.hpkEsqueciSenha.setOnClickListener(){
+            abrirEsqueciSenha()
+        }
+        binding.linhaEsqueciSenha.setOnClickListener(){
+            abrirEsqueciSenha()
+        }
+
         binding.toolbar.imgLogo.setOnClickListener(){
             startActivity(Intent(this, MainActivity::class.java))
             finish()
         }
+
     }
 }

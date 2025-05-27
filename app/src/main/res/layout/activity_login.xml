@@ -23,7 +23,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/containerForm"
         android:layout_width="0dp"
-        android:layout_height="465dp"
+        android:layout_height="490dp"
         android:background="@color/backgroundSecondary"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/guideline17"
@@ -136,8 +136,8 @@
         <Button
             android:id="@+id/btnEntrar"
             style="@style/Buttons"
-            android:layout_width="160dp"
-            android:layout_height="63dp"
+            android:layout_width="200dp"
+            android:layout_height="80dp"
             android:layout_marginTop="24dp"
             android:text="Entrar"
             android:textColor="@color/textButton"
@@ -146,19 +146,19 @@
             android:textColorLink="@color/buttons"
             android:textSize="24sp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintHorizontal_bias="0.497"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/hpkEsqueciSenha" />
 
         <TextView
             android:id="@+id/hpkEsqueciSenha"
             android:layout_width="wrap_content"
-            android:layout_height="48dp"
-            android:layout_marginTop="55dp"
+            android:layout_height="60dp"
+            android:layout_marginTop="40dp"
             android:gravity="bottom"
             android:text="Esqueci minha senha"
             android:textColor="@color/buttons"
-            android:textSize="16sp"
+            android:textSize="20sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
@@ -166,7 +166,7 @@
 
         <View
             android:id="@+id/linhaEsqueciSenha"
-            android:layout_width="150dp"
+            android:layout_width="190dp"
             android:layout_height="2dp"
             android:background="@color/buttons"
             app:layout_constraintEnd_toEndOf="parent"
@@ -177,12 +177,12 @@
         <TextView
             android:id="@+id/hpkSemConta"
             android:layout_width="wrap_content"
-            android:layout_height="48dp"
+            android:layout_height="60dp"
             android:gravity="bottom"
             android:text="Ainda não possuo conta"
             android:textColor="@color/buttons"
             android:textColorLink="@color/titulos"
-            android:textSize="16sp"
+            android:textSize="20sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
@@ -190,7 +190,7 @@
 
         <View
             android:id="@+id/linhaNaoPossuoConta"
-            android:layout_width="173dp"
+            android:layout_width="215dp"
             android:layout_height="2dp"
             android:background="@color/buttons"
             app:layout_constraintEnd_toEndOf="parent"
