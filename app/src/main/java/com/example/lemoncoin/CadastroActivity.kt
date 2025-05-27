@@ -165,8 +165,9 @@ class CadastroActivity : AppCompatActivity() {
                 .build()
 
             datePicker.addOnPositiveButtonClickListener { millis ->
-                val dataFormatada = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
-                    .format(Date(millis))
+                val dataFormatada = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).apply {
+                    timeZone = TimeZone.getTimeZone("UTC")
+                }.format(Date(millis))
                 binding.etDataNascimento.setText(dataFormatada)
             }
 

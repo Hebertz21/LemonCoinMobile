@@ -25,6 +25,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
+            android:background="@drawable/input_text_padrao"
             android:hint="Data:"
             android:textColorHint="@color/textView"
             app:boxStrokeColor="@color/textView"
@@ -42,7 +43,7 @@
                 android:id="@+id/etDataReceitas"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
-                android:background="@drawable/input_text_padrao"
+                android:background="@color/transparente"
                 android:backgroundTint="@color/textView"
                 android:drawableEnd="@drawable/ic_calendar"
                 android:focusable="false"
@@ -128,16 +129,17 @@
             android:orientation="vertical"
             app:layout_constraintGuide_percent="0.93" />
 
+
         <Spinner
             android:id="@+id/spnContaReceita"
             android:layout_width="0dp"
             android:layout_height="65dp"
-            android:layout_marginTop="32dp"
+            android:layout_marginTop="36dp"
             android:background="@drawable/sppiner_padrao"
             app:layout_constraintEnd_toStartOf="@+id/guideDireita"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="@+id/layoutInputValorReceita"
             app:layout_constraintTop_toBottomOf="@+id/layoutInputValorReceita" />
-
 
         <Button
             android:id="@+id/btnAddReceita"

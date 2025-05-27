@@ -26,6 +26,7 @@
             android:layout_width="0dp"
             android:layout_height="65dp"
             android:layout_marginTop="32dp"
+            android:background="@drawable/input_text_padrao"
             android:hint="Data:"
             android:textColorHint="@color/textView"
             app:boxStrokeColor="@color/textView"
@@ -38,8 +39,8 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/etDataDespesa"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/input_text_padrao"
+                android:layout_height="60dp"
+                android:background="@color/transparente"
                 android:backgroundTint="@color/textView"
                 android:drawableEnd="@drawable/ic_calendar"
                 android:focusable="false"

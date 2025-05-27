@@ -20,6 +20,7 @@ import java.text.NumberFormat
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
+import java.util.TimeZone
 
 class AddReceitasFragment : Fragment() {
 
@@ -124,8 +125,10 @@ class AddReceitasFragment : Fragment() {
                 .setTheme(R.style.datePicker)
                 .build()
             datePicker.addOnPositiveButtonClickListener { millis ->
-                val dataformatada = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(Date(millis))
-                binding.etDataReceitas.setText(dataformatada)
+                val dataFormatada = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).apply {
+                    timeZone = TimeZone.getTimeZone("UTC")
+                }.format(Date(millis))
+                binding.etDataReceitas.setText(dataFormatada)
             }
             datePicker.show(parentFragmentManager, "Date_Picker")
         }
@@ -234,7 +237,7 @@ class AddReceitasFragment : Fragment() {
 
                 parentFragmentManager.popBackStack()
                 Toast.makeText(requireContext(),
-                "Receita atualizada com sucesso!", Toast.LENGTH_SHORT).show()
+                "Receita adicionada com sucesso!", Toast.LENGTH_SHORT).show()
             } else {
                 Toast.makeText(requireContext(), "Preencha todos os campos", Toast.LENGTH_SHORT).show()
             }

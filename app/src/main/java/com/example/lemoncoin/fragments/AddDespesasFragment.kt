@@ -20,6 +20,7 @@ import java.text.NumberFormat
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
+import java.util.TimeZone
 
 class AddDespesasFragment : Fragment() {
 
@@ -131,11 +132,10 @@ class AddDespesasFragment : Fragment() {
                 .setTheme(R.style.datePicker)
                 .build()
             datePicker.addOnPositiveButtonClickListener { millis ->
-                val dataformatada = SimpleDateFormat(
-                    "dd/MM/yyyy",
-                    Locale.getDefault()
-                ).format(Date(millis))
-                binding.etDataDespesa.setText(dataformatada)
+                val dataFormatada = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).apply {
+                    timeZone = TimeZone.getTimeZone("UTC")
+                }.format(Date(millis))
+                binding.etDataDespesa.setText(dataFormatada)
             }
             datePicker.show(parentFragmentManager, "Date_Picker")
         }
@@ -239,7 +239,7 @@ class AddDespesasFragment : Fragment() {
 
                 parentFragmentManager.popBackStack()
                 Toast.makeText(requireContext(),
-                    "Despesa atualizada com sucesso!", Toast.LENGTH_SHORT).show()
+                    "Despesa adicionada com sucesso!", Toast.LENGTH_SHORT).show()
 
             } else {
                 Toast.makeText(requireContext(),
