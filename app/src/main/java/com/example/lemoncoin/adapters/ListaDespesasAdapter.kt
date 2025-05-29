@@ -34,7 +34,7 @@ class ListaDespesasAdapter(private val lista: MutableList<Movimentacao>,
     override fun onBindViewHolder(holder: DespesaViewHolder, position: Int) {
         val movimentacao = lista[position]
 
-        val valor = movimentacao.valor
+        var valor = movimentacao.valor
         val valorFormatado = NumberFormat
             .getCurrencyInstance(Locale("pt", "BR")).format(valor)
 
@@ -67,6 +67,7 @@ class ListaDespesasAdapter(private val lista: MutableList<Movimentacao>,
             .document(user?.uid.toString()) //pasta do usuário atual
             .collection("categorias") //categorias do usuário atual
             .document(movimentacao.categoria)
+
 
         val nomeCategoria = categoria.get().addOnSuccessListener { document ->
             if (document.exists()) {

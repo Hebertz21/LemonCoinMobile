@@ -61,12 +61,13 @@ class AddReceitasFragment : Fragment() {
                 if (document != null && document.exists()) {
                     val nome = document.getString("nome")
                     val valor = document.getDouble("valor")
+                    val valorFormatado = valor?.times(10)
                     val data = document.getDate("data")
                     categoriaIdRecebida = document.getString("categoriaId")
                     contaIdRecebida = document.getString("contaId")
 
                     binding.inputNomeReceita.setText(nome)
-                    binding.inputValorReceita.setText(valor.toString())
+                    binding.inputValorReceita.setText(valorFormatado.toString())
                     val dataFormatada = SimpleDateFormat(
                         "dd/MM/yyyy",
                         Locale.getDefault()).format(data)

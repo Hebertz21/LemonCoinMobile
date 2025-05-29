@@ -63,5 +63,8 @@
 
     </style>
 
+    <style name="backgroundInput" parent="Widget.MaterialComponents.TextInputLayout.FilledBox">
+        <item name="background">@color/backgroundInput</item>
+    </style>
 
 </resources>

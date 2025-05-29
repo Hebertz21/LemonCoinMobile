@@ -9,5 +9,8 @@ data class Movimentacao(
     val categoria: String,
     val conta: String,
     val tipo: String = "",
-    val id: String
+    val id: String,
+    var nomeConta: String? = null,
+    var nomeCategoria: String? = null
+
 )

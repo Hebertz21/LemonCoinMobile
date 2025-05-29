@@ -23,7 +23,7 @@
             android:layout_marginTop="11dp"
             android:text="nome movimentação"
             android:textAlignment="viewStart"
-            android:textSize="14sp"
+            android:textSize="16sp"
             android:textStyle="bold" />
 
         <TextView

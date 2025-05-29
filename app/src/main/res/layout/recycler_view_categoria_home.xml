@@ -23,7 +23,7 @@
             android:layout_marginTop="11dp"
             android:text="nome categoria"
             android:textAlignment="viewStart"
-            android:textSize="20sp"
+            android:textSize="16sp"
             android:textStyle="bold" />
 
         <TextView
@@ -34,7 +34,7 @@
             android:layout_marginEnd="18dp"
             android:text="R$0,00"
             android:textAlignment="viewEnd"
-            android:textSize="20sp"
+            android:textSize="16sp"
             android:textStyle="bold" />
     </LinearLayout>
 

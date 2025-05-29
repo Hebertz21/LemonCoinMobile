@@ -61,12 +61,13 @@ class AddDespesasFragment : Fragment() {
                 if (document != null && document.exists()) {
                     val nome = document.getString("nome")
                     val valor = document.getDouble("valor")
+                    val valorFormatado = valor?.times(10)
                     val data = document.getDate("data")
                     categoriaIdRecebida = document.getString("categoriaId")
                     contaIdRecebida = document.getString("contaId")
 
                     binding.inputNomeDespesa.setText(nome)
-                    binding.inputValorDespesa.setText(valor.toString())
+                    binding.inputValorDespesa.setText(valorFormatado.toString())
                     val dataFormatada = SimpleDateFormat(
                         "dd/MM/yyyy",
                         Locale.getDefault()).format(data)
@@ -228,6 +229,10 @@ class AddDespesasFragment : Fragment() {
                         .document(uid)
                         .collection("movimentações")
                         .add(despesa)
+                    parentFragmentManager.popBackStack()
+                    Toast.makeText(requireContext(),
+                        "Despesa adicionada com sucesso!", Toast.LENGTH_SHORT).show()
+
                 } else if (modo == "edit") {
                     val despesaId = arguments?.getString(ARG_DESPESA_ID) ?: return@setOnClickListener
                     FirebaseFirestore.getInstance()
@@ -235,11 +240,11 @@ class AddDespesasFragment : Fragment() {
                         .document(uid)
                         .collection("movimentações")
                         .document(despesaId).set(despesa)
+                    parentFragmentManager.popBackStack()
+                    Toast.makeText(requireContext(),
+                        "Despesa atualizada com sucesso!", Toast.LENGTH_SHORT).show()
                 }
 
-                parentFragmentManager.popBackStack()
-                Toast.makeText(requireContext(),
-                    "Despesa adicionada com sucesso!", Toast.LENGTH_SHORT).show()
 
             } else {
                 Toast.makeText(requireContext(),

@@ -6,7 +6,7 @@
 
     <stroke
         android:width="8dp"
-        android:color="@color/borderListaContas" />
+        android:color="@color/buttons" />
 
-    <corners android:radius="30dp" />
+    <corners android:radius="15dp" />
 </shape>

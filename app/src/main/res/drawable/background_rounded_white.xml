@@ -6,7 +6,7 @@
 
     <stroke
         android:width="3dp"
-        android:color="@color/borderHome" />
+        android:color="@color/buttons" />
 
-    <corners android:radius="30dp" />
+    <corners android:radius="13dp" />
 </shape>
