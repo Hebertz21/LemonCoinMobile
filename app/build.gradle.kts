@@ -13,7 +13,9 @@ android {
 
     defaultConfig {
         applicationId = "com.example.lemoncoin"
-        minSdk = 24
+        minSdk = 26 //nota: antes estava 24,
+        // 26 não permite que o app funcione em android abaixo de 7.1 (10% dos brasileiros)
+        //coloquei em 26 para funcionar o exportar excel
         targetSdk = 35
         versionCode = 1
         versionName = "1.0"
@@ -54,6 +56,7 @@ dependencies {
     implementation(libs.androidx.gridlayout)
     implementation(libs.androidx.fragment.ktx)
     implementation(libs.firebase.database.ktx)
+    implementation(libs.androidx.ui.text.android)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -66,6 +69,7 @@ dependencies {
     implementation("com.google.firebase:firebase-analytics")
     //https://github.com/santalu/maskara
     implementation("com.github.santalu:maskara:1.0.0")
-
-
+    //gerar excel
+    implementation("org.apache.poi:poi:5.2.3")
+    implementation("org.apache.poi:poi-ooxml:5.2.3")
 }
