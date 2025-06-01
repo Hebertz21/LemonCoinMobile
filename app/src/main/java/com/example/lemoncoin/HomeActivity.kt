@@ -24,11 +24,16 @@ import com.example.lemoncoin.fragments.MovimentacoesFragment
 import com.google.firebase.Firebase
 import com.google.firebase.auth.auth
 import com.google.firebase.firestore.firestore
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.tasks.await
 import java.io.File
 import java.io.FileOutputStream
 import org.apache.poi.xssf.usermodel.XSSFWorkbook
 import java.io.IOException
+import java.text.NumberFormat
 import java.util.Date
+import kotlinx.coroutines.launch
 
 
 //import com.example.lemoncoin.fragments.
@@ -123,12 +128,15 @@ class HomeActivity : AppCompatActivity() {
                             data = data ?: Date(),
                             categoria = categoriaId ?: "",
                             conta = contaId ?: "",
+                            tipo = tipo ?: "",
                             id = document.id
                         )
                         listaMovimentacoes.add(movimentacao)
                     }
                 }
-                exportarExcel(listaMovimentacoes, this)
+                CoroutineScope(Dispatchers.Main).launch {
+                    exportarExcel(listaMovimentacoes, this@HomeActivity)
+                }
             }
         }
 
@@ -179,10 +187,13 @@ class HomeActivity : AppCompatActivity() {
         binding.drawerLayout.closeDrawer(GravityCompat.START)
     }
 
-    fun exportarExcel(movimentacoes: List<Movimentacao>, context: Context) {
+    suspend fun exportarExcel(movimentacoes: List<Movimentacao>, context: Context) {
         Log.i("HomeActivity_Excel", "Iniciando exportação para Excel com ${movimentacoes.size} movimentações.")
         val workbook = XSSFWorkbook()
         val sheet = workbook.createSheet("Movimentações")
+
+        val contasMap = carregarNomesExcel("contas")
+        val categoriasMap = carregarNomesExcel("categorias")
 
         // Cabeçalhos
         val header = sheet.createRow(0)
@@ -191,13 +202,17 @@ class HomeActivity : AppCompatActivity() {
 
         // Dados
         movimentacoes.forEachIndexed { index, mov ->
+
+            val valorFormatado = NumberFormat
+                .getCurrencyInstance(java.util.Locale("pt", "BR")).format(mov.valor)
+
             val row = sheet.createRow(index + 1)
-            row.createCell(0).setCellValue(mov.nome) // Supondo que 'nome' seja o nome da movimentação
-            row.createCell(1).setCellValue(mov.valor) // POI trata números como double por padrão
-            row.createCell(2).setCellValue(mov.conta) // ID da conta ou nome da conta?
-            row.createCell(3).setCellValue(mov.categoria) // ID da categoria ou nome da categoria?
-            // Formatar a data para uma string legível é uma boa prática
-            val dateFormat = java.text.SimpleDateFormat("dd/MM/yyyy HH:mm:ss", java.util.Locale.getDefault())
+            row.createCell(0).setCellValue(mov.nome)
+            row.createCell(1).setCellValue(valorFormatado)
+            row.createCell(2).setCellValue(contasMap[mov.conta] ?: "Conta desconhecida")
+            row.createCell(3).setCellValue(categoriasMap[mov.categoria] ?: "Categoria desconhecida")
+
+            val dateFormat = java.text.SimpleDateFormat("dd/MM/yyyy", java.util.Locale.getDefault())
             row.createCell(4).setCellValue(dateFormat.format(mov.data))
             row.createCell(5).setCellValue(mov.tipo)
         }
@@ -224,7 +239,6 @@ class HomeActivity : AppCompatActivity() {
         }
     }
 
-    // Função auxiliar para abrir ou compartilhar (exemplo)
     private fun abrirOuCompartilharArquivo(file: File, context: Context) {
         val uri = FileProvider.getUriForFile(context, "${context.packageName}.provider", file)
         val intent = Intent(Intent.ACTION_VIEW).apply { // Ou ACTION_SEND para compartilhar
@@ -238,5 +252,12 @@ class HomeActivity : AppCompatActivity() {
             Toast.makeText(context, "Nenhum aplicativo encontrado para abrir arquivos Excel.", Toast.LENGTH_LONG).show()
             Log.e("HomeActivity_Excel", "Nenhum app para abrir Excel.", e)
         }
+    }
+
+    suspend fun carregarNomesExcel(colecao: String): Map<String, String> {
+        val db = Firebase.firestore
+        val userId = Firebase.auth.currentUser?.uid ?: return emptyMap()
+        val snapshot = db.collection("usuarios").document(userId).collection(colecao).get().await()
+        return snapshot.documents.associate { it.id to (it.getString("nome") ?: "Sem nome") }
     }
 }

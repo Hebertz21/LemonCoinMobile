@@ -12,5 +12,4 @@ data class Movimentacao(
     val id: String,
     var nomeConta: String? = null,
     var nomeCategoria: String? = null
-
 )
