@@ -157,10 +157,12 @@ class AddReceitasFragment : Fragment() {
                 binding.spnCategoriaReceita.adapter = categoriaAdapter
 
                 if (modo == "edit") {
+
                     val pos = listaCategoriasId.indexOf(categoriaIdRecebida)
                     if (pos >= 0) binding.spnCategoriaReceita.setSelection(pos + 1)
                 }
             }
+
 
         //configuração do spinner de contas
         val contasNome: MutableList<String> = mutableListOf("Selecione Conta")
@@ -227,6 +229,10 @@ class AddReceitasFragment : Fragment() {
                         .document(uid)
                         .collection("movimentações")
                         .add(receita)
+                    parentFragmentManager.popBackStack()
+                    Toast.makeText(requireContext(),
+                        "Receita adicionada com sucesso!", Toast.LENGTH_SHORT).show()
+
                 } else if (modo == "edit") {
                     val receitaId = arguments?.getString(ARG_Receita_ID) ?: return@setOnClickListener
                     FirebaseFirestore.getInstance()
@@ -234,11 +240,12 @@ class AddReceitasFragment : Fragment() {
                         .document(uid)
                         .collection("movimentações")
                         .document(receitaId).set(receita)
+                    parentFragmentManager.popBackStack()
+                    Toast.makeText(requireContext(),
+                        "Receita atualizada com sucesso!", Toast.LENGTH_SHORT).show()
                 }
 
-                parentFragmentManager.popBackStack()
-                Toast.makeText(requireContext(),
-                "Receita adicionada com sucesso!", Toast.LENGTH_SHORT).show()
+
             } else {
                 Toast.makeText(requireContext(), "Preencha todos os campos", Toast.LENGTH_SHORT).show()
             }

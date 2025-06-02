@@ -132,6 +132,8 @@ class CadastroActivity : AppCompatActivity() {
                     salvarDadosUsuario(userId, nome, email, telefone, dataNascimento, genero)
                     { dadosSalvos, msgErro ->
                         if (dadosSalvos) {
+                            //Criar categorias
+                            criarCategoriasPadrao(userId)
                             Toast.makeText(
                                 this,
                                 "Cadastro feito com sucesso!",
@@ -172,6 +174,26 @@ class CadastroActivity : AppCompatActivity() {
             }
 
             datePicker.show(supportFragmentManager, "DATE_PICKER")
+        }
+    }
+    //Criar 5 categorias
+    private fun criarCategoriasPadrao(userId: String) {
+        val firestore = FirebaseFirestore.getInstance()
+        val categoriasRef = firestore.collection("usuarios")
+            .document(userId)
+            .collection("categorias")
+
+        val categoriasPadrao = listOf(
+            "Alimentação",
+            "Transporte",
+            "Lazer",
+            "Moradia",
+            "Saúde"
+        )
+
+        for (nome in categoriasPadrao) {
+            val dados = hashMapOf("nome" to nome)
+            categoriasRef.add(dados)
         }
     }
 }

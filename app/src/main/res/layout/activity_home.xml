@@ -122,7 +122,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="10dp"
-                android:text="EXPORTAR EXCEL"
+                android:text="EXPORTAR PLANILHA"
                 android:textColor="@color/textView"
                 android:textColorHighlight="@color/textView"
                 android:textColorHint="@color/textView"

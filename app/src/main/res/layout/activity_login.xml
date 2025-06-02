@@ -23,7 +23,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/containerForm"
         android:layout_width="0dp"
-        android:layout_height="510dp"
+        android:layout_height="520dp"
         android:background="@color/backgroundSecondary"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/guideline17"
