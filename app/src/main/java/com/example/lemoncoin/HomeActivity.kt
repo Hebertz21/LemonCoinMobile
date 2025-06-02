@@ -6,6 +6,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.ui.text.intl.Locale
@@ -26,6 +27,7 @@ import com.google.firebase.auth.auth
 import com.google.firebase.firestore.firestore
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.tasks.await
 import java.io.File
 import java.io.FileOutputStream
@@ -34,6 +36,7 @@ import java.io.IOException
 import java.text.NumberFormat
 import java.util.Date
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.delay
 
 
 //import com.example.lemoncoin.fragments.
@@ -105,6 +108,11 @@ class HomeActivity : AppCompatActivity() {
         }
 
         binding.txtExportarExcel.setOnClickListener {
+            binding.btnMenu.performClick()
+
+            // Mostrar a tela de carregamento
+            binding.loadingOverlay.visibility = View.VISIBLE
+
             var listaMovimentacoes: MutableList<Movimentacao> = mutableListOf()
 
             val db = Firebase.firestore.collection("usuarios")
@@ -136,6 +144,7 @@ class HomeActivity : AppCompatActivity() {
                 }
                 CoroutineScope(Dispatchers.Main).launch {
                     exportarExcel(listaMovimentacoes, this@HomeActivity)
+                    binding.loadingOverlay.visibility = View.GONE
                 }
             }
         }
