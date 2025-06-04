@@ -23,7 +23,6 @@ class MovimentacoesFragment : Fragment() {
             binding.txtDespesas.backgroundTintList = null
             binding.txtDespesas.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.buttonsPressed))
             binding.txtReceitas.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.buttons))
-
         }
 
         //Chama Receitas

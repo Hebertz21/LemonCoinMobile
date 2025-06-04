@@ -10,6 +10,7 @@ import com.example.lemoncoin.R
 import com.example.lemoncoin.classeObjetos.Movimentacao
 import com.example.lemoncoin.databinding.RecyclerViewListaMovimentacoesBinding
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import java.text.NumberFormat
 import java.util.Locale
@@ -91,6 +92,7 @@ class ListaReceitasAdapter(private val lista: MutableList<Movimentacao>,
                 .setPositiveButton("Sim") { dialog, _ ->
                     val executor = Executors.newSingleThreadExecutor()
                     executor.execute {
+                        //excluir receita
                         db.collection("usuarios")
                             .document(user?.uid.toString())
                             .collection("movimentações")
@@ -109,6 +111,12 @@ class ListaReceitasAdapter(private val lista: MutableList<Movimentacao>,
                                 Toast.makeText(context, "Erro ao excluir receita: $e",
                                     Toast.LENGTH_LONG).show()
                             }
+                        //modificar saldo da conta
+                        db.collection("usuarios")
+                            .document(user?.uid.toString())
+                            .collection("contas")
+                            .document(movimentacao.conta)
+                            .update("saldo", FieldValue.increment(-valor))
                     }
                     dialog.dismiss()
                 }

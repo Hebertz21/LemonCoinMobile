@@ -15,6 +15,7 @@ import com.example.lemoncoin.R
 import com.example.lemoncoin.databinding.FragmentAddDespesasBinding
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import java.text.NumberFormat
 import java.text.SimpleDateFormat
@@ -224,28 +225,57 @@ class AddDespesasFragment : Fragment() {
                     "tipo" to "Despesa"
                 )
                 if (modo == "add") {
+                    //adicionar despesa
                     FirebaseFirestore.getInstance()
                         .collection("usuarios")
                         .document(uid)
                         .collection("movimentações")
                         .add(despesa)
+                    //modificar valor de conta
+                    FirebaseFirestore.getInstance()
+                        .collection("usuarios")
+                        .document(uid)
+                        .collection("contas")
+                        .document(contaId)
+                        .update("saldo", FieldValue.increment(-valor))
                     parentFragmentManager.popBackStack()
                     Toast.makeText(requireContext(),
                         "Despesa adicionada com sucesso!", Toast.LENGTH_SHORT).show()
 
                 } else if (modo == "edit") {
                     val despesaId = arguments?.getString(ARG_DESPESA_ID) ?: return@setOnClickListener
+
+                    // Buscar o valor atual da despesa
                     FirebaseFirestore.getInstance()
                         .collection("usuarios")
                         .document(uid)
                         .collection("movimentações")
-                        .document(despesaId).set(despesa)
-                    parentFragmentManager.popBackStack()
-                    Toast.makeText(requireContext(),
-                        "Despesa atualizada com sucesso!", Toast.LENGTH_SHORT).show()
+                        .document(despesaId)
+                        .get()
+                        .addOnSuccessListener { documentSnapshot ->
+                            val valorAntigo = documentSnapshot.getDouble("valor") ?: 0.0
+
+                            //editar despesa
+                            FirebaseFirestore.getInstance()
+                                .collection("usuarios")
+                                .document(uid)
+                                .collection("movimentações")
+                                .document(despesaId).set(despesa)
+
+                            //modificar valor de conta
+                            val diferencaValor = valor - valorAntigo
+                            FirebaseFirestore.getInstance()
+                                .collection("usuarios")
+                                .document(uid)
+                                .collection("contas")
+                                .document(contaId)
+                                .update("saldo", FieldValue.increment(-diferencaValor)) // Subtrai a diferença
+
+                            parentFragmentManager.popBackStack()
+                            Toast.makeText(requireContext(),
+                                "Despesa atualizada com sucesso!", Toast.LENGTH_SHORT).show()
+                        }
                 }
-
-
             } else {
                 Toast.makeText(requireContext(),
                     "Preencha todos os campos", Toast.LENGTH_SHORT).show()

@@ -11,6 +11,7 @@ import com.example.lemoncoin.R
 import com.example.lemoncoin.classeObjetos.Movimentacao
 import com.example.lemoncoin.databinding.RecyclerViewListaMovimentacoesBinding
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import java.text.NumberFormat
 import java.text.SimpleDateFormat
@@ -35,6 +36,7 @@ class ListaDespesasAdapter(private val lista: MutableList<Movimentacao>,
         val movimentacao = lista[position]
 
         var valor = movimentacao.valor
+
         val valorFormatado = NumberFormat
             .getCurrencyInstance(Locale("pt", "BR")).format(valor)
 
@@ -94,6 +96,7 @@ class ListaDespesasAdapter(private val lista: MutableList<Movimentacao>,
                 .setPositiveButton("Sim") { dialog, _ ->
                     val executor = Executors.newSingleThreadExecutor()
                     executor.execute {
+                        //excluir despesa
                         db.collection("usuarios")
                             .document(user?.uid.toString())
                             .collection("movimentações")
@@ -112,6 +115,13 @@ class ListaDespesasAdapter(private val lista: MutableList<Movimentacao>,
                                 Toast.makeText(context, "Erro ao excluir despesa: $e",
                                     Toast.LENGTH_LONG).show()
                             }
+                        //modificar saldo da conta
+                        db.collection("usuarios")
+                            .document(user?.uid.toString())
+                            .collection("contas")
+                            .document(movimentacao.conta)
+                            .update("saldo", FieldValue.increment(valor))
+
                     }
                     dialog.dismiss()
                 }
