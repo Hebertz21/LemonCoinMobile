@@ -62,7 +62,8 @@ class AddDespesasFragment : Fragment() {
                 if (document != null && document.exists()) {
                     val nome = document.getString("nome")
                     val valor = document.getDouble("valor")
-                    val valorFormatado = valor?.times(10)
+                    val valorFormatado = NumberFormat
+                        .getCurrencyInstance(Locale("pt", "BR")).format(valor)
                     val data = document.getDate("data")
                     categoriaIdRecebida = document.getString("categoriaId")
                     contaIdRecebida = document.getString("contaId")
