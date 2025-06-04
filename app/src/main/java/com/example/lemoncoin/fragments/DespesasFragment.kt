@@ -1,20 +1,29 @@
 package com.example.lemoncoin.fragments
 
+import android.app.AlertDialog
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.NumberPicker
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.lemoncoin.classeObjetos.Movimentacao
 import com.example.lemoncoin.R
 import com.example.lemoncoin.adapters.ListaDespesasAdapter
 import com.example.lemoncoin.databinding.FragmentDespesasBinding
+import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import java.text.NumberFormat
+import java.text.SimpleDateFormat
+import java.util.Calendar
+import java.util.Date
 import java.util.Locale
+import java.util.TimeZone
 
 class DespesasFragment : Fragment() {
 
@@ -38,6 +47,8 @@ class DespesasFragment : Fragment() {
         binding.btnAddDespesas.setOnClickListener(){
             trocarFragment(AddDespesasFragment())
         }
+
+
 
         val user = FirebaseAuth.getInstance().currentUser
         val db = FirebaseFirestore.getInstance()
@@ -96,6 +107,98 @@ class DespesasFragment : Fragment() {
                 Log.w("Firestore", "Erro ao obter movimentações", it.exception)
             }
         }
+        fun CalendarioInicio(
+            context: Context,
+            onDateSelected: (month: Int, year: Int) -> Unit
+        ) {
+            val visualDialog = LayoutInflater.from(context).inflate(R.layout.calendario_filtro, null)
+            val mesEscolhido = visualDialog.findViewById<NumberPicker>(R.id.monthPicker)
+            val anoEscolhido = visualDialog.findViewById<NumberPicker>(R.id.yearPicker)
+
+            val mes = arrayOf(
+                "Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho",
+                "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"
+            )
+
+            mesEscolhido.minValue = 0
+            mesEscolhido.maxValue = 11
+            mesEscolhido.displayedValues = mes
+            mesEscolhido.wrapSelectorWheel = true
+
+            val proximoAno = Calendar.getInstance().get(Calendar.YEAR)
+            anoEscolhido.minValue = 1950
+            anoEscolhido.maxValue = 2100
+            anoEscolhido.value = proximoAno
+
+            val dialog = AlertDialog.Builder(context)
+                .setTitle("Selecione mês e ano")
+                .setView(visualDialog)
+                .setPositiveButton("OK") { _, _ ->
+                    val selectedMonth = mesEscolhido.value
+                    val selectedYear = anoEscolhido.value
+                    onDateSelected(selectedMonth, selectedYear)
+                }
+                .setNegativeButton("Cancelar", null)
+                .create()
+
+            dialog.show()
+
+            dialog.getButton(AlertDialog.BUTTON_POSITIVE)?.setTextColor(
+                ContextCompat.getColor(context, R.color.textView) // ou outro
+            )
+            dialog.getButton(AlertDialog.BUTTON_NEGATIVE)?.setTextColor(
+                ContextCompat.getColor(context, R.color.textView) // ou outro
+            )
+        }
+
+
+
+        /*binding.etDataInicio.setOnClickListener {
+            CalendarioInicio(requireContext()) { mes, ano ->
+                binding.etDataInicio.setText("${mes + 1}/$ano")
+            }
+        }
+
+        binding.etDataFim.setOnClickListener(){
+            CalendarioInicio(requireContext()) { mes, ano ->
+                binding.etDataFim.setText("${mes + 1}/$ano")
+            }
+        }*/
+
+        //Codigo alternativo
+        binding.etDataInicio.setOnClickListener {
+            val datePicker = MaterialDatePicker.Builder.datePicker()
+                .setTitleText("Selecione a data:")
+                .setTheme(R.style.datePicker)
+                .build()
+
+            datePicker.addOnPositiveButtonClickListener { millis ->
+                val dataFormatada = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).apply {
+                    timeZone = TimeZone.getTimeZone("UTC")
+                }.format(Date(millis))
+                binding.etDataInicio.setText(dataFormatada)
+            }
+
+            datePicker.show(parentFragmentManager, "DATE_PICKER")
+        }
+
+        binding.etDataFim.setOnClickListener {
+            val datePicker = MaterialDatePicker.Builder.datePicker()
+                .setTitleText("Selecione a data:")
+                .setTheme(R.style.datePicker)
+                .build()
+
+            datePicker.addOnPositiveButtonClickListener { millis ->
+                val dataFormatada = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).apply {
+                    timeZone = TimeZone.getTimeZone("UTC")
+                }.format(Date(millis))
+                binding.etDataFim.setText(dataFormatada)
+            }
+
+            datePicker.show(parentFragmentManager, "DATE_PICKER")
+        }
+
+
     }
 
     private fun trocarFragment(fragment: Fragment) {

@@ -16,33 +16,20 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <Spinner
-            android:id="@+id/spinnerDataDespesas"
-            style="?attr/spinnerStyle"
-            android:layout_width="318dp"
-            android:layout_height="48dp"
-            android:layout_marginTop="18dp"
-            android:background="@drawable/spinner_filtro_style"
-            android:isScrollContainer="false"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
 
         <ScrollView
             android:id="@+id/scrollView2"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="20dp"
             android:background="@color/background"
             android:contentDescription="Abaixe a tela"
             app:layout_constraintBottom_toTopOf="@+id/txtTotal"
             app:layout_constraintEnd_toStartOf="@+id/guideDireitaDespesa"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="@+id/guideEsquerdaDespesa"
-            app:layout_constraintTop_toBottomOf="@+id/textView12">
+            app:layout_constraintTop_toBottomOf="@+id/layoutDataInicio">
 
             <LinearLayout
                 android:id="@+id/linearLayoutDespesas"
@@ -64,12 +51,12 @@
             style="@style/Buttons"
             android:layout_width="142dp"
             android:layout_height="74dp"
-            android:textSize="16dp"
-            android:textStyle="bold"
             android:layout_marginEnd="16dp"
             android:layout_marginBottom="24dp"
             android:text="ADICIONAR DESPESA"
             android:textColor="@color/textButton"
+            android:textSize="16dp"
+            android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
 
@@ -116,7 +103,7 @@
             android:id="@+id/textView12"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="16dp"
             android:text="DESPESAS"
             android:textColor="@color/textView"
             android:textSize="20dp"
@@ -124,7 +111,66 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/spinnerDataDespesas" />
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/layoutDataInicio"
+            android:layout_width="115dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            app:layout_constraintEnd_toStartOf="@+id/layoutDataFim"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/textView9"
+            app:layout_constraintTop_toBottomOf="@+id/textView12">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etDataInicio"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:focusable="false"
+                android:hint="Início"
+                android:paddingStart="7dp"
+                android:paddingLeft="7dp"
+                android:paddingRight="7dp"
+                android:textSize="14sp" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/layoutDataFim"
+            android:layout_width="115dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/guideDireitaDespesa"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/layoutDataInicio"
+            app:layout_constraintTop_toTopOf="@+id/layoutDataInicio">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etDataFim"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:focusable="false"
+                android:hint="Final"
+                android:paddingStart="7dp"
+                android:paddingLeft="7dp"
+                android:paddingEnd="7dp"
+                android:paddingRight="7dp"
+                android:textSize="14sp" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView
+            android:id="@+id/textView9"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="FILTRO:"
+            android:textColor="@color/textView"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/layoutDataInicio"
+            app:layout_constraintEnd_toStartOf="@+id/layoutDataInicio"
+            app:layout_constraintStart_toStartOf="@+id/guideEsquerdaDespesa"
+            app:layout_constraintTop_toTopOf="@+id/layoutDataInicio" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

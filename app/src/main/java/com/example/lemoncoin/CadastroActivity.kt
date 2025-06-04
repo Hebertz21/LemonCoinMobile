@@ -196,4 +196,5 @@ class CadastroActivity : AppCompatActivity() {
             categoriasRef.add(dados)
         }
     }
+
 }
