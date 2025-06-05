@@ -368,6 +368,90 @@
                         android:textColor="@color/textView" />
                 </LinearLayout>
 
+                <LinearLayout
+                    android:id="@+id/linearVivo"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:id="@+id/imageViewVivo"
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
+                        android:layout_marginStart="15dp"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginTop="15dp"
+                        android:layout_marginEnd="15dp"
+                        android:layout_marginRight="15dp"
+                        app:srcCompat="@drawable/vivo"
+                        tools:srcCompat="@drawable/vivo" />
+
+                    <TextView
+                        android:id="@+id/txtViewVivo"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="15dp"
+                        android:text="Vivo"
+                        android:textAlignment="center"
+                        android:textColor="@color/textView" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/linearCofre"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:id="@+id/imageViewCofre"
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
+                        android:layout_marginStart="15dp"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginTop="15dp"
+                        android:layout_marginEnd="15dp"
+                        android:layout_marginRight="15dp"
+                        app:srcCompat="@drawable/cofre"
+                        tools:srcCompat="@drawable/cofre" />
+
+                    <TextView
+                        android:id="@+id/txtViewCofre"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="15dp"
+                        android:text="Cofre Pessoal"
+                        android:textAlignment="center"
+                        android:textColor="@color/textView" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/linearOutros"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:id="@+id/imageViewOutros"
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
+                        android:layout_marginStart="15dp"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginTop="15dp"
+                        android:layout_marginEnd="15dp"
+                        android:layout_marginRight="15dp"
+                        app:srcCompat="@drawable/question"
+                        tools:srcCompat="@drawable/question" />
+
+                    <TextView
+                        android:id="@+id/txtViewOutros"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="15dp"
+                        android:text="Outro"
+                        android:textAlignment="center"
+                        android:textColor="@color/textView" />
+                </LinearLayout>
+
 
             </androidx.gridlayout.widget.GridLayout>
         </ScrollView>

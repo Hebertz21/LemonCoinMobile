@@ -82,6 +82,8 @@ class ContasFragment : Fragment() {  //É preciso um constructor vazio para a cl
                         "Sicredi" -> R.drawable.sicredi
                         "Stone" -> R.drawable.stone
                         "Wise" -> R.drawable.wise
+                        "Vivo" -> R.drawable.vivo
+                        "Cofre Pessoal" -> R.drawable.cofre
                         else -> R.drawable.lapis
                     }
 

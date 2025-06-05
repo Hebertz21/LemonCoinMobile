@@ -61,6 +61,12 @@ class ListaContas : DialogFragment() {
         binding.linearWise.setOnClickListener {
             selectConta(R.drawable.wise, binding.txtViewWise.text.toString())
         }
+        binding.linearVivo.setOnClickListener {
+            selectConta(R.drawable.vivo, binding.txtViewVivo.text.toString())
+        }
+        binding.linearCofre.setOnClickListener {
+            selectConta(R.drawable.cofre, binding.txtViewCofre.text.toString())
+        }
         return binding.root
     }
 

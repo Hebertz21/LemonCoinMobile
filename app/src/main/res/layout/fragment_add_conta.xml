@@ -1,11 +1,9 @@
-<ScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fillViewport="true"
-    android:background="@color/backgroundSecondary">
+    android:fillViewport="true">
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -54,8 +52,8 @@
                 android:id="@+id/imgAddConta"
                 android:layout_width="245dp"
                 android:layout_height="245dp"
-                android:clipToOutline="true"
                 android:background="@drawable/rounded_image_lapis"
+                android:clipToOutline="true"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
@@ -67,6 +65,7 @@
                     android:layout_height="match_parent"
                     android:layout_margin="0dp"
                     android:adjustViewBounds="true"
+                    android:background="@drawable/rounded_image_lapis"
                     android:padding="28dp"
                     android:scaleType="centerCrop"
                     android:src="@drawable/lapis" />

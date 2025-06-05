@@ -129,7 +129,7 @@ class AddContasFragment : Fragment() {  //É preciso um constructor vazio para a
             val txtConta = bundle.getString("txtConta")
             binding.imgConta.setImageResource(imgResId)
             binding.textViewConta.text = txtConta
-            //binding.imgConta.setPadding(0,0,0,0)
+            binding.imgConta.setPadding(0,0,0,0)
         }
 
         binding.imgAddConta.setOnClickListener(){
