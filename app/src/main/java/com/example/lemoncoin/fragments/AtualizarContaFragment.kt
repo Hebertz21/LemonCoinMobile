@@ -207,7 +207,7 @@ class AtualizarContaFragment : Fragment() {
                     val nome = document.getString("nome")
                     val saldo = document.getDouble("saldo")
                     val descricao = document.getString("descricao")
-
+                    binding.imgConta.setPadding(0,0,0,0)
                     val img = when(nome) {
                         "Banco do Brasil" -> R.drawable.banco_do_brasil
                         "Bradesco" -> R.drawable.bradesco
