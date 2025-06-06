@@ -224,8 +224,11 @@ class AtualizarContaFragment : Fragment() {
                         else -> R.drawable.lapis
                     }
 
+                    val saldoFormatado = NumberFormat
+                        .getCurrencyInstance(Locale("pt", "BR")).format(saldo)
+
                     binding.textViewConta.setText(nome)
-                    binding.inputSaldo.setText(saldo.toString())
+                    binding.inputSaldo.setText(saldoFormatado)
                     binding.InputDescricao.setText(descricao)
                     binding.imgConta.setImageResource(img)
                 }

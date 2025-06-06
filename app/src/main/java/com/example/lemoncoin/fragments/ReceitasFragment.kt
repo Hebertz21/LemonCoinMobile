@@ -1,14 +1,11 @@
 package com.example.lemoncoin.fragments
 
-import android.app.AlertDialog
-import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.NumberPicker
-import androidx.core.content.ContextCompat
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.lemoncoin.classeObjetos.Movimentacao
@@ -30,6 +27,14 @@ class ReceitasFragment : Fragment() {
     private var _binding: FragmentReceitasBinding? = null
     private val binding get() = _binding!!
 
+    private var txtDataInicio : String? = null
+    private var dataInicio : Date? = null
+
+    private var txtDataFim : String? = null
+    private var dataFim : Date? = null
+
+    private var listaReceitas : MutableList<Movimentacao>? = null
+
     override fun onCreateView(  //Metodo que constroi a visualização do fragment
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -41,6 +46,15 @@ class ReceitasFragment : Fragment() {
         return binding.root
     }
 
+    override fun onResume() {
+        super.onResume()
+
+        binding.etdataInicioReceitas.setText("")
+        binding.etDataFimReceitas.setText("")
+
+        listaReceitas = carregarDados()
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -48,6 +62,151 @@ class ReceitasFragment : Fragment() {
             trocarFragment(AddReceitasFragment())
         }
 
+        listaReceitas = carregarDados()
+
+        binding.etdataInicioReceitas.setOnClickListener {
+            val datePicker = MaterialDatePicker.Builder.datePicker()
+                .setTitleText("Selecione a data:")
+                .setTheme(R.style.datePicker)
+                .build()
+
+            datePicker.addOnPositiveButtonClickListener { millis ->
+                val dataFormatada = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).apply {
+                    timeZone = TimeZone.getTimeZone("UTC")
+                }.format(Date(millis))
+                binding.etdataInicioReceitas.setText(dataFormatada)
+            }
+
+            datePicker.show(parentFragmentManager, "DATE_PICKER")
+        }
+
+        //função para quando o texto mudar
+        binding.etdataInicioReceitas.addTextChangedListener(object : android.text.TextWatcher {
+            override fun afterTextChanged(s: android.text.Editable?) {
+                try {
+                    txtDataInicio = s.toString()
+                    dataInicio = SimpleDateFormat("dd/MM/yyyy",
+                        Locale.getDefault()).parse(txtDataInicio!!)
+                    //Toast.makeText(requireContext(), "Data de início: $dataInicio", Toast.LENGTH_SHORT).show()
+                } catch (e: Exception) {
+                    Log.e("Erro", "Erro ao converter data: $e")
+                }
+
+                try {
+                    if(dataInicio != null && dataFim != null) {
+                        if(txtDataInicio == "") return
+                        if(dataFim!!.after(dataInicio)) {
+                            val listaFiltrada = listaReceitas!!.filter {
+                                //necessário colocar um dia antes para o filtro incluir o dia da data início
+                                val inicio = Calendar.getInstance().apply { time = dataInicio!! }
+                                inicio.add(Calendar.DAY_OF_YEAR, -1)
+                                val data_inicio = inicio.time
+
+                                val fim = Calendar.getInstance().apply { time = dataFim!! }
+                                fim.add(Calendar.DAY_OF_YEAR, 1)
+                                val data_fim = fim.time
+
+                                it.data.after(data_inicio) && it.data.before(data_fim)
+                            }.toMutableList()
+                            carregarFiltro(listaFiltrada)
+                        } else {
+                            Toast.makeText(requireContext(),
+                                "A data de início deve ser antes da data de fim!!", Toast.LENGTH_SHORT).show()
+                            binding.etdataInicioReceitas.setText("")
+                        }
+                    }
+                } catch (e: Exception) {
+                    Toast.makeText(requireContext(), "Erro: $e", Toast.LENGTH_SHORT).show()
+                }
+            }
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+        })
+
+        binding.etDataFimReceitas.setOnClickListener {
+            val datePicker = MaterialDatePicker.Builder.datePicker()
+                .setTitleText("Selecione a data:")
+                .setTheme(R.style.datePicker)
+                .build()
+
+            datePicker.addOnPositiveButtonClickListener { millis ->
+                val dataFormatada = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).apply {
+                    timeZone = TimeZone.getTimeZone("UTC")
+                }.format(Date(millis))
+                binding.etDataFimReceitas.setText(dataFormatada)
+            }
+
+            datePicker.show(parentFragmentManager, "DATE_PICKER")
+        }
+
+        //função para quando o texto mudar
+        binding.etDataFimReceitas.addTextChangedListener(object : android.text.TextWatcher {
+            override fun afterTextChanged(s: android.text.Editable?) {
+                try {
+                    txtDataFim = s.toString()
+                    dataFim = SimpleDateFormat("dd/MM/yyyy",
+                        Locale.getDefault()).parse(txtDataFim)
+                    //Toast.makeText(requireContext(), "Data de fim: $dataFim", Toast.LENGTH_SHORT).show()
+                } catch (e: Exception) {
+                    Log.e("Erro", "Erro ao converter data: $e")
+                }
+                try {
+                    if(dataInicio != null && dataFim != null) {
+                        if(txtDataFim == "") return
+                        if(dataInicio!!.before(dataFim)) {
+                            val listaFiltrada = listaReceitas!!.filter {
+                                //necessário colocar um dia antes para o filtro incluir o dia da data início
+                                val inicio = Calendar.getInstance().apply { time = dataInicio!! }
+                                inicio.add(Calendar.DAY_OF_YEAR, -1)
+                                val data_inicio = inicio.time
+
+                                val fim = Calendar.getInstance().apply { time = dataFim!! }
+                                fim.add(Calendar.DAY_OF_YEAR, 1)
+                                val data_fim = fim.time
+
+                                it.data.after(data_inicio) && it.data.before(data_fim)
+                            }.toMutableList()
+                            carregarFiltro(listaFiltrada)
+                        } else {
+                            Toast.makeText(requireContext(),
+                                "A data de início deve ser antes da data de fim!!", Toast.LENGTH_SHORT).show()
+                            binding.etDataFimReceitas.setText("")
+                        }
+                    }
+                } catch (e: Exception) {
+                    Toast.makeText(requireContext(), "Erro: $e", Toast.LENGTH_SHORT).show()
+                }
+            }
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+        })
+
+
+    }
+
+    private fun trocarFragment(fragment: androidx.fragment.app.Fragment){
+        parentFragmentManager.beginTransaction()
+            .replace(R.id.fragmentContainerMovimentacoes, fragment)
+            .addToBackStack(null) //
+            .commit()
+    }
+
+    private fun carregarFiltro(listaReceitas : MutableList<Movimentacao>) {
+        Log.i(null, "lista de movimentações: $listaReceitas")
+        val adapter = ListaReceitasAdapter(listaReceitas) { movimentacaoSelecionada ->
+            val fragment = AddReceitasFragment.newInstance(movimentacaoSelecionada.id)
+            trocarFragment(fragment)
+        }
+        binding.rvListaReceitas.layoutManager = LinearLayoutManager(requireContext())
+        binding.rvListaReceitas.adapter = adapter
+
+        val valorTotal = listaReceitas.sumOf { it.valor }
+        val totalFormatado = NumberFormat
+            .getCurrencyInstance(Locale("pt", "BR")).format(valorTotal)
+        binding.txtValorTotal.text = totalFormatado
+    }
+
+    private fun carregarDados(): MutableList<Movimentacao> {
         val user = FirebaseAuth.getInstance().currentUser
         val db = FirebaseFirestore.getInstance()
         val dbMovimentacoes = db
@@ -103,103 +262,8 @@ class ReceitasFragment : Fragment() {
                 binding.txtValorTotal.text = totalFormatado
             }
         }
-        fun CalendarioInicio(
-            context: Context,
-            onDateSelected: (month: Int, year: Int) -> Unit
-        ) {
-            val visualDialog = LayoutInflater.from(context).inflate(R.layout.calendario_filtro, null)
-            val mesEscolhido = visualDialog.findViewById<NumberPicker>(R.id.monthPicker)
-            val anoEscolhido = visualDialog.findViewById<NumberPicker>(R.id.yearPicker)
 
-            val mes = arrayOf(
-                "Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho",
-                "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"
-            )
-
-            mesEscolhido.minValue = 0
-            mesEscolhido.maxValue = 11
-            mesEscolhido.displayedValues = mes
-            mesEscolhido.wrapSelectorWheel = true
-
-            val proximoAno = Calendar.getInstance().get(Calendar.YEAR)
-            anoEscolhido.minValue = 1950
-            anoEscolhido.maxValue = 2100
-            anoEscolhido.value = proximoAno
-
-            val dialog = AlertDialog.Builder(context)
-                .setTitle("Selecione mês e ano")
-                .setView(visualDialog)
-                .setPositiveButton("OK") { _, _ ->
-                    val selectedMonth = mesEscolhido.value
-                    val selectedYear = anoEscolhido.value
-                    onDateSelected(selectedMonth, selectedYear)
-                }
-                .setNegativeButton("Cancelar", null)
-                .create()
-
-            dialog.show()
-
-            dialog.getButton(AlertDialog.BUTTON_POSITIVE)?.setTextColor(
-                ContextCompat.getColor(context, R.color.textView) // ou outro
-            )
-            dialog.getButton(AlertDialog.BUTTON_NEGATIVE)?.setTextColor(
-                ContextCompat.getColor(context, R.color.textView) // ou outro
-            )
-        }
-
-
-
-        binding.etdataInicioReceitas.setOnClickListener {
-            CalendarioInicio(requireContext()) { mes, ano ->
-                binding.etdataInicioReceitas.setText("${mes + 1}/$ano")
-            }
-        }
-
-        binding.etDataFimReceitas.setOnClickListener(){
-            CalendarioInicio(requireContext()) { mes, ano ->
-                binding.etDataFimReceitas.setText("${mes + 1}/$ano")
-            }
-        }
-
-        //Codigo alternativo
-        /*binding.etdataInicioReceitas.setOnClickListener {
-            val datePicker = MaterialDatePicker.Builder.datePicker()
-                .setTitleText("Selecione a data:")
-                .setTheme(R.style.datePicker)
-                .build()
-
-            datePicker.addOnPositiveButtonClickListener { millis ->
-                val dataFormatada = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).apply {
-                    timeZone = TimeZone.getTimeZone("UTC")
-                }.format(Date(millis))
-                binding.etdataInicioReceitas.setText(dataFormatada)
-            }
-
-            datePicker.show(parentFragmentManager, "DATE_PICKER")
-        }
-
-        binding.etDataFimReceitas.setOnClickListener {
-            val datePicker = MaterialDatePicker.Builder.datePicker()
-                .setTitleText("Selecione a data:")
-                .setTheme(R.style.datePicker)
-                .build()
-
-            datePicker.addOnPositiveButtonClickListener { millis ->
-                val dataFormatada = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).apply {
-                    timeZone = TimeZone.getTimeZone("UTC")
-                }.format(Date(millis))
-                binding.etDataFimReceitas.setText(dataFormatada)
-            }
-
-            datePicker.show(parentFragmentManager, "DATE_PICKER")
-        }*/
-    }
-
-    private fun trocarFragment(fragment: androidx.fragment.app.Fragment){
-        parentFragmentManager.beginTransaction()
-            .replace(R.id.fragmentContainerMovimentacoes, fragment)
-            .addToBackStack(null) //
-            .commit()
+        return listaReceitas
     }
 
     override fun onDestroyView() {
