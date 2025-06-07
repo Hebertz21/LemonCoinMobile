@@ -15,6 +15,7 @@ import com.example.lemoncoin.databinding.FragmentReceitasBinding
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.ListenerRegistration
 import java.text.NumberFormat
 import java.text.SimpleDateFormat
 import java.util.Calendar
@@ -35,6 +36,8 @@ class ReceitasFragment : Fragment() {
 
     private var listaReceitas : MutableList<Movimentacao>? = null
 
+    private var listenerMov : ListenerRegistration? = null
+
     override fun onCreateView(  //Metodo que constroi a visualização do fragment
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -52,7 +55,7 @@ class ReceitasFragment : Fragment() {
         binding.etdataInicioReceitas.setText("")
         binding.etDataFimReceitas.setText("")
 
-        listaReceitas = carregarDados()
+        listaReceitas = movListener()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -62,7 +65,7 @@ class ReceitasFragment : Fragment() {
             trocarFragment(AddReceitasFragment())
         }
 
-        listaReceitas = carregarDados()
+        listaReceitas = movListener()
 
         binding.etdataInicioReceitas.setOnClickListener {
             val datePicker = MaterialDatePicker.Builder.datePicker()
@@ -83,12 +86,16 @@ class ReceitasFragment : Fragment() {
         //função para quando o texto mudar
         binding.etdataInicioReceitas.addTextChangedListener(object : android.text.TextWatcher {
             override fun afterTextChanged(s: android.text.Editable?) {
+                Log.i(null, "TextChange de inicio")
                 try {
                     txtDataInicio = s.toString()
                     dataInicio = SimpleDateFormat("dd/MM/yyyy",
                         Locale.getDefault()).parse(txtDataInicio!!)
+                    Log.i(null, "data inicio: $s")
                     //Toast.makeText(requireContext(), "Data de início: $dataInicio", Toast.LENGTH_SHORT).show()
                 } catch (e: Exception) {
+                    txtDataInicio = null
+                    dataInicio = null
                     Log.e("Erro", "Erro ao converter data: $e")
                 }
 
@@ -112,6 +119,7 @@ class ReceitasFragment : Fragment() {
                         } else {
                             Toast.makeText(requireContext(),
                                 "A data de início deve ser antes da data de fim!!", Toast.LENGTH_SHORT).show()
+                            listaReceitas = movListener() //tira o filtro
                             binding.etdataInicioReceitas.setText("")
                         }
                     }
@@ -148,6 +156,8 @@ class ReceitasFragment : Fragment() {
                         Locale.getDefault()).parse(txtDataFim)
                     //Toast.makeText(requireContext(), "Data de fim: $dataFim", Toast.LENGTH_SHORT).show()
                 } catch (e: Exception) {
+                    txtDataFim = null
+                    dataFim = null
                     Log.e("Erro", "Erro ao converter data: $e")
                 }
                 try {
@@ -170,6 +180,7 @@ class ReceitasFragment : Fragment() {
                         } else {
                             Toast.makeText(requireContext(),
                                 "A data de início deve ser antes da data de fim!!", Toast.LENGTH_SHORT).show()
+                            listaReceitas = movListener() //tira o filtro
                             binding.etDataFimReceitas.setText("")
                         }
                     }
@@ -206,7 +217,7 @@ class ReceitasFragment : Fragment() {
         binding.txtValorTotal.text = totalFormatado
     }
 
-    private fun carregarDados(): MutableList<Movimentacao> {
+    private fun movListener(): MutableList<Movimentacao> {
         val user = FirebaseAuth.getInstance().currentUser
         val db = FirebaseFirestore.getInstance()
         val dbMovimentacoes = db
@@ -215,59 +226,88 @@ class ReceitasFragment : Fragment() {
             .collection("movimentações")
         Log.i(null, "Terminou a busca de movimentações")
 
+
         val listaReceitas : MutableList<Movimentacao> = mutableListOf()
+        listenerMov = dbMovimentacoes.orderBy("data")
+            .addSnapshotListener { snapshots, e ->
+                if (e != null) {
+                    Log.w("ReceitasFragment", "Listen failed.", e)
+                    return@addSnapshotListener
+                }
 
-        dbMovimentacoes.orderBy("data").get().addOnCompleteListener {
-            if (it.isSuccessful) {
-                for (document in it.result) {
-                    Log.i(null, "entrou no ID: ${document.id}")
-                    val categoriaId = document.get("categoriaId")?.toString()
-                    val contaId = document.getString("contaId")
-                    val data = document.getDate("data")
-                    val nome = document.getString("nome")
-                    val tipo = document.getString("tipo")
-                    val valor = document.getDouble("valor")
+                if (_binding == null) { // <-- VERIFICAÇÃO CRUCIAL
+                    Log.d("ReceitasFragment", "Binding nulo em FragmentReceitas (snapshot), retornando.")
+                    return@addSnapshotListener
+                }
 
-                    if (categoriaId != null && contaId != null
-                        && data != null && nome != null
-                        && tipo != null && valor != null)
-                    {
-                        if (tipo == "Receita") {
-                            val movimentacao = Movimentacao(
-                                nome = nome,
-                                valor = valor,
-                                data = data,
-                                categoria = categoriaId,
-                                conta = contaId,
-                                tipo = tipo,
-                                id = document.id
-                            )
-                            listaReceitas.add(movimentacao)
+                listaReceitas.clear()
+                if (snapshots != null) {
+                    for (document in snapshots) {
+                        Log.i(null, "entrou no ID: ${document.id}")
+                        val categoriaId = document.get("categoriaId")?.toString()
+                        val contaId = document.getString("contaId")
+                        val data = document.getDate("data")
+                        val nome = document.getString("nome")
+                        val tipo = document.getString("tipo")
+                        val valor = document.getDouble("valor")
+
+                        if (categoriaId != null && contaId != null
+                            && data != null && nome != null
+                            && tipo != null && valor != null)
+                        {
+                            if (tipo == "Receita") {
+                                val movimentacao = Movimentacao(
+                                    nome = nome,
+                                    valor = valor,
+                                    data = data,
+                                    categoria = categoriaId,
+                                    conta = contaId,
+                                    tipo = tipo,
+                                    id = document.id
+                                )
+                                listaReceitas.add(movimentacao)
+                            }
+                        } else {
+                            Log.w("Firestore", "Documento com campos nulos: ${document.id}")
                         }
-                    } else {
-                        Log.w("Firestore", "Documento com campos nulos: ${document.id}")
                     }
-                }
-                val adapter = ListaReceitasAdapter(listaReceitas) { movimentacaoSelecionada ->
-                    val fragment = AddReceitasFragment.newInstance(movimentacaoSelecionada.id)
-                    trocarFragment(fragment)
+                    if(dataInicio != null && dataFim != null) {
+                        val listaFiltrada = listaReceitas.filter {
+                            //necessário colocar um dia antes para o filtro incluir o dia da data início
+                            val inicio = Calendar.getInstance().apply { time = dataInicio!! }
+                            inicio.add(Calendar.DAY_OF_YEAR, -1)
+                            val data_inicio = inicio.time
 
-                }
-                binding.rvListaReceitas.layoutManager = LinearLayoutManager(requireContext())
-                binding.rvListaReceitas.adapter = adapter
+                            val fim = Calendar.getInstance().apply { time = dataFim!! }
+                            fim.add(Calendar.DAY_OF_YEAR, 1)
+                            val data_fim = fim.time
 
-                val valorTotal = listaReceitas.sumOf { it.valor }
-                val totalFormatado = NumberFormat
-                    .getCurrencyInstance(Locale("pt", "BR")).format(valorTotal)
-                binding.txtValorTotal.text = totalFormatado
+                            it.data.after(data_inicio) && it.data.before(data_fim)
+                        }.toMutableList()
+                        carregarFiltro(listaFiltrada) //se tiver filtro ativo ele atuializa o filtro
+                        return@addSnapshotListener
+                    }
+                    Log.i(null, "lista de movimentações: $listaReceitas")
+                    val adapter = ListaReceitasAdapter(listaReceitas) { movimentacaoSelecionada ->
+                        val fragment = AddReceitasFragment.newInstance(movimentacaoSelecionada.id)
+                        trocarFragment(fragment)
+                    }
+                    binding.rvListaReceitas.layoutManager = LinearLayoutManager(requireContext())
+                    binding.rvListaReceitas.adapter = adapter
+
+                    val valorTotal = listaReceitas.sumOf { it.valor }
+                    val totalFormatado = NumberFormat
+                        .getCurrencyInstance(Locale("pt", "BR")).format(valorTotal)
+                    binding.txtValorTotal.text = totalFormatado
+                }
             }
-        }
 
         return listaReceitas
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
+        listenerMov?.remove() //Remove o listener para evitar vazamentos de memória e chamadas desnecessárias
         _binding = null // Evita vazamento de memória
     }
 

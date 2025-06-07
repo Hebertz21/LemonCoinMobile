@@ -1,5 +1,6 @@
 package com.example.lemoncoin.fragments
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -19,6 +20,7 @@ import com.example.lemoncoin.classeObjetos.Conta
 import com.example.lemoncoin.databinding.FragmentHomeBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.ListenerRegistration
 import java.text.NumberFormat
 import java.util.Date
 import java.util.Locale
@@ -35,6 +37,10 @@ class HomeFragment : Fragment() {
     private lateinit var adapterMovimentacoes : MovimentHomeAdapter
 
     private val userId = FirebaseAuth.getInstance().currentUser?.uid
+
+    private var listerConta: ListenerRegistration? = null
+    private var listenerMov: ListenerRegistration? = null
+    private var listenerCat: ListenerRegistration? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -82,6 +88,7 @@ class HomeFragment : Fragment() {
             .commit()
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     private fun carregarMovimentacoes() {
         adapterMovimentacoes = MovimentHomeAdapter(listaMovimentacoes) {
             trocarFragment(MovimentacoesFragment())
@@ -102,19 +109,24 @@ class HomeFragment : Fragment() {
             .document(userId)
             .collection("movimentações")
             .orderBy("data", com.google.firebase.firestore.Query.Direction.DESCENDING)
-            .get()
-            .addOnSuccessListener { docs ->
-                listaMovimentacoes.clear()
-                if (_binding == null) { // <-- VERIFICAÇÃO CRUCIAL
-                    Log.d("HomeFragment", "Binding nulo em carregarMovimentações (success), retornando.")
-                    return@addOnSuccessListener
+            .addSnapshotListener { docs, e ->
+                if(e != null) {
+                    Log.w("HomeFragment", "Listen movimentações falhou.", e)
+                    return@addSnapshotListener
                 }
 
-                docs.forEach { doc ->
+                if(_binding == null) { // <-- VERIFICAÇÃO CRUCIAL
+                    Log.d("HomeFragment", "Binding nulo em carregarMovimentações (snapshot), retornando.")
+                    return@addSnapshotListener
+                }
+
+                listaMovimentacoes.clear()
+
+                docs?.forEach { doc ->
                     var valor : Double
                     if (doc.getString("tipo") == "Despesa"){
                         valor = doc.getDouble("valor") ?: 0.0
-                        valor = valor * -1
+                        valor *= -1
                     } else {
                         valor = doc.getDouble("valor") ?: 0.0
                     }
@@ -137,8 +149,8 @@ class HomeFragment : Fragment() {
                         trocarFragment(MovimentacoesFragment())
                     }
                 }
+                carregarCategorias()
             }
-            .addOnFailureListener { Log.e("HomeFragment", "Erro ao carregar movimentações", it) }
     }
 
     private fun carregarContas() {
@@ -166,14 +178,19 @@ class HomeFragment : Fragment() {
                 com.google.firebase.firestore.Query.Direction.DESCENDING)
             // Para pegar as de maior saldo
             .limit(2) // Pega no máximo 2 contas
-            .get()
-            .addOnSuccessListener { docs ->
+            .addSnapshotListener { docs, e ->
+                if (e != null) {
+                    Log.w("HomeFragment", "Listen contas falhou.", e)
+                    return@addSnapshotListener
+                }
+
                 if (_binding == null) { // <-- VERIFICAÇÃO CRUCIAL
                     Log.d("HomeFragment", "Binding nulo em carregarContas (success), retornando.")
-                    return@addOnSuccessListener
+                    return@addSnapshotListener
                 }
+
                 listaContas.clear()
-                docs.forEach { doc ->
+                docs?.forEach { doc ->
                     listaContas.add(Conta(
                         nome = doc.getString("nome") ?: "",
                         saldo = doc.getDouble("saldo") ?: 0.0,
@@ -190,8 +207,10 @@ class HomeFragment : Fragment() {
                     binding.containerVerMais.setOnClickListener(){
                         trocarFragment(AddContasFragment())
                     }
-                    return@addOnSuccessListener
+                    return@addSnapshotListener
                 }
+
+                binding.containerConta1.visibility = View.VISIBLE
 
                 val saldo1 = NumberFormat
                     .getCurrencyInstance(Locale("pt", "BR"))
@@ -207,6 +226,12 @@ class HomeFragment : Fragment() {
                 }
 
                 if(listaContas.size > 1) {
+                    binding.containerConta2.visibility = View.VISIBLE
+                    binding.txtVerMais.text = "Ver Mais..."
+                    binding.containerVerMais.setOnClickListener(){
+                        trocarFragment(ContasFragment())
+                    }
+
                     val saldo2 = NumberFormat
                         .getCurrencyInstance(Locale("pt", "BR"))
                         .format(listaContas[1].saldo)
@@ -227,20 +252,9 @@ class HomeFragment : Fragment() {
                     }
                 }
             }
-            .addOnFailureListener { exception ->
-                if (_binding == null) {
-                    Log.d("HomeFragment", "Binding nulo em carregarContas (failure), retornando.")
-                    return@addOnFailureListener
-                }
-                Log.e("HomeFragment", "Erro ao carregar contas", exception)
-                binding.txtConta1.text = "Erro"
-                binding.txtSaldo1.text = ""
-                binding.txtConta2.text = "Erro"
-                binding.txtSaldo2.text = ""
-            }
-
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     private fun carregarCategorias() {
         adapterCategorias = CategoriaHomeAdapter(listaCategorias) {
             trocarFragment(CategoriasFragment())
@@ -262,14 +276,19 @@ class HomeFragment : Fragment() {
             .document(userId ?: "")
             .collection("categorias")
             .orderBy("nome")
-            .get()
-            .addOnSuccessListener { docs ->
-                listaCategorias.clear() // Limpa a lista antes de adicionar novos itens
+            .addSnapshotListener { docs, e ->
+                if (e != null) {
+                    Log.w("HomeFragment", "Listen categorias falhou.", e)
+                    return@addSnapshotListener
+                }
+
                 if (_binding == null) { // <-- VERIFICAÇÃO CRUCIAL
                     Log.d("HomeFragment", "Binding nulo em carregarCategorias (success), retornando.")
-                    return@addOnSuccessListener
+                    return@addSnapshotListener
                 }
-                docs.forEach { doc ->
+
+                listaCategorias.clear() // Limpa a lista antes de adicionar novos itens
+                docs?.forEach { doc ->
                     listaCategorias.add(Categoria(nome = doc.getString("nome") ?: "", id = doc.id))
                 }
                 // Notifica o adapter que o conjunto de dados foi alterado
@@ -284,22 +303,15 @@ class HomeFragment : Fragment() {
                     }
                 }
             }
-            .addOnFailureListener { exception ->
-                Log.e("HomeFragment", "Erro ao carregar categorias", exception)
-                listaCategorias.clear()
-                if (::adapterCategorias.isInitialized) {
-                    adapterCategorias.notifyDataSetChanged()
-                }
-            }
-            .addOnFailureListener {
-                Log.e("HomeFragment", "Erro ao carregar categorias", it)
-            }
-
         Log.i(null, "Lista de categorias: ${listaCategorias}")
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
+        //evitar vazamento de memória
+        listerConta?.remove()
+        listenerMov?.remove()
+        listenerCat?.remove()
         _binding = null // Evita vazamento de memória
     }
 }

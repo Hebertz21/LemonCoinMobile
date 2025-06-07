@@ -51,14 +51,16 @@ class CategoriaHomeAdapter(
                 listaMovimentacoes.clear()
                 docs.forEach { doc ->
                     val categoriaId = doc.get("categoriaId")?.toString()
-                    listaMovimentacoes.add(Movimentacao(
-                        nome = doc.getString("nome") ?: "",
-                        valor = doc.getDouble("valor") ?: 0.0,
-                        data = doc.getDate("data") ?: Date(),
-                        tipo = doc.getString("tipo") ?: "",
-                        categoria = categoriaId ?: "",
-                        conta = doc.getString("contaId") ?: "",
-                        id = doc.id)
+                    listaMovimentacoes.add(
+                        Movimentacao(
+                            nome = doc.getString("nome") ?: "",
+                            valor = doc.getDouble("valor") ?: 0.0,
+                            data = doc.getDate("data") ?: Date(),
+                            tipo = doc.getString("tipo") ?: "",
+                            categoria = categoriaId ?: "",
+                            conta = doc.getString("contaId") ?: "",
+                            id = doc.id
+                        )
                     )
                 }
                 Log.i(null, "Lista de movimentações: ${listaMovimentacoes}")
@@ -78,6 +80,7 @@ class CategoriaHomeAdapter(
 
                 holder.binding.txtSaldo.text = saldoFormatado
             }
+
 
         holder.binding.txtCategoria.text = categoria.nome
 

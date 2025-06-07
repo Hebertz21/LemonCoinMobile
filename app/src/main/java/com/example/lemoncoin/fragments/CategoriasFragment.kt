@@ -1,6 +1,7 @@
 package com.example.lemoncoin.fragments
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,6 +12,7 @@ import com.example.lemoncoin.classeObjetos.Categoria
 import com.example.lemoncoin.databinding.FragmentCategoriasBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.ListenerRegistration
 
 class CategoriasFragment : Fragment() {
 
@@ -19,6 +21,8 @@ class CategoriasFragment : Fragment() {
 
     private val listaCategorias = mutableListOf<Categoria>()
     private lateinit var adapter: CategoriasAdapter
+
+    private var categoriasListener: ListenerRegistration? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -29,27 +33,7 @@ class CategoriasFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-         //RecyclerView e Adapter
-        adapter = CategoriasAdapter(listaCategorias)
-
-        binding.rvListaCategorias.layoutManager = LinearLayoutManager(requireContext())
-        binding.rvListaCategorias.adapter = adapter
-
-        // Carrega categorias existentes
-        val uid = FirebaseAuth.getInstance().currentUser?.uid ?: return
-        FirebaseFirestore.getInstance()
-            .collection("usuarios")
-            .document(uid)
-            .collection("categorias")
-            .orderBy("nome")
-            .get()
-            .addOnSuccessListener { docs ->
-                listaCategorias.clear()
-                docs.forEach { doc ->
-                    listaCategorias.add(Categoria(nome = doc.getString("nome") ?: "", id = doc.id))
-                }
-                adapter.notifyDataSetChanged() // informa mudanças
-            }
+        listenerCategorias()
 
         // Botão Add: insere item novo, rola e foca
         binding.btnAddCategoria.setOnClickListener {
@@ -62,8 +46,45 @@ class CategoriasFragment : Fragment() {
 
     }
 
+    private fun listenerCategorias() {
+        // Carrega categorias existentes
+        val uid = FirebaseAuth.getInstance().currentUser?.uid ?: return
+        val dbCategorias = FirebaseFirestore.getInstance()
+            .collection("usuarios")
+            .document(uid)
+            .collection("categorias")
+
+        categoriasListener = dbCategorias.orderBy("nome")
+            .addSnapshotListener { snapshots, e ->
+                if (e != null) {
+                    Log.w("CategoriasFragment", "Listen failed.", e)
+                    return@addSnapshotListener
+                }
+
+                if (_binding == null) { // <-- VERIFICAÇÃO CRUCIAL
+                    Log.d("CategoriasFragment", "Binding nulo em FragmentCategorias (snapshot), retornando.")
+                    return@addSnapshotListener
+                }
+
+                if(snapshots != null) {
+                    listaCategorias.clear()
+                    snapshots.forEach { doc ->
+                        listaCategorias.add(Categoria(
+                            nome = doc.getString("nome") ?: "",
+                            id = doc.id
+                        ))
+                    }
+                    adapter = CategoriasAdapter(listaCategorias)
+
+                    binding.rvListaCategorias.layoutManager = LinearLayoutManager(requireContext())
+                    binding.rvListaCategorias.adapter = adapter
+                }
+            }
+    }
+
     override fun onDestroyView() {
         super.onDestroyView()
+        categoriasListener?.remove() //Remove o listener para evitar vazamentos de memória e chamadas desnecessárias
         _binding = null
     }
 }
