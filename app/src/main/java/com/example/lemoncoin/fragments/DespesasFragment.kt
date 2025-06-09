@@ -52,14 +52,13 @@ class DespesasFragment : Fragment() {
     override fun onResume() {
         super.onResume()
 
-        listaDespesas = movListener()
-
-        binding.etDataInicio.setText("")
-        binding.etDataFim.setText("")
+        binding.iconFiltro.performClick()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        binding.iconFiltro.visibility = View.GONE
 
         binding.btnAddDespesas.setOnClickListener(){
             trocarFragment(AddDespesasFragment())
@@ -300,6 +299,19 @@ class DespesasFragment : Fragment() {
         val totalFormatado = NumberFormat
             .getCurrencyInstance(Locale("pt", "BR")).format(valorTotal)
         binding.txtValorTotal.text = totalFormatado
+
+        binding.iconFiltro.visibility = View.VISIBLE
+        binding.txtFiltro.visibility = View.GONE
+
+        binding.iconFiltro.setOnClickListener {
+            binding.etDataInicio.setText("")
+            binding.etDataFim.setText("")
+
+            binding.iconFiltro.visibility = View.GONE
+            binding.txtFiltro.visibility = View.VISIBLE
+
+            this.listaDespesas = movListener()
+        }
     }
 
     override fun onDestroyView() {

@@ -52,14 +52,13 @@ class ReceitasFragment : Fragment() {
     override fun onResume() {
         super.onResume()
 
-        binding.etdataInicioReceitas.setText("")
-        binding.etDataFimReceitas.setText("")
-
-        listaReceitas = movListener()
+        binding.iconFiltro.performClick()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        binding.iconFiltro.visibility = View.GONE
 
         binding.btnAddReceitas.setOnClickListener(){
             trocarFragment(AddReceitasFragment())
@@ -215,6 +214,18 @@ class ReceitasFragment : Fragment() {
         val totalFormatado = NumberFormat
             .getCurrencyInstance(Locale("pt", "BR")).format(valorTotal)
         binding.txtValorTotal.text = totalFormatado
+
+        binding.iconFiltro.visibility = View.VISIBLE
+        binding.txtFiltro.visibility = View.GONE
+
+        binding.iconFiltro.setOnClickListener {
+            binding.etdataInicioReceitas.setText("")
+            binding.etDataFimReceitas.setText("")
+
+            binding.iconFiltro.visibility = View.GONE
+            binding.txtFiltro.visibility = View.VISIBLE
+            this.listaReceitas = movListener()
+        }
     }
 
     private fun movListener(): MutableList<Movimentacao> {
