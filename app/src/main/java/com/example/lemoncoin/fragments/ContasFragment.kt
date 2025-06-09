@@ -93,6 +93,7 @@ class ContasFragment : Fragment() {  //É preciso um constructor vazio para a cl
                             "Wise" -> R.drawable.wise
                             "Vivo" -> R.drawable.vivo
                             "Cofre Pessoal" -> R.drawable.cofre
+
                             else -> R.drawable.lapis
                         }
 

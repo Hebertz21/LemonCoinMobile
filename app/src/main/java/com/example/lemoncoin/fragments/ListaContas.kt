@@ -67,6 +67,11 @@ class ListaContas : DialogFragment() {
         binding.linearCofre.setOnClickListener {
             selectConta(R.drawable.cofre, binding.txtViewCofre.text.toString())
         }
+        binding.linearOutros.setOnClickListener{
+            val dialog = ListaContasGenericas()
+            dialog.show(parentFragmentManager, "listaContasGenericas")
+            dismiss()
+        }
         return binding.root
     }
 

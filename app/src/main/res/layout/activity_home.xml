@@ -99,7 +99,7 @@
             <TextView
                 android:id="@+id/txtCategorias"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="60dp"
                 android:padding="10dp"
                 android:text="CATEGORIAS"
                 android:textColor="@color/textView"
