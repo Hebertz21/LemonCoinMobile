@@ -2,6 +2,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.setFragmentResult
@@ -21,6 +22,11 @@ class ListaContasGenericas : DialogFragment() {
         _binding = ListaContasGenericasBinding.inflate(inflater, container, false)
 
         fun selectConta(imgResId: Int, txtConta: String) {
+            if (txtConta.isEmpty()) {
+                Toast.makeText(requireContext(), "Preencha o nome da conta",
+                    Toast.LENGTH_SHORT).show()
+                return
+            }
             val bundle = bundleOf("imgResId" to imgResId, "txtConta" to txtConta)
             setFragmentResult("requestKey", bundle)
             dismiss()

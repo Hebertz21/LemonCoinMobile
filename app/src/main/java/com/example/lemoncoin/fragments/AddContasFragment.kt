@@ -11,16 +11,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.Toast
-import androidx.core.view.setPadding
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.setFragmentResultListener
-import com.example.lemoncoin.R
 import com.example.lemoncoin.databinding.FragmentAddContaBinding
-import com.google.android.gms.tasks.Task
 import com.google.firebase.Firebase
 import com.google.firebase.auth.auth
-import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FirebaseFirestore
 import java.text.NumberFormat
 import java.util.Locale
@@ -35,6 +30,7 @@ class AddContasFragment : Fragment() {  //É preciso um constructor vazio para a
         nome: String,
         saldo: Number,
         descricao: String?, //? No final faz a var aceitar valores nulos
+        imgId: Int?,
         callback: (Boolean, String?) -> Unit
     ) {
         val userId = Firebase.auth.currentUser?.uid
@@ -43,7 +39,8 @@ class AddContasFragment : Fragment() {  //É preciso um constructor vazio para a
         val dados = hashMapOf(
             "nome" to nome,
             "saldo" to saldo,
-            "descricao" to descricao
+            "descricao" to descricao,
+            "imgId" to imgId
         )
 
         firestore.collection("usuarios")
@@ -127,6 +124,7 @@ class AddContasFragment : Fragment() {  //É preciso um constructor vazio para a
         setFragmentResultListener("requestKey") { requestKey, bundle ->
             val imgResId = bundle.getInt("imgResId")
             val txtConta = bundle.getString("txtConta")
+            binding.imgConta.tag = imgResId
             binding.imgConta.setImageResource(imgResId)
             binding.textViewConta.text = txtConta
             binding.imgConta.setPadding(0,0,0,0)
@@ -140,7 +138,6 @@ class AddContasFragment : Fragment() {  //É preciso um constructor vazio para a
         binding.textViewConta.setOnClickListener(){
             val dialog = ListaContas()
             dialog.show(parentFragmentManager, "listaContas")
-            //futuramente, adicionar logica para conta personalizada
         }
 
         binding.InputDescricao.movementMethod = ScrollingMovementMethod()
@@ -158,6 +155,7 @@ class AddContasFragment : Fragment() {  //É preciso um constructor vazio para a
                 .replace("[R$,.\\s]".toRegex(), "")
             val descricao = binding.InputDescricao.text.toString()
             val nome = binding.textViewConta.text.toString()
+            val imgId = binding.imgConta.tag.toString().toIntOrNull()
 
             if(txtSaldo.isNotEmpty() && nome.isNotEmpty() && nome != "Conta"){
                 contaExiste(nome) { existe ->
@@ -170,7 +168,7 @@ class AddContasFragment : Fragment() {  //É preciso um constructor vazio para a
                     } else {
                         //salvar dados da conta
                         val saldo = txtSaldo.toDouble() / 100 //divide por 100 para salvar os centavos
-                        salvarDadosConta(nome, saldo, descricao) { sucesso, msgErro ->
+                        salvarDadosConta(nome, saldo, descricao, imgId) { sucesso, msgErro ->
                             if (sucesso) {
                                 Toast.makeText(
                                     requireContext(),

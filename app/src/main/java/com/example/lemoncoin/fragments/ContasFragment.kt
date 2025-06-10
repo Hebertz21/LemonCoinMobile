@@ -76,6 +76,7 @@ class ContasFragment : Fragment() {  //É preciso um constructor vazio para a cl
                         Log.i(null, "entrou no ID: ${document.id}")
                         val nome = document.getString("nome")
                         val saldo = document.getDouble("saldo")
+                        val imgId = document.get("imgId").toString().toIntOrNull()
                         Log.i("Firestore", "nome = $nome | saldo = $saldo")
 
                         val img = when (nome) {
@@ -94,7 +95,7 @@ class ContasFragment : Fragment() {  //É preciso um constructor vazio para a cl
                             "Vivo" -> R.drawable.vivo
                             "Cofre Pessoal" -> R.drawable.cofre
 
-                            else -> R.drawable.lapis
+                            else -> imgId ?: R.drawable.lapis //se não tiver id, retorna o icone padrão
                         }
 
                         listaContas.add(Conta(nome ?: "", saldo ?: 0.0, img, document.id))
