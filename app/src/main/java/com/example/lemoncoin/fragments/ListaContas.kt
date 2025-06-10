@@ -46,6 +46,9 @@ class ListaContas : DialogFragment() {
         binding.linearPicpay.setOnClickListener {
             selectConta(R.drawable.picpay, binding.txtViewPicpay.text.toString())
         }
+        binding.linearRico.setOnClickListener {
+            selectConta(R.drawable.rico, binding.txtViewRico.text.toString())
+        }
         binding.linearSicredi.setOnClickListener {
             selectConta(R.drawable.sicredi, binding.txtViewSicredi.text.toString())
         }

@@ -27,6 +27,12 @@ class ListaContasGenericas : DialogFragment() {
                     Toast.LENGTH_SHORT).show()
                 return
             }
+
+            if (txtConta.length > 25) {
+                Toast.makeText(requireContext(), "O nome da conta não pode ter mais de 25 caracteres",
+                    Toast.LENGTH_SHORT).show()
+                return
+            }
             val bundle = bundleOf("imgResId" to imgResId, "txtConta" to txtConta)
             setFragmentResult("requestKey", bundle)
             dismiss()

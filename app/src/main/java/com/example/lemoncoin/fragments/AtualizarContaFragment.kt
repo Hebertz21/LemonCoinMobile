@@ -207,6 +207,7 @@ class AtualizarContaFragment : Fragment() {
                     val nome = document.getString("nome")
                     val saldo = document.getDouble("saldo")
                     val descricao = document.getString("descricao")
+                    val imgId = document.getLong("imgId")?.toInt()
                     binding.imgConta.setPadding(0,0,0,0)
                     val img = when(nome) {
                         "Banco do Brasil" -> R.drawable.banco_do_brasil
@@ -221,7 +222,8 @@ class AtualizarContaFragment : Fragment() {
                         "Sicredi" -> R.drawable.sicredi
                         "Stone" -> R.drawable.stone
                         "Wise" -> R.drawable.wise
-                        else -> R.drawable.lapis
+
+                        else -> imgId ?: R.drawable.lapis
                     }
 
                     val saldoFormatado = NumberFormat
