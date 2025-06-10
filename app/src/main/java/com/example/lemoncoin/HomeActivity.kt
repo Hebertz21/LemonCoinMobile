@@ -8,8 +8,10 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.ui.text.intl.Locale
+import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
 import androidx.core.view.GravityCompat
 import androidx.core.view.ViewCompat
@@ -107,45 +109,68 @@ class HomeActivity : AppCompatActivity() {
         }
 
         binding.txtExportarExcel.setOnClickListener {
-            binding.btnMenu.performClick()
+            val builder = AlertDialog.Builder(this)
+                .setTitle("Exportar dados")
+                .setMessage("Deseja exportar as movimentações para Excel?")
+                .setPositiveButton("Sim") { dialog, _ ->
 
-            // Mostrar a tela de carregamento
-            binding.loadingOverlay.visibility = View.VISIBLE
+                    binding.btnMenu.performClick()
+                    binding.loadingOverlay.visibility = View.VISIBLE
 
-            var listaMovimentacoes: MutableList<Movimentacao> = mutableListOf()
+                    val listaMovimentacoes = mutableListOf<Movimentacao>()
+                    val db = Firebase.firestore
+                        .collection("usuarios")
+                        .document(Firebase.auth.currentUser!!.uid)
+                        .collection("movimentações")
 
-            val db = Firebase.firestore.collection("usuarios")
-                .document(Firebase.auth.currentUser!!.uid)
-                .collection("movimentações")
+                    db.orderBy("data").get().addOnCompleteListener { task ->
+                        if (task.isSuccessful) {
+                            for (document in task.result!!) {
+                                val categoriaId = document.getString("categoriaId") ?: ""
+                                val contaId = document.getString("contaId") ?: ""
+                                val data = document.getDate("data") ?: Date()
+                                val nome = document.getString("nome") ?: ""
+                                val tipo = document.getString("tipo") ?: ""
+                                val valor = document.getDouble("valor") ?: 0.0
 
-            db.orderBy("data").get().addOnCompleteListener {
-                if (it.isSuccessful) {
-                    for (document in it.result) {
-                        Log.i(null, "entrou no ID: ${document.id}")
-                        val categoriaId = document.get("categoriaId")?.toString()
-                        val contaId = document.getString("contaId")
-                        val data = document.getDate("data")
-                        val nome = document.getString("nome")
-                        val tipo = document.getString("tipo")
-                        val valor = document.getDouble("valor")
-
-                        val movimentacao = Movimentacao (
-                            nome = nome ?: "",
-                            valor = valor ?: 0.0,
-                            data = data ?: Date(),
-                            categoria = categoriaId ?: "",
-                            conta = contaId ?: "",
-                            tipo = tipo ?: "",
-                            id = document.id
-                        )
-                        listaMovimentacoes.add(movimentacao)
+                                listaMovimentacoes.add(
+                                    Movimentacao(
+                                        nome = nome,
+                                        valor = valor,
+                                        data = data,
+                                        categoria = categoriaId,
+                                        conta = contaId,
+                                        tipo = tipo,
+                                        id = document.id
+                                    )
+                                )
+                            }
+                        }
+                        // Volta pra UI e exporta
+                        CoroutineScope(Dispatchers.Main).launch {
+                            exportarExcel(listaMovimentacoes, this@HomeActivity)
+                            binding.loadingOverlay.visibility = View.GONE
+                        }
                     }
+
+                    dialog.dismiss()
                 }
-                CoroutineScope(Dispatchers.Main).launch {
-                    exportarExcel(listaMovimentacoes, this@HomeActivity)
-                    binding.loadingOverlay.visibility = View.GONE
+                .setNegativeButton("Não") { dialog, _ ->
+                    dialog.dismiss()
                 }
+
+            val dialog = builder.create()
+
+            dialog.setOnShowListener {
+                val btnSim = dialog.getButton(AlertDialog.BUTTON_POSITIVE)
+                val btnNao = dialog.getButton(AlertDialog.BUTTON_NEGATIVE)
+
+                btnSim.setTextColor(ContextCompat.getColor(this, R.color.textView))
+                btnNao.setTextColor(ContextCompat.getColor(this, R.color.textView))
             }
+
+            dialog.show()
+
         }
 
         binding.include.imgLogo.setOnClickListener {

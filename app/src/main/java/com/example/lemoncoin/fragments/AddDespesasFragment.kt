@@ -11,12 +11,15 @@ import android.widget.ArrayAdapter
 import android.widget.EditText
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import com.example.lemoncoin.R
 import com.example.lemoncoin.databinding.FragmentAddDespesasBinding
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import java.text.NumberFormat
 import java.text.SimpleDateFormat
 import java.util.Date
@@ -145,53 +148,64 @@ class AddDespesasFragment : Fragment() {
 
         val uid = FirebaseAuth.getInstance().currentUser?.uid ?: return
 
-        //configuração do spinner de categorias
-        var categoriasNome : MutableList<String> = mutableListOf("Selecione Categoria")
-        var listaCategoriasId : MutableList<String> = mutableListOf()
+        lifecycleScope.launch {  //timer para atrasar o carregamento
+            val delayMillis = 100L
+            delay(delayMillis)
+            //configuração do spinner de categorias
+            var categoriasNome: MutableList<String> = mutableListOf("Selecione Categoria")
+            var listaCategoriasId: MutableList<String> = mutableListOf()
 
-        FirebaseFirestore.getInstance()
-            .collection("usuarios")
-            .document(uid)
-            .collection("categorias")
-            .orderBy("nome")
-            .get()
-            .addOnSuccessListener { docs ->
-                docs.forEach { doc ->
-                    categoriasNome.add(doc.getString("nome") ?: "")
-                    listaCategoriasId.add(doc.id)
+            FirebaseFirestore.getInstance()
+                .collection("usuarios")
+                .document(uid)
+                .collection("categorias")
+                .orderBy("nome")
+                .get()
+                .addOnSuccessListener { docs ->
+                    docs.forEach { doc ->
+                        categoriasNome.add(doc.getString("nome") ?: "")
+                        listaCategoriasId.add(doc.id)
+                    }
+                    val categoriaAdapter = ArrayAdapter(
+                        requireContext(),
+                        android.R.layout.simple_spinner_item,
+                        categoriasNome
+                    )
+                    binding.spnCategoriaDespesa.adapter = categoriaAdapter
+
+                    if (modo == "edit") {
+                        val pos = listaCategoriasId.indexOf(categoriaIdRecebida)
+                        if (pos >= 0) binding.spnCategoriaDespesa.setSelection(pos + 1)
+                    }
                 }
-                val categoriaAdapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, categoriasNome)
-                binding.spnCategoriaDespesa.adapter = categoriaAdapter
 
-                if (modo == "edit") {
-                    val pos = listaCategoriasId.indexOf(categoriaIdRecebida)
-                    if (pos >= 0) binding.spnCategoriaDespesa.setSelection(pos + 1)
+            //configuração do spinner de contas
+            var contasNome: MutableList<String> = mutableListOf("Selecione Conta")
+            var listaContasId: MutableList<String> = mutableListOf()
+            FirebaseFirestore.getInstance()
+                .collection("usuarios")
+                .document(uid)
+                .collection("contas")
+                .orderBy("nome")
+                .get()
+                .addOnSuccessListener { docs ->
+                    docs.forEach { doc ->
+                        contasNome.add(doc.getString("nome") ?: "")
+                        listaContasId.add(doc.id)
+                    }
+                    val contaAdapter = ArrayAdapter(
+                        requireContext(),
+                        android.R.layout.simple_spinner_item,
+                        contasNome
+                    )
+                    binding.spnContaDespesa.adapter = contaAdapter
+
+                    if (modo == "edit") {
+                        val pos = listaContasId.indexOf(contaIdRecebida)
+                        if (pos >= 0) binding.spnContaDespesa.setSelection(pos + 1)
+                    }
                 }
-            }
-
-        //configuração do spinner de contas
-        var contasNome : MutableList<String> = mutableListOf("Selecione Conta")
-        var listaContasId : MutableList<String> = mutableListOf()
-        FirebaseFirestore.getInstance()
-            .collection("usuarios")
-            .document(uid)
-            .collection("contas")
-            .orderBy("nome")
-            .get()
-            .addOnSuccessListener { docs ->
-                docs.forEach { doc ->
-                    contasNome.add(doc.getString("nome") ?: "")
-                    listaContasId.add(doc.id)
-                }
-                val contaAdapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, contasNome)
-                binding.spnContaDespesa.adapter = contaAdapter
-
-                if (modo == "edit") {
-                    val pos = listaContasId.indexOf(contaIdRecebida)
-                    if (pos >= 0) binding.spnContaDespesa.setSelection(pos + 1)
-                }
-            }
-
+        }
 
         binding.inputValorDespesa.addMoneyMask()
 
