@@ -218,6 +218,7 @@ class AtualizarContaFragment : Fragment() {
                         "Mercado Pago" -> R.drawable.mercado_pago
                         "Nubank" -> R.drawable.nubank
                         "PicPay" -> R.drawable.picpay
+                        "Rico" -> R.drawable.rico
                         "Santander" -> R.drawable.santander
                         "Sicredi" -> R.drawable.sicredi
                         "Stone" -> R.drawable.stone
