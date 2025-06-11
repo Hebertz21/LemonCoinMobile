@@ -38,6 +38,9 @@ import java.text.NumberFormat
 import java.util.Date
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.delay
+import org.apache.poi.ss.usermodel.CellStyle
+import org.apache.poi.ss.usermodel.DataFormat
+import org.apache.poi.xssf.usermodel.XSSFCellStyle
 
 
 //import com.example.lemoncoin.fragments.
@@ -111,7 +114,7 @@ class HomeActivity : AppCompatActivity() {
         binding.txtExportarExcel.setOnClickListener {
             val builder = AlertDialog.Builder(this)
                 .setTitle("Exportar dados")
-                .setMessage("Deseja exportar as movimentações para Excel?")
+                .setMessage("Deseja exportar suas movimentações para Excel?")
                 .setPositiveButton("Sim") { dialog, _ ->
 
                     binding.btnMenu.performClick()
@@ -225,6 +228,10 @@ class HomeActivity : AppCompatActivity() {
         val workbook = XSSFWorkbook()
         val sheet = workbook.createSheet("Movimentações")
 
+        val currencyCellStyle: CellStyle = workbook.createCellStyle()
+        val dataFormat: DataFormat = workbook.createDataFormat()
+        currencyCellStyle.dataFormat = dataFormat.getFormat("R$ #,##0.00")
+
         val contasMap = carregarNomesExcel("contas")
         val categoriasMap = carregarNomesExcel("categorias")
 
@@ -236,12 +243,13 @@ class HomeActivity : AppCompatActivity() {
         // Dados
         movimentacoes.forEachIndexed { index, mov ->
 
-            val valorFormatado = NumberFormat
-                .getCurrencyInstance(java.util.Locale("pt", "BR")).format(mov.valor)
-
             val row = sheet.createRow(index + 1)
             row.createCell(0).setCellValue(mov.nome)
-            row.createCell(1).setCellValue(valorFormatado)
+
+            val cellValor = row.createCell(1)
+            cellValor.setCellValue(mov.valor)
+            cellValor.cellStyle = currencyCellStyle as XSSFCellStyle?
+
             row.createCell(2).setCellValue(contasMap[mov.conta] ?: "Conta desconhecida")
             row.createCell(3).setCellValue(categoriasMap[mov.categoria] ?: "Categoria desconhecida")
 

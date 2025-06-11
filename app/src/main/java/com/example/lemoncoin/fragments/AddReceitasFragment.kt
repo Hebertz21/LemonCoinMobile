@@ -32,6 +32,7 @@ class AddReceitasFragment : Fragment() {
     private val binding get() = _binding!!
     private val firestore = FirebaseFirestore.getInstance()
     private var modo = "add"
+    private val userId = FirebaseAuth.getInstance().currentUser?.uid
 
     private var listaCategoriasId: MutableList<String> = mutableListOf()
     private var listaContasId: MutableList<String> = mutableListOf()
@@ -52,7 +53,7 @@ class AddReceitasFragment : Fragment() {
 
     private fun carregarDadosReceita() {
         Log.i(null, "id enviado: ${arguments?.getString(ARG_Receita_ID)}")
-        val userId = FirebaseAuth.getInstance().currentUser?.uid ?: return
+        if (userId == null) return
         val movId = arguments?.getString(ARG_Receita_ID) ?: return
         modo = "edit"
 
@@ -77,11 +78,91 @@ class AddReceitasFragment : Fragment() {
                         "dd/MM/yyyy",
                         Locale.getDefault()).format(data)
                     binding.etDataReceitas.setText(dataFormatada)
+
+                    carregarSpinners(userId)
                 }
             }
 
         binding.btnAddReceita.text = "EDITAR"
         binding.txtTitulo.text = "EDITAR RECEITA"
+    }
+
+    private fun carregarSpinners(uid: String?) {
+        if (uid == null) return
+
+        //configuração do spinner de contas
+        val contasNome: MutableList<String> = mutableListOf("Selecione Conta")
+        listaContasId.clear()
+
+        FirebaseFirestore.getInstance()
+            .collection("usuarios")
+            .document(uid)
+            .collection("contas")
+            .orderBy("nome")
+            .get()
+            .addOnSuccessListener { docs ->
+                if (!isAdded || view == null || context == null) {
+                    // O fragmento não está mais anexado, ou a view foi destruída,
+                    // ou o contexto não está disponível. Não faça nada.
+                    Log.w("AddReceitasFragment", "Fragmento não anexado ou view destruída no callback de conta. Abortando.")
+                    return@addOnSuccessListener
+                }
+
+                docs.forEach { doc ->
+                    val nome = doc.getString("nome") ?: ""
+                    contasNome.add(nome)
+                    listaContasId.add(doc.id)
+                }
+
+                val contaAdapter = ArrayAdapter(
+                    requireContext(),
+                    android.R.layout.simple_spinner_item,
+                    contasNome
+                )
+                binding.spnContaReceita.adapter = contaAdapter
+
+                if (modo == "edit") {
+                    val pos = listaContasId.indexOf(contaIdRecebida)
+                    if (pos >= 0) binding.spnContaReceita.setSelection(pos + 1)
+                }
+
+                //configuração do spinner de categorias
+                val categoriasNome: MutableList<String> = mutableListOf("Selecione Categoria")
+                listaCategoriasId.clear()
+                FirebaseFirestore.getInstance()
+                    .collection("usuarios")
+                    .document(uid)
+                    .collection("categorias")
+                    .orderBy("nome")
+                    .get()
+                    .addOnSuccessListener { docs ->
+                        if (!isAdded || view == null || context == null) {
+                            // O fragmento não está mais anexado, ou a view foi destruída,
+                            // ou o contexto não está disponível. Não faça nada.
+                            Log.w("AddReceitasFragment", "Fragmento não anexado ou view destruída no callback de categorias. Abortando.")
+                            return@addOnSuccessListener
+                        }
+
+                        docs.forEach { doc ->
+                            val nome = doc.getString("nome") ?: ""
+                            categoriasNome.add(nome)
+                            listaCategoriasId.add(doc.id)
+                        }
+
+                        val categoriaAdapter = ArrayAdapter(
+                            requireContext(),
+                            android.R.layout.simple_spinner_item,
+                            categoriasNome
+                        )
+                        binding.spnCategoriaReceita.adapter = categoriaAdapter
+
+                        if (modo == "edit") {
+
+                            val pos = listaCategoriasId.indexOf(categoriaIdRecebida)
+                            if (pos >= 0) binding.spnCategoriaReceita.setSelection(pos + 1)
+                        }
+                    }
+            }
     }
 
     private fun EditText.addMoneyMask() {
@@ -123,7 +204,11 @@ class AddReceitasFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        carregarDadosReceita()
+
+        carregarDadosReceita() //só carrega se estiver no modo editar
+
+        if (modo == "add") carregarSpinners(userId)
+        //se estiver no modo edit, os spinner vão carregar dentro da função carregarDadosReceita()
 
         binding.etDataReceitas.setOnClickListener {
             val datePicker = MaterialDatePicker.Builder.datePicker()
@@ -141,73 +226,6 @@ class AddReceitasFragment : Fragment() {
 
         val uid = FirebaseAuth.getInstance().currentUser?.uid ?: return
 
-
-        //configuração do spinner de contas
-
-        lifecycleScope.launch {  //timer para atrasar o carregamento
-            val delayMillis = 100L
-            delay(delayMillis)
-
-            val contasNome: MutableList<String> = mutableListOf("Selecione Conta")
-            var listaContasId: MutableList<String> = mutableListOf()
-
-            FirebaseFirestore.getInstance()
-                .collection("usuarios")
-                .document(uid)
-                .collection("contas")
-                .orderBy("nome")
-                .get()
-                .addOnSuccessListener { docs ->
-                    docs.forEach { doc ->
-                        val nome = doc.getString("nome") ?: ""
-                        contasNome.add(nome)
-                        listaContasId.add(doc.id)
-                    }
-
-                    val contaAdapter = ArrayAdapter(
-                        requireContext(),
-                        android.R.layout.simple_spinner_item,
-                        contasNome
-                    )
-                    binding.spnContaReceita.adapter = contaAdapter
-
-                    if (modo == "edit") {
-                        val pos = listaContasId.indexOf(contaIdRecebida)
-                        if (pos >= 0) binding.spnContaReceita.setSelection(pos + 1)
-                    }
-
-                    //configuração do spinner de categorias
-                    val categoriasNome: MutableList<String> = mutableListOf("Selecione Categoria")
-                    var listaCategoriasId: MutableList<String> = mutableListOf()
-
-                    FirebaseFirestore.getInstance()
-                        .collection("usuarios")
-                        .document(uid)
-                        .collection("categorias")
-                        .orderBy("nome")
-                        .get()
-                        .addOnSuccessListener { docs ->
-                            docs.forEach { doc ->
-                                val nome = doc.getString("nome") ?: ""
-                                categoriasNome.add(nome)
-                                listaCategoriasId.add(doc.id)
-                            }
-
-                            val categoriaAdapter = ArrayAdapter(
-                                requireContext(),
-                                android.R.layout.simple_spinner_item,
-                                categoriasNome
-                            )
-                            binding.spnCategoriaReceita.adapter = categoriaAdapter
-
-                            if (modo == "edit") {
-
-                                val pos = listaCategoriasId.indexOf(categoriaIdRecebida)
-                                if (pos >= 0) binding.spnCategoriaReceita.setSelection(pos + 1)
-                            }
-                        }
-                }
-        }
         binding.inputValorReceita.addMoneyMask()
 
         binding.btnCancelar.setOnClickListener {

@@ -18,6 +18,8 @@ import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import java.text.NumberFormat
@@ -32,6 +34,7 @@ class AddDespesasFragment : Fragment() {
     private val binding get() = _binding!!
     private val firestore = FirebaseFirestore.getInstance()
     private var modo = "add"
+    val userId = FirebaseAuth.getInstance().currentUser?.uid
 
     private var listaCategoriasId: MutableList<String> = mutableListOf()
     private var listaContasId: MutableList<String> = mutableListOf()
@@ -52,7 +55,8 @@ class AddDespesasFragment : Fragment() {
 
     private fun carregarDadosDespesa() {
         Log.i(null, "id enviado: ${arguments?.getString(ARG_DESPESA_ID)}")
-        val userId = FirebaseAuth.getInstance().currentUser?.uid ?: return
+        if (userId == null) return
+        //aqui valida se está na tela de editar, se o mov id for null é adicionar
         val movId = arguments?.getString(ARG_DESPESA_ID) ?: return
         modo = "edit"
 
@@ -77,11 +81,84 @@ class AddDespesasFragment : Fragment() {
                         "dd/MM/yyyy",
                         Locale.getDefault()).format(data)
                     binding.etDataDespesa.setText(dataFormatada)
+
+                    carregarSpinners(userId)
                 }
             }
 
         binding.btnAddDespesa.text = "EDITAR"
         binding.textViewTitulo.text = "EDITAR DESPESA"
+    }
+
+    private fun carregarSpinners(uid: String?){
+        if (uid == null) return
+        //configuração do spinner de categorias
+        var categoriasNome: MutableList<String> = mutableListOf("Selecione Categoria")
+        listaCategoriasId.clear()
+
+        FirebaseFirestore.getInstance()
+            .collection("usuarios")
+            .document(uid)
+            .collection("categorias")
+            .orderBy("nome")
+            .get()
+            .addOnSuccessListener { docs ->
+                if (!isAdded || view == null || context == null) {
+                    // O fragmento não está mais anexado, ou a view foi destruída,
+                    // ou o contexto não está disponível. Não faça nada.
+                    Log.w("AddDespesasFragment", "Fragmento não anexado ou view destruída no callback de categorias. Abortando.")
+                    return@addOnSuccessListener
+                }
+
+                docs.forEach { doc ->
+                    categoriasNome.add(doc.getString("nome") ?: "")
+                    listaCategoriasId.add(doc.id)
+                }
+                val categoriaAdapter = ArrayAdapter(
+                    requireContext(),
+                    android.R.layout.simple_spinner_item,
+                    categoriasNome
+                )
+                binding.spnCategoriaDespesa.adapter = categoriaAdapter
+
+                if (modo == "edit") {
+                    val pos = listaCategoriasId.indexOf(categoriaIdRecebida)
+                    if (pos >= 0) binding.spnCategoriaDespesa.setSelection(pos + 1)
+                }
+            }
+
+        //configuração do spinner de contas
+        var contasNome: MutableList<String> = mutableListOf("Selecione Conta")
+        listaContasId.clear()
+        FirebaseFirestore.getInstance()
+            .collection("usuarios")
+            .document(uid)
+            .collection("contas")
+            .orderBy("nome")
+            .get()
+            .addOnSuccessListener { docs ->
+                if (!isAdded || view == null || context == null) {
+                    // O fragmento não está mais anexado, ou a view foi destruída,
+                    // ou o contexto não está disponível. Não faça nada.
+                    Log.w("AddDespesasFragment", "Fragmento não anexado ou view destruída no callback de contas. Abortando.")
+                    return@addOnSuccessListener
+                }
+                docs.forEach { doc ->
+                    contasNome.add(doc.getString("nome") ?: "")
+                    listaContasId.add(doc.id)
+                }
+                val contaAdapter = ArrayAdapter(
+                    requireContext(),
+                    android.R.layout.simple_spinner_item,
+                    contasNome
+                )
+                binding.spnContaDespesa.adapter = contaAdapter
+
+                if (modo == "edit") {
+                    val pos = listaContasId.indexOf(contaIdRecebida)
+                    if (pos >= 0) binding.spnContaDespesa.setSelection(pos + 1)
+                }
+            }
     }
 
     private fun EditText.addMoneyMask(){
@@ -130,6 +207,8 @@ class AddDespesasFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         carregarDadosDespesa() //caso esteja no modo editar
+        if (modo == "add") carregarSpinners(userId) //
+        // se estiver no modo edit, os spinner são carregados no carregarDadosDespesa()
 
         //configuração do datepicker
         binding.etDataDespesa.setOnClickListener {
@@ -147,65 +226,6 @@ class AddDespesasFragment : Fragment() {
         }
 
         val uid = FirebaseAuth.getInstance().currentUser?.uid ?: return
-
-        lifecycleScope.launch {  //timer para atrasar o carregamento
-            val delayMillis = 100L
-            delay(delayMillis)
-            //configuração do spinner de categorias
-            var categoriasNome: MutableList<String> = mutableListOf("Selecione Categoria")
-            var listaCategoriasId: MutableList<String> = mutableListOf()
-
-            FirebaseFirestore.getInstance()
-                .collection("usuarios")
-                .document(uid)
-                .collection("categorias")
-                .orderBy("nome")
-                .get()
-                .addOnSuccessListener { docs ->
-                    docs.forEach { doc ->
-                        categoriasNome.add(doc.getString("nome") ?: "")
-                        listaCategoriasId.add(doc.id)
-                    }
-                    val categoriaAdapter = ArrayAdapter(
-                        requireContext(),
-                        android.R.layout.simple_spinner_item,
-                        categoriasNome
-                    )
-                    binding.spnCategoriaDespesa.adapter = categoriaAdapter
-
-                    if (modo == "edit") {
-                        val pos = listaCategoriasId.indexOf(categoriaIdRecebida)
-                        if (pos >= 0) binding.spnCategoriaDespesa.setSelection(pos + 1)
-                    }
-                }
-
-            //configuração do spinner de contas
-            var contasNome: MutableList<String> = mutableListOf("Selecione Conta")
-            var listaContasId: MutableList<String> = mutableListOf()
-            FirebaseFirestore.getInstance()
-                .collection("usuarios")
-                .document(uid)
-                .collection("contas")
-                .orderBy("nome")
-                .get()
-                .addOnSuccessListener { docs ->
-                    docs.forEach { doc ->
-                        contasNome.add(doc.getString("nome") ?: "")
-                        listaContasId.add(doc.id)
-                    }
-                    val contaAdapter = ArrayAdapter(
-                        requireContext(),
-                        android.R.layout.simple_spinner_item,
-                        contasNome
-                    )
-                    binding.spnContaDespesa.adapter = contaAdapter
-
-                    if (modo == "edit") {
-                        val pos = listaContasId.indexOf(contaIdRecebida)
-                        if (pos >= 0) binding.spnContaDespesa.setSelection(pos + 1)
-                    }
-                }
-        }
 
         binding.inputValorDespesa.addMoneyMask()
 
@@ -240,6 +260,7 @@ class AddDespesasFragment : Fragment() {
                     "tipo" to "Despesa"
                 )
                 if (modo == "add") {
+                    carregarSpinners(userId)
                     //adicionar despesa
                     FirebaseFirestore.getInstance()
                         .collection("usuarios")
