@@ -20,4 +20,6 @@
     <color name="borderHome">#C5C396</color>
     <color name="borderListaContas">#a39e58</color>
     <color name="backgroundInput">#FFFFFFFF</color>
+    <color name="switch_ligado">#809c34</color>
+    <color name="switch_desligado">#C5C396</color>
 </resources>

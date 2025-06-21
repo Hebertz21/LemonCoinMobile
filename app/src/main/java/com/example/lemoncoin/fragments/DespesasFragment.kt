@@ -188,7 +188,6 @@ class DespesasFragment : Fragment() {
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
         })
 
-
     }
 
     private fun trocarFragment(fragment: Fragment) {

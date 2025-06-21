@@ -24,6 +24,7 @@ import com.example.lemoncoin.fragments.CategoriasFragment
 import com.example.lemoncoin.fragments.ContasFragment
 import com.example.lemoncoin.fragments.HomeFragment
 import com.example.lemoncoin.fragments.MovimentacoesFragment
+import com.example.lemoncoin.fragments.PopupFiltroPlanilha
 import com.google.firebase.Firebase
 import com.google.firebase.auth.auth
 import com.google.firebase.firestore.firestore
@@ -41,6 +42,8 @@ import kotlinx.coroutines.delay
 import org.apache.poi.ss.usermodel.CellStyle
 import org.apache.poi.ss.usermodel.DataFormat
 import org.apache.poi.xssf.usermodel.XSSFCellStyle
+import java.text.SimpleDateFormat
+import java.util.Calendar
 
 
 //import com.example.lemoncoin.fragments.
@@ -65,6 +68,8 @@ class HomeActivity : AppCompatActivity() {
                 .replace(R.id.fragmentContainer, fragment)
                 .commit()
         }
+
+
 
         // Configuração do botão para abrir/fechar o menu lateral
         binding.btnMenu.setOnClickListener {
@@ -112,68 +117,7 @@ class HomeActivity : AppCompatActivity() {
         }
 
         binding.txtExportarExcel.setOnClickListener {
-            val builder = AlertDialog.Builder(this)
-                .setTitle("Exportar dados")
-                .setMessage("Deseja exportar suas movimentações para Excel?")
-                .setPositiveButton("Sim") { dialog, _ ->
-
-                    binding.btnMenu.performClick()
-                    binding.loadingOverlay.visibility = View.VISIBLE
-
-                    val listaMovimentacoes = mutableListOf<Movimentacao>()
-                    val db = Firebase.firestore
-                        .collection("usuarios")
-                        .document(Firebase.auth.currentUser!!.uid)
-                        .collection("movimentações")
-
-                    db.orderBy("data").get().addOnCompleteListener { task ->
-                        if (task.isSuccessful) {
-                            for (document in task.result!!) {
-                                val categoriaId = document.getString("categoriaId") ?: ""
-                                val contaId = document.getString("contaId") ?: ""
-                                val data = document.getDate("data") ?: Date()
-                                val nome = document.getString("nome") ?: ""
-                                val tipo = document.getString("tipo") ?: ""
-                                val valor = document.getDouble("valor") ?: 0.0
-
-                                listaMovimentacoes.add(
-                                    Movimentacao(
-                                        nome = nome,
-                                        valor = valor,
-                                        data = data,
-                                        categoria = categoriaId,
-                                        conta = contaId,
-                                        tipo = tipo,
-                                        id = document.id
-                                    )
-                                )
-                            }
-                        }
-                        // Volta pra UI e exporta
-                        CoroutineScope(Dispatchers.Main).launch {
-                            exportarExcel(listaMovimentacoes, this@HomeActivity)
-                            binding.loadingOverlay.visibility = View.GONE
-                        }
-                    }
-
-                    dialog.dismiss()
-                }
-                .setNegativeButton("Não") { dialog, _ ->
-                    dialog.dismiss()
-                }
-
-            val dialog = builder.create()
-
-            dialog.setOnShowListener {
-                val btnSim = dialog.getButton(AlertDialog.BUTTON_POSITIVE)
-                val btnNao = dialog.getButton(AlertDialog.BUTTON_NEGATIVE)
-
-                btnSim.setTextColor(ContextCompat.getColor(this, R.color.textView))
-                btnNao.setTextColor(ContextCompat.getColor(this, R.color.textView))
-            }
-
-            dialog.show()
-
+            PopupFiltroPlanilha().show(supportFragmentManager, "popupFiltroPlanilha")
         }
 
         binding.include.imgLogo.setOnClickListener {
@@ -202,6 +146,69 @@ class HomeActivity : AppCompatActivity() {
             }
         }
 
+        supportFragmentManager.setFragmentResultListener("filtroPlanilhaRequestKey", this) { _, bundle ->
+            val usarDespesas = bundle.getBoolean("usarDespesas")
+            val usarReceitas = bundle.getBoolean("usarReceitas")
+            val todasDatas = bundle.getBoolean("todasDatas")
+            val txtDataInicio = bundle.getString("dataInicio")
+            val txtDataFim = bundle.getString("dataFim")
+            var dataInicio: Date? = null
+            var dataFim: Date? = null
+
+            if (!todasDatas) {
+                dataInicio = SimpleDateFormat("dd/MM/yyyy",
+                    java.util.Locale.getDefault()).parse(txtDataInicio!!)
+
+                dataFim = SimpleDateFormat("dd/MM/yyyy",
+                    java.util.Locale.getDefault()).parse(txtDataFim!!)
+            }
+
+            binding.btnMenu.performClick()
+            binding.loadingOverlay.visibility = View.VISIBLE
+
+            val listaMovimentacoes = mutableListOf<Movimentacao>()
+            val db = Firebase.firestore
+                .collection("usuarios")
+                .document(Firebase.auth.currentUser!!.uid)
+                .collection("movimentações")
+
+            db.orderBy("data").get().addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    for (document in task.result!!) {
+                        val categoriaId = document.getString("categoriaId") ?: ""
+                        val contaId = document.getString("contaId") ?: ""
+                        val data = document.getDate("data") ?: Date()
+                        val nome = document.getString("nome") ?: ""
+                        val tipo = document.getString("tipo") ?: ""
+                        val valor = document.getDouble("valor") ?: 0.0
+
+                        if(!todasDatas){
+                            if(data.before(dataInicio!!) || data.after(dataFim!!)) continue
+                        }
+
+                        if(tipo == "Despesa" && !usarDespesas) continue
+                        if(tipo == "Receita" && !usarReceitas) continue
+
+                        listaMovimentacoes.add(
+                            Movimentacao(
+                                nome = nome,
+                                valor = valor,
+                                data = data,
+                                categoria = categoriaId,
+                                conta = contaId,
+                                tipo = tipo,
+                                id = document.id
+                            )
+                        )
+                    }
+                }
+                // Volta pra UI e exporta
+                CoroutineScope(Dispatchers.Main).launch {
+                    exportarExcel(listaMovimentacoes, this@HomeActivity)
+                    binding.loadingOverlay.visibility = View.GONE
+                }
+            }
+        }
     }
 
 

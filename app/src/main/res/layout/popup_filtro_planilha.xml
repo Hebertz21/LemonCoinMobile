@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@color/backgroundInput"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="0dp">
+
+        <Button
+            android:id="@+id/btnExportar"
+            style="@style/Buttons"
+            android:layout_width="130dp"
+            android:layout_height="52dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginEnd="24dp"
+            android:layout_weight="1"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:text="Exportar"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/switchReceitas" />
+
+        <Button
+            android:id="@+id/btnCancelar"
+            style="@style/Buttons"
+            android:layout_width="130dp"
+            android:layout_height="52dp"
+            android:layout_marginTop="32dp"
+            android:layout_weight="1"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:text="Cancelar"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toStartOf="@+id/btnExportar"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/switchReceitas" />
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etDataFim"
+            android:layout_width="110dp"
+            android:layout_height="44dp"
+            android:layout_marginTop="32dp"
+            android:focusable="false"
+            android:hint="Final"
+            android:paddingStart="7dp"
+            android:paddingLeft="7dp"
+            android:paddingEnd="7dp"
+            android:paddingRight="7dp"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView9" />
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etDataInicio"
+            android:layout_width="110dp"
+            android:layout_height="44dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginEnd="16dp"
+            android:focusable="false"
+            android:hint="Início"
+            android:paddingStart="7dp"
+            android:paddingLeft="7dp"
+            android:paddingRight="7dp"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toStartOf="@+id/etDataFim"
+            app:layout_constraintTop_toBottomOf="@+id/textView9" />
+
+        <TextView
+            android:id="@+id/textView9"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="EXPORTAR PLANILHA"
+            android:textAlignment="center"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Switch
+            android:id="@+id/switchDespesas"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:text="Despesas"
+            android:thumbTint="@color/switch_desligado"
+            android:trackTint="@color/switch_desligado"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/chkTodasDatas" />
+
+        <Switch
+            android:id="@+id/switchReceitas"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:thumbTint="@color/switch_desligado"
+            android:trackTint="@color/switch_desligado"
+            android:text="Receitas"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/switchDespesas" />
+
+        <CheckBox
+            android:id="@+id/chkTodasDatas"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="20dp"
+            android:text="Todas Datas"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/etDataInicio" />
+
+        <TextView
+            android:id="@+id/textView11"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:text="Período"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/etDataInicio"
+            app:layout_constraintEnd_toStartOf="@+id/etDataInicio"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/etDataInicio" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
