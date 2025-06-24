@@ -106,9 +106,10 @@ class ListaDespesasAdapter(private val lista: MutableList<Movimentacao>,
                                 val context = holder.itemView.context
                                 Toast.makeText(context, "Despesa excluída com sucesso",
                                     Toast.LENGTH_LONG).show()
-                                lista.removeAt(position)
-                                notifyItemRemoved(position)
-                                notifyItemRangeChanged(position, lista.size)
+                                //por conta do listener, não precisa remover o item por aqui
+//                                lista.removeAt(position)
+//                                notifyItemRemoved(position)
+//                                notifyItemRangeChanged(position, lista.size)
                             }
                             .addOnFailureListener { e ->
                                 val context = holder.itemView.context

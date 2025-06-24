@@ -89,11 +89,12 @@ class CategoriasAdapter(
         // Botão Editar ativa modo edição
         btnEditar.setOnClickListener {
             if (editingPositions.contains(position)) {
-
                 holder.binding.txtCategoria.clearFocus()
-            } else {
+            }
+            else {
                 editingPositions.add(position)
-                notifyItemChanged(position)
+//                notifyItemChanged(position)
+                btnEditar.performClick() //clica novamente para sair do modo edição
             }
         }
 
@@ -101,9 +102,7 @@ class CategoriasAdapter(
         txtCategoria.setOnFocusChangeListener { _, hasFocus ->
             if (!hasFocus) {
                 val novoNome = txtCategoria.text.toString().trim()
-                if (novoNome.isEmpty()) {
-                    // só sai do modo edição
-                } else {
+                if (novoNome.isNotEmpty()) {
                     uid?.let { userId ->
                         val ref = db.collection("usuarios")
                             .document(userId)
@@ -157,9 +156,10 @@ class CategoriasAdapter(
                                     "Categoria excluída com sucesso",
                                     Toast.LENGTH_LONG
                                 ).show()
-                                lista.removeAt(position)
-                                notifyItemRemoved(position)
-                                notifyItemRangeChanged(position, lista.size)
+                                //por conta do listener, não precisamos remover por aqui
+//                                lista.removeAt(position)
+//                                notifyItemRemoved(position)
+//                                notifyItemRangeChanged(position, lista.size)
                             }
                     }
                     dialog.dismiss()

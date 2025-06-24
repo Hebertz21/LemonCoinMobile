@@ -71,9 +71,9 @@ class ContaAdapter(private val contas: MutableList<Conta>, //Conta é um list
                                 val context = holder.itemView.context
                                 Toast.makeText(context, "Conta excluída com sucesso",
                                     Toast.LENGTH_LONG).show()
-                                contas.removeAt(position)
-                                notifyItemRemoved(position)
-                                notifyItemRangeChanged(position, contas.size)
+//                                contas.removeAt(position)
+//                                notifyItemRemoved(position)
+//                                notifyItemRangeChanged(position, contas.size)
                             }
                             .addOnFailureListener { e ->
                                 val context = holder.itemView.context
