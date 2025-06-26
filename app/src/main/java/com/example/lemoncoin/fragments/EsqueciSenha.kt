@@ -63,7 +63,6 @@ class EsqueciSenha : DialogFragment() {
 
                     }
             }
-
         }
 
     }
