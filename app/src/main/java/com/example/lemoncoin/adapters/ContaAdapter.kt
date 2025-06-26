@@ -46,7 +46,11 @@ class ContaAdapter(private val contas: MutableList<Conta>, //Conta é um list
 
         holder.binding.txtNomeConta.text = conta.nome   //Holder atua como um auxiliar do Binding
         holder.binding.txtSaldo.text = saldoFormatado
-        holder.binding.imgConta.setImageResource(conta.iconeResId)
+        try {
+            holder.binding.imgConta.setImageResource(conta.iconeResId)
+        } catch (e: Exception) {
+            holder.binding.imgConta.setImageResource(R.drawable.lapis)
+        }
 
         //ao clicar no item
         holder.itemView.setOnClickListener {

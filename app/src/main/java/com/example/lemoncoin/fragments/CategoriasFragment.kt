@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.get
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.lemoncoin.adapters.CategoriasAdapter
@@ -37,6 +38,7 @@ class CategoriasFragment : Fragment() {
 
         // Botão Add: insere item novo, rola e foca
         binding.btnAddCategoria.setOnClickListener {
+            binding.btnAddCategoria.visibility = View.GONE
             listaCategorias.add(Categoria(nome = "", id = null))
             val newPos = listaCategorias.lastIndex
             adapter.notifyItemInserted(newPos)
@@ -48,6 +50,7 @@ class CategoriasFragment : Fragment() {
 
     private fun listenerCategorias() {
         // Carrega categorias existentes
+        binding.btnAddCategoria.visibility = View.VISIBLE
         val uid = FirebaseAuth.getInstance().currentUser?.uid ?: return
         val dbCategorias = FirebaseFirestore.getInstance()
             .collection("usuarios")
@@ -75,7 +78,7 @@ class CategoriasFragment : Fragment() {
                         ))
                     }
                     adapter = CategoriasAdapter(listaCategorias)
-
+                    binding.btnAddCategoria.visibility = View.VISIBLE
                     binding.rvListaCategorias.layoutManager = LinearLayoutManager(requireContext())
                     binding.rvListaCategorias.adapter = adapter
                 }

@@ -10,6 +10,7 @@ import android.view.inputmethod.InputMethodManager
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.content.ContextCompat
+import androidx.core.content.getSystemService
 import androidx.recyclerview.widget.RecyclerView
 import com.example.lemoncoin.R
 import com.example.lemoncoin.classeObjetos.Categoria
@@ -29,8 +30,6 @@ class CategoriasAdapter(
 
     inner class CategoriasViewHolder(val binding: RecyclerViewListaCategoriasBinding) :
         RecyclerView.ViewHolder(binding.root)
-
-    var infoAdd: Boolean = false
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CategoriasViewHolder {
         val binding = RecyclerViewListaCategoriasBinding.inflate(
@@ -88,13 +87,14 @@ class CategoriasAdapter(
 
         // Botão Editar ativa modo edição
         btnEditar.setOnClickListener {
+            //click no v
             if (editingPositions.contains(position)) {
+                //quando clica, chama a função de lost focus de txtCategoria
                 holder.binding.txtCategoria.clearFocus()
             }
             else {
                 editingPositions.add(position)
-//                notifyItemChanged(position)
-                btnEditar.performClick() //clica novamente para sair do modo edição
+                notifyItemChanged(position)
             }
         }
 
@@ -112,21 +112,26 @@ class CategoriasAdapter(
                             // ADD
                             ref.add(mapOf("nome" to novoNome))
                                 .addOnSuccessListener { docRef ->
-                                    categoria.id = docRef.id
-                                    categoria.nome = novoNome
-                                    lista[position] = categoria
+                                    //por conta do listener, não precisamos dessa parte do codigo
+//                                    categoria.id = docRef.id
+//                                    categoria.nome = novoNome
+//                                    lista[position] = categoria
                                     Log.d("CAT_ADAPTER", "Criou ${docRef.id}")
-                                    // agora sim remove edição e fecha teclado
+                                    //remove do modo de edição
                                     editingPositions.remove(position)
                                     notifyItemChanged(position)
+                                    //fecha o teclado
+                                    val imm = txtCategoria.context
+                                        .getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                                    imm.hideSoftInputFromWindow(txtCategoria.windowToken, 0)
                                 }
                         } else {
                             // UPDATE
                             ref.document(categoria.id!!)
                                 .update("nome", novoNome)
                                 .addOnSuccessListener {
-                                    categoria.nome = novoNome
-                                    lista[position] = categoria
+//                                    categoria.nome = novoNome
+//                                    lista[position] = categoria
                                     Log.d("CAT_ADAPTER", "Atualizou ${categoria.id}")
                                     editingPositions.remove(position)
                                     notifyItemChanged(position)
@@ -140,6 +145,17 @@ class CategoriasAdapter(
 
         //Delete
         btnDeletar.setOnClickListener {
+            if (categoria.id == null) {
+                lista.removeAt(position)
+                notifyItemRemoved(position)
+                notifyItemRangeChanged(position, lista.size)
+                return@setOnClickListener
+            } else if(editing){
+                editingPositions.remove(position)
+                notifyItemChanged(position)
+                return@setOnClickListener
+            }
+
             val builder = AlertDialog.Builder(holder.itemView.context)
             builder.setTitle("Excluir categoria")
                 .setMessage("Deseja realmente excluir '${categoria.nome}'?")
