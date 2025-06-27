@@ -48,8 +48,10 @@ class CategoriasAdapter(
 
         if (editingPositions.contains(position)) {
             btnEditar.setImageResource(R.drawable.icon_done)
+            btnDeletar.setImageResource(R.drawable.ic_closed)
         } else {
             btnEditar.setImageResource(R.drawable.ic_pencil)
+            btnDeletar.setImageResource(R.drawable.icon_delete)
         }
 
         txtCategoria.imeOptions = EditorInfo.IME_ACTION_DONE
@@ -153,6 +155,10 @@ class CategoriasAdapter(
             } else if(editing){
                 editingPositions.remove(position)
                 notifyItemChanged(position)
+                //Fechar teclado
+                val imm = txtCategoria.context
+                    .getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                imm.hideSoftInputFromWindow(txtCategoria.windowToken, 0)
                 return@setOnClickListener
             }
 
