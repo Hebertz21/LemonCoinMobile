@@ -80,8 +80,8 @@ class HomeActivity : AppCompatActivity() {
             }
         }
 
-        // Configuração do clique para abrir o fragmento Contas
-        binding.txtContas.setOnClickListener { //Função do clique Contas
+        //CONTAS
+        fun abrirConats(){
             val fragmentAtual = supportFragmentManager.findFragmentById(R.id.fragmentContainer)
             if (fragmentAtual !is ContasFragment) {
                 if (fragmentAtual is HomeFragment) {
@@ -91,9 +91,16 @@ class HomeActivity : AppCompatActivity() {
                 }
             }
         }
+        binding.txtContas.setOnClickListener {
+            abrirConats()
+        }
 
-        //Relatorios
-        binding.txtMovimentacoes.setOnClickListener {
+        binding.iconContas.setOnClickListener(){
+            abrirConats()
+        }
+
+        //MOVIMENTAÇÕES
+        fun abrirMovimentacoes(){
             val fragmentAtual = supportFragmentManager.findFragmentById(R.id.fragmentContainer)
             if (fragmentAtual !is MovimentacoesFragment) {
                 if (fragmentAtual is HomeFragment) {
@@ -103,9 +110,17 @@ class HomeActivity : AppCompatActivity() {
                 }
             }
         }
+        binding.txtMovimentacoes.setOnClickListener {
+            abrirMovimentacoes()
+        }
+
+        binding.iconMovimentacoes.setOnClickListener(){
+            abrirMovimentacoes()
+        }
 
         //Categorias
-        binding.txtCategorias.setOnClickListener {
+
+        fun abrirCategorias(){
             val fragmentAtual = supportFragmentManager.findFragmentById(R.id.fragmentContainer)
             if (fragmentAtual !is CategoriasFragment) {
                 if (fragmentAtual is HomeFragment) {
@@ -116,6 +131,17 @@ class HomeActivity : AppCompatActivity() {
             }
         }
 
+        binding.iconCategoria.setOnClickListener{
+            abrirCategorias()
+        }
+        binding.txtCategorias.setOnClickListener {
+            abrirCategorias()
+        }
+
+        //EXCEL
+        binding.iconExportarExcel.setOnClickListener(){
+            PopupFiltroPlanilha().show(supportFragmentManager, "popupFiltroPlanilha")
+        }
         binding.txtExportarExcel.setOnClickListener {
             PopupFiltroPlanilha().show(supportFragmentManager, "popupFiltroPlanilha")
         }

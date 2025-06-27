@@ -8,24 +8,25 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:background="@color/backgroundInput"
-        tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="0dp">
+        android:background="@drawable/background_rounded_white"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <Button
             android:id="@+id/btnExportar"
             style="@style/Buttons"
             android:layout_width="130dp"
             android:layout_height="52dp"
-            android:layout_marginTop="32dp"
-            android:layout_marginEnd="24dp"
             android:layout_weight="1"
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
             android:text="Exportar"
-            android:textSize="14sp"
+            android:textSize="16sp"
+            android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/switchReceitas" />
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/btnCancelar"
+            app:layout_constraintTop_toTopOf="@+id/btnCancelar" />
 
         <Button
             android:id="@+id/btnCancelar"
@@ -33,20 +34,25 @@
             android:layout_width="130dp"
             android:layout_height="52dp"
             android:layout_marginTop="32dp"
+            android:layout_marginBottom="16dp"
             android:layout_weight="1"
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
             android:text="Cancelar"
-            android:textSize="14sp"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/btnExportar"
+            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/switchReceitas" />
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/etDataFim"
             android:layout_width="110dp"
-            android:layout_height="44dp"
+            android:layout_height="50dp"
             android:layout_marginTop="32dp"
+            android:layout_marginEnd="8dp"
             android:focusable="false"
             android:hint="Final"
             android:paddingStart="7dp"
@@ -60,7 +66,7 @@
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/etDataInicio"
             android:layout_width="110dp"
-            android:layout_height="44dp"
+            android:layout_height="50dp"
             android:layout_marginTop="32dp"
             android:layout_marginEnd="16dp"
             android:focusable="false"
@@ -79,6 +85,7 @@
             android:layout_marginTop="16dp"
             android:text="EXPORTAR PLANILHA"
             android:textAlignment="center"
+            android:textColor="@color/titulos"
             android:textSize="20sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
@@ -87,35 +94,39 @@
 
         <Switch
             android:id="@+id/switchDespesas"
-            android:layout_width="120dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
+            android:layout_width="130dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="8dp"
             android:text="Despesas"
+            android:textSize="16sp"
             android:thumbTint="@color/switch_desligado"
             android:trackTint="@color/switch_desligado"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/chkTodasDatas"
             app:layout_constraintTop_toBottomOf="@+id/chkTodasDatas" />
 
         <Switch
             android:id="@+id/switchReceitas"
-            android:layout_width="120dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
+            android:layout_width="130dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="8dp"
+            android:text="Receitas"
+            android:textSize="16sp"
             android:thumbTint="@color/switch_desligado"
             android:trackTint="@color/switch_desligado"
-            android:text="Receitas"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/switchDespesas"
             app:layout_constraintTop_toBottomOf="@+id/switchDespesas" />
 
         <CheckBox
             android:id="@+id/chkTodasDatas"
-            android:layout_width="120dp"
+            android:layout_width="130dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="20dp"
+            android:drawablePadding="0dp"
+            android:padding="0dp"
+            android:paddingVertical="0dp"
             android:text="Todas Datas"
+            android:textSize="16sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/etDataInicio" />
 
@@ -126,6 +137,7 @@
             android:layout_marginStart="16dp"
             android:layout_marginEnd="16dp"
             android:text="Período"
+            android:textColor="@color/textView"
             android:textSize="16sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="@+id/etDataInicio"

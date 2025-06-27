@@ -43,10 +43,11 @@
             android:layout_width="190dp"
             android:layout_height="wrap_content"
             android:hint="Nova categoria"
-            android:singleLine="true"
             android:imeOptions="actionDone"
             android:inputType="textCapWords"
             android:padding="16dp"
+            android:singleLine="true"
+            android:textColor="@color/textView"
             android:textSize="18sp"
             tools:ignore="MissingConstraints" />
     </androidx.constraintlayout.widget.ConstraintLayout>
