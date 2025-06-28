@@ -62,7 +62,13 @@ class CategoriaHomeAdapter(
                     val categoriaId = doc.get("categoriaId")?.toString()
 
                     if (categoriaId != categoria.id) return@forEach
-                    if (doc.getDate("data")!!.before(dia1mes)) return@forEach
+
+                    try {
+                        if (doc.getDate("data")!!.before(dia1mes)) return@forEach
+                    } catch (e: TypeNotPresentException) {
+                        Log.e("Erro", "Erro ao converter data: $e")
+                    }
+
 
                     listaMovimentacoes.add(
                         Movimentacao(

@@ -22,6 +22,8 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ListenerRegistration
 import java.text.NumberFormat
+import java.text.SimpleDateFormat
+import java.util.Calendar
 import java.util.Date
 import java.util.Locale
 
@@ -41,6 +43,8 @@ class HomeFragment : Fragment() {
     private var listerConta: ListenerRegistration? = null
     private var listenerMov: ListenerRegistration? = null
     private var listenerCat: ListenerRegistration? = null
+    private var dia1mes : Date? = null
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -55,6 +59,19 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        // Calcula o dia 1 do mês atual para filtro
+        val calendario = Calendar.getInstance()
+        calendario.set(Calendar.DAY_OF_MONTH, 0)
+        dia1mes = calendario.time
+
+        //uso para visualização do txt de data
+        calendario.set(Calendar.DAY_OF_MONTH, 1)
+        calendario.add(Calendar.MONTH, 1)
+        val dia1Formatado = SimpleDateFormat("dd/MM/yyyy",
+            Locale("pt", "BR")).format(calendario.time)
+        binding.txtCatInicio.text = "Valores a partir de: ${dia1Formatado}"
+        binding.txtMovInicio.text = "Valores a partir de: ${dia1Formatado}"
 
         carregarCategorias()
         carregarContas()
@@ -123,6 +140,13 @@ class HomeFragment : Fragment() {
                 listaMovimentacoes.clear()
 
                 docs?.forEach { doc ->
+
+                    try {
+                        if (doc.getDate("data")!!.before(dia1mes)) return@forEach
+                    } catch (e: TypeNotPresentException) {
+                        Log.e("Erro", "Erro ao converter data: $e")
+                    }
+
                     var valor : Double
                     if (doc.getString("tipo") == "Despesa"){
                         valor = doc.getDouble("valor") ?: 0.0
