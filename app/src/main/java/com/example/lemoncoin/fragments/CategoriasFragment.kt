@@ -5,7 +5,6 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.view.get
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.lemoncoin.adapters.CategoriasAdapter
@@ -38,7 +37,6 @@ class CategoriasFragment : Fragment() {
 
         // Botão Add: insere item novo, rola e foca
         binding.btnAddCategoria.setOnClickListener {
-            binding.btnAddCategoria.visibility = View.GONE
             listaCategorias.add(Categoria(nome = "", id = null))
             val newPos = listaCategorias.lastIndex
             adapter.notifyItemInserted(newPos)
@@ -50,7 +48,6 @@ class CategoriasFragment : Fragment() {
 
     private fun listenerCategorias() {
         // Carrega categorias existentes
-        binding.btnAddCategoria.visibility = View.VISIBLE
         val uid = FirebaseAuth.getInstance().currentUser?.uid ?: return
         val dbCategorias = FirebaseFirestore.getInstance()
             .collection("usuarios")
@@ -77,8 +74,21 @@ class CategoriasFragment : Fragment() {
                             id = doc.id
                         ))
                     }
-                    adapter = CategoriasAdapter(listaCategorias)
-                    binding.btnAddCategoria.visibility = View.VISIBLE
+                    adapter = CategoriasAdapter(listaCategorias, object : CategoriasAdapter.OnCategoriaActionListener {
+                        override fun mostrarBtnAdd(mostrar : Boolean){
+                            if (_binding != null) {
+                                if(mostrar){
+                                    binding.btnAddCategoria.visibility = View.VISIBLE
+                                    binding.btnAddCategoria.isEnabled = true
+                                } else {
+                                    binding.btnAddCategoria.visibility = View.INVISIBLE
+                                    binding.btnAddCategoria.isEnabled = false
+                                }
+                            } else {
+                                Log.e("CategoriasFragment", "Binding é nulo em onMostrarBtnAdd.")
+                            }
+                        }
+                    })
                     binding.rvListaCategorias.layoutManager = LinearLayoutManager(requireContext())
                     binding.rvListaCategorias.adapter = adapter
                 }

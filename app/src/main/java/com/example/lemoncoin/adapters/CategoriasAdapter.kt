@@ -10,19 +10,24 @@ import android.view.inputmethod.InputMethodManager
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.content.ContextCompat
-import androidx.core.content.getSystemService
 import androidx.recyclerview.widget.RecyclerView
 import com.example.lemoncoin.R
 import com.example.lemoncoin.classeObjetos.Categoria
 import com.example.lemoncoin.databinding.RecyclerViewListaCategoriasBinding
+import com.example.lemoncoin.fragments.CategoriasFragment
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 
 
 
 class CategoriasAdapter(
-    private val lista: MutableList<Categoria>
+    private val lista: MutableList<Categoria>,
+    private val listener: OnCategoriaActionListener
 ) : RecyclerView.Adapter<CategoriasAdapter.CategoriasViewHolder>() {
+
+    interface OnCategoriaActionListener {
+        fun mostrarBtnAdd(mostrar: Boolean = true)
+    }
 
     private val editingPositions = mutableSetOf<Int>() // posições em modo edição
     private val db  = FirebaseFirestore.getInstance()
@@ -75,6 +80,7 @@ class CategoriasAdapter(
 
          //Se em edição, pede foco e abre teclado
         if (editing) {
+            listener.mostrarBtnAdd(false)
             txtCategoria.post {
                 txtCategoria.requestFocus()
                 txtCategoria.setSelection(txtCategoria.text?.length ?: 0)
@@ -126,6 +132,7 @@ class CategoriasAdapter(
                                     val imm = txtCategoria.context
                                         .getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
                                     imm.hideSoftInputFromWindow(txtCategoria.windowToken, 0)
+                                    listener.mostrarBtnAdd(true)
                                 }
                         } else {
                             // UPDATE
@@ -137,6 +144,7 @@ class CategoriasAdapter(
                                     Log.d("CAT_ADAPTER", "Atualizou ${categoria.id}")
                                     editingPositions.remove(position)
                                     notifyItemChanged(position)
+                                    listener.mostrarBtnAdd(true)
                                 }
                         }
                     }
@@ -151,6 +159,7 @@ class CategoriasAdapter(
                 lista.removeAt(position)
                 notifyItemRemoved(position)
                 notifyItemRangeChanged(position, lista.size)
+                listener.mostrarBtnAdd(true)
                 return@setOnClickListener
             } else if(editing){
                 editingPositions.remove(position)
@@ -159,6 +168,7 @@ class CategoriasAdapter(
                 val imm = txtCategoria.context
                     .getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
                 imm.hideSoftInputFromWindow(txtCategoria.windowToken, 0)
+                listener.mostrarBtnAdd(true)
                 return@setOnClickListener
             }
 

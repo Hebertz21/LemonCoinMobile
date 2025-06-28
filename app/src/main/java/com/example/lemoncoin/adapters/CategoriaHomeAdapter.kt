@@ -2,6 +2,7 @@ package com.example.lemoncoin.adapters
 
 import android.util.Log
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.lemoncoin.classeObjetos.Categoria
@@ -10,6 +11,7 @@ import com.example.lemoncoin.databinding.RecyclerViewCategoriaHomeBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import java.text.NumberFormat
+import java.util.Calendar
 import java.util.Date
 import java.util.Locale
 
@@ -37,8 +39,15 @@ class CategoriaHomeAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        //invisivel por padrão para evitar bugs visuais
+        holder.binding.txtCategoria.visibility = View.GONE
+        holder.binding.txtSaldo.visibility = View.GONE
+
         val categoria = lista[position]
         var saldo = 0.0
+        val calendario = Calendar.getInstance()
+        calendario.set(Calendar.DAY_OF_MONTH, 0)
+        val dia1mes = calendario.time
 
         //puxa todas movimentações do usuário
         FirebaseFirestore.getInstance()
@@ -51,6 +60,10 @@ class CategoriaHomeAdapter(
                 listaMovimentacoes.clear()
                 docs.forEach { doc ->
                     val categoriaId = doc.get("categoriaId")?.toString()
+
+                    if (categoriaId != categoria.id) return@forEach
+                    if (doc.getDate("data")!!.before(dia1mes)) return@forEach
+
                     listaMovimentacoes.add(
                         Movimentacao(
                             nome = doc.getString("nome") ?: "",
@@ -65,8 +78,7 @@ class CategoriaHomeAdapter(
                 }
                 Log.i(null, "Lista de movimentações: ${listaMovimentacoes}")
                 for (movimentacao in listaMovimentacoes) {
-                    if (movimentacao.categoria == categoria.id.toString()) {
-                        Log.i(null, "entrou no if")
+                    if (movimentacao.categoria == categoria.id) {
                         if (movimentacao.tipo == "Despesa") {
                             saldo -= movimentacao.valor
                         } else if (movimentacao.tipo == "Receita") {
@@ -75,14 +87,21 @@ class CategoriaHomeAdapter(
                     }
                 }
 
-                val saldoFormatado = NumberFormat
-                    .getCurrencyInstance(Locale("pt", "BR")).format(saldo)
+                if (saldo == 0.0) {
+                    holder.binding.txtSaldo.visibility = View.GONE
+                    holder.binding.txtCategoria.visibility = View.GONE
+                    return@addOnSuccessListener
+                } else {
+                    val saldoFormatado = NumberFormat
+                        .getCurrencyInstance(Locale("pt", "BR")).format(saldo)
+                    holder.binding.txtSaldo.visibility = View.VISIBLE
+                    holder.binding.txtCategoria.visibility = View.VISIBLE
+                    holder.binding.txtSaldo.text = saldoFormatado
+                    holder.binding.txtCategoria.text = categoria.nome
+                    return@addOnSuccessListener
+                }
 
-                holder.binding.txtSaldo.text = saldoFormatado
             }
-
-
-        holder.binding.txtCategoria.text = categoria.nome
 
         holder.binding.containerCategoria.setOnClickListener {
             onClick()
