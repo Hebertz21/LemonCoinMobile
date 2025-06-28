@@ -21,6 +21,7 @@ import androidx.fragment.app.FragmentManager
 import com.example.lemoncoin.classeObjetos.Movimentacao
 import com.example.lemoncoin.databinding.ActivityHomeBinding
 import com.example.lemoncoin.fragments.CategoriasFragment
+import com.example.lemoncoin.fragments.ConfiguracoesFragment
 import com.example.lemoncoin.fragments.ContasFragment
 import com.example.lemoncoin.fragments.HomeFragment
 import com.example.lemoncoin.fragments.MovimentacoesFragment
@@ -136,6 +137,23 @@ class HomeActivity : AppCompatActivity() {
         }
         binding.txtCategorias.setOnClickListener {
             abrirCategorias()
+        }
+
+        fun abrirConfiguracoes(){
+            val fragmentAtual = supportFragmentManager.findFragmentById(R.id.fragmentContainer)
+            if (fragmentAtual !is ConfiguracoesFragment) {
+                openFragment(ConfiguracoesFragment(), true)
+            } else {
+                openFragment(ConfiguracoesFragment())
+            }
+        }
+        //Configurações
+        binding.txtConfiguracoes.setOnClickListener {
+            abrirConfiguracoes()
+        }
+
+        binding.iconConfiguracoes.setOnClickListener(){
+            abrirConfiguracoes()
         }
 
         //EXCEL
