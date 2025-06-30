@@ -173,7 +173,7 @@ class HomeActivity : AppCompatActivity() {
 
         }
 
-        binding.includeButtonLogout.btnLogout.setOnClickListener() {
+        binding.includeButtonLogout.txtLogout.setOnClickListener() {
             ConfirmExitDialogFragment().show(supportFragmentManager, "confirmExit")
         }
 
