@@ -208,8 +208,10 @@ class AtualizarContaFragment : Fragment() {
                     val saldo = document.getDouble("saldo")
                     val descricao = document.getString("descricao")
                     val imgId = document.getLong("imgId")?.toInt()
+                    var img : Int
                     binding.imgConta.setPadding(0,0,0,0)
-                    val img = when(nome) {
+
+                    img = when (nome) {
                         "Banco do Brasil" -> R.drawable.banco_do_brasil
                         "Bradesco" -> R.drawable.bradesco
                         "Caixa" -> R.drawable.caixa
@@ -223,8 +225,24 @@ class AtualizarContaFragment : Fragment() {
                         "Sicredi" -> R.drawable.sicredi
                         "Stone" -> R.drawable.stone
                         "Wise" -> R.drawable.wise
+                        "Vivo" -> R.drawable.vivo
+                        "Cofre Pessoal" -> R.drawable.cofre
 
-                        else -> imgId ?: R.drawable.lapis
+                        else -> 0
+                    }
+                    if(img == 0) {
+                        img = when (imgId) {
+                            2131230886 -> R.drawable.generico_1
+                            2131230887 -> R.drawable.generico_2
+                            2131230888 -> R.drawable.generico_3
+                            2131230889 -> R.drawable.generico_4
+                            2131230890 -> R.drawable.generico_5
+                            2131230891 -> R.drawable.generico_6
+                            2131230892 -> R.drawable.generico_7
+                            2131230893 -> R.drawable.generico_8
+
+                            else -> R.drawable.lapis
+                        }
                     }
 
                     val saldoFormatado = NumberFormat

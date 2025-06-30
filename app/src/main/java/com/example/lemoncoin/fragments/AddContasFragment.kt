@@ -13,6 +13,7 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.setFragmentResultListener
+import com.example.lemoncoin.R
 import com.example.lemoncoin.databinding.FragmentAddContaBinding
 import com.google.firebase.Firebase
 import com.google.firebase.auth.auth
@@ -122,10 +123,11 @@ class AddContasFragment : Fragment() {  //É preciso um constructor vazio para a
         super.onViewCreated(view, savedInstanceState)
 
         setFragmentResultListener("requestKey") { requestKey, bundle ->
-            val imgResId = bundle.getInt("imgResId")
+            val imgId = bundle.getInt("imgId")
             val txtConta = bundle.getString("txtConta")
-            binding.imgConta.tag = imgResId
-            binding.imgConta.setImageResource(imgResId)
+
+            binding.imgConta.tag = imgId
+            binding.imgConta.setImageResource(buscarImg(txtConta, imgId))
             binding.textViewConta.text = txtConta
             binding.imgConta.setPadding(0,0,0,0)
         }
@@ -142,7 +144,7 @@ class AddContasFragment : Fragment() {  //É preciso um constructor vazio para a
 
         binding.InputDescricao.movementMethod = ScrollingMovementMethod()
 
-        //coloqua uma mascara de real (R$) no input
+        //coloca uma mascara de real (R$) no input
         binding.inputSaldo.addMoneyMask()
 
         binding.btnCancelar.setOnClickListener(){
@@ -187,6 +189,44 @@ class AddContasFragment : Fragment() {  //É preciso um constructor vazio para a
                     "Preencha os campos de saldo e conta", Toast.LENGTH_SHORT).show()
             }
         }
+    }
+
+    private fun buscarImg(txtConta : String?, imgId : Int) : Int {
+        var img : Int
+        img = when (txtConta) {
+            "Banco do Brasil" -> R.drawable.banco_do_brasil
+            "Bradesco" -> R.drawable.bradesco
+            "Caixa" -> R.drawable.caixa
+            "Inter" -> R.drawable.inter
+            "Itaú" -> R.drawable.itau
+            "Mercado Pago" -> R.drawable.mercado_pago
+            "Nubank" -> R.drawable.nubank
+            "PicPay" -> R.drawable.picpay
+            "Rico" -> R.drawable.rico
+            "Santander" -> R.drawable.santander
+            "Sicredi" -> R.drawable.sicredi
+            "Stone" -> R.drawable.stone
+            "Wise" -> R.drawable.wise
+            "Vivo" -> R.drawable.vivo
+            "Cofre Pessoal" -> R.drawable.cofre
+
+            else -> 0
+        }
+        if(img == 0) {
+            img = when (imgId) {
+                2131230886 -> R.drawable.generico_1
+                2131230887 -> R.drawable.generico_2
+                2131230888 -> R.drawable.generico_3
+                2131230889 -> R.drawable.generico_4
+                2131230890 -> R.drawable.generico_5
+                2131230891 -> R.drawable.generico_6
+                2131230892 -> R.drawable.generico_7
+                2131230893 -> R.drawable.generico_8
+
+                else -> R.drawable.lapis
+            }
+        }
+        return img
     }
 
     override fun onDestroyView() {

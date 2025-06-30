@@ -19,8 +19,8 @@ class ListaContas : DialogFragment() {
     ): View {
         _binding = ListaContasBinding.inflate(inflater, container, false)
 
-        fun selectConta(imgResId: Int, txtConta: String) {
-            val bundle = bundleOf("imgResId" to imgResId, "txtConta" to txtConta)
+        fun selectConta(imgId: Int, txtConta: String) {
+            val bundle = bundleOf("imgId" to imgId, "txtConta" to txtConta)
             setFragmentResult("requestKey", bundle)
             dismiss()
         }
