@@ -18,6 +18,7 @@ import java.util.Locale
 
 class CategoriaHomeAdapter(
     private val lista: MutableList<Categoria>,
+    private val opcMov : Int?,
     private val onClick: () -> Unit
 ) : RecyclerView.Adapter<CategoriaHomeAdapter.ViewHolder>() {
 
@@ -46,8 +47,24 @@ class CategoriaHomeAdapter(
         val categoria = lista[position]
         var saldo = 0.0
         val calendario = Calendar.getInstance()
-        calendario.set(Calendar.DAY_OF_MONTH, 0)
-        val dia1mes = calendario.time
+        var dia1mes : Date? = null
+        var ultimos30Dias : Date? = null
+        if (opcMov == 1) {
+            //calcula o dia atual -30
+            calendario.add(Calendar.DAY_OF_MONTH, -31)
+            ultimos30Dias = calendario.time
+
+            //uso para visualização do txt de data
+            calendario.add(Calendar.DAY_OF_MONTH, 1)
+        } else {
+            // Calcula o dia 1 do mês atual para filtro
+            calendario.set(Calendar.DAY_OF_MONTH, 0)
+            dia1mes = calendario.time
+
+            //uso para visualização do txt de data
+            calendario.set(Calendar.DAY_OF_MONTH, 1)
+            calendario.add(Calendar.MONTH, 1)
+        }
 
         //puxa todas movimentações do usuário
         FirebaseFirestore.getInstance()
@@ -64,7 +81,11 @@ class CategoriaHomeAdapter(
                     if (categoriaId != categoria.id) return@forEach
 
                     try {
-                        if (doc.getDate("data")!!.before(dia1mes)) return@forEach
+                        if (opcMov == 2) {
+                            if (doc.getDate("data")!!.before(dia1mes)) return@forEach
+                        } else {
+                            if (doc.getDate("data")!!.before(ultimos30Dias)) return@forEach
+                        }
                     } catch (e: TypeNotPresentException) {
                         Log.e("Erro", "Erro ao converter data: $e")
                     }

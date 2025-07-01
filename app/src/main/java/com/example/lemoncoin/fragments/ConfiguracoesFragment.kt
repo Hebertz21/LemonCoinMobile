@@ -33,17 +33,25 @@ class ConfiguracoesFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        var opcCriar : Boolean
+        var opcCriarMov : Boolean
+        var opcTipoMov : Int
 
         db.get().addOnSuccessListener {
-            opcCriar = it.getBoolean("criarMovimentacao") ?: true
+            opcCriarMov = it.getBoolean("criarMovimentacao") ?: true
+            opcTipoMov = it.getLong("tipoMovHome")?.toInt() ?: 1
 
-            if(opcCriar) {
+            if(opcCriarMov) {
                 corSwitch(true)
                 binding.switchCriarMov.isChecked = true
             } else {
                 corSwitch(false)
                 binding.switchCriarMov.isChecked = false
+            }
+
+            if(opcTipoMov == 1) {
+                binding.radio30Dias.isChecked = true
+            } else {
+                binding.radioDia1.isChecked = true
             }
         }
 
@@ -56,6 +64,14 @@ class ConfiguracoesFragment : Fragment() {
                 db.update("criarMovimentacao", false)
             }
         }
+
+        binding.radio30Dias.setOnClickListener(){
+            db.update("tipoMovHome", 1)
+        }
+        binding.radioDia1.setOnClickListener(){
+            db.update("tipoMovHome", 2)
+        }
+
 
     }
 

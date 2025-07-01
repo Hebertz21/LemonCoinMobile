@@ -6,8 +6,6 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
-import androidx.core.view.size
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.lemoncoin.AtualizarContaFragment
@@ -21,6 +19,9 @@ import com.example.lemoncoin.databinding.FragmentHomeBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ListenerRegistration
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import java.text.NumberFormat
 import java.text.SimpleDateFormat
 import java.util.Calendar
@@ -44,6 +45,8 @@ class HomeFragment : Fragment() {
     private var listenerMov: ListenerRegistration? = null
     private var listenerCat: ListenerRegistration? = null
     private var dia1mes : Date? = null
+    private var ultimos30Dias : Date? = null
+    private var opcMov : Int? = null
 
 
     override fun onCreateView(
@@ -60,25 +63,55 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // Calcula o dia 1 do mês atual para filtro
-        val calendario = Calendar.getInstance()
-        calendario.set(Calendar.DAY_OF_MONTH, 0)
-        dia1mes = calendario.time
+        //a partir de que data aparece as movimentações
+        FirebaseFirestore.getInstance()
+            .collection("usuarios")
+            .document(userId ?: "")
+            .get()
+            .addOnSuccessListener {
+                // VERIFICAÇÃO CRUCIAL
+                if (_binding == null) {
+                    Log.d("HomeFragment", "Binding nulo no success listener inicial, retornando.")
+                    return@addOnSuccessListener
+                }
 
-        //uso para visualização do txt de data
-        calendario.set(Calendar.DAY_OF_MONTH, 1)
-        calendario.add(Calendar.MONTH, 1)
-        val dia1Formatado = SimpleDateFormat("dd/MM/yyyy",
-            Locale("pt", "BR")).format(calendario.time)
-        binding.txtCatInicio.text = "Valores a partir de: ${dia1Formatado}"
-        binding.txtMovInicio.text = "Valores a partir de: ${dia1Formatado}"
+                opcMov = it.getLong("tipoMovHome")?.toInt() ?: 1
 
-        carregarCategorias()
-        carregarContas()
-        carregarMovimentacoes()
+                val calendario = Calendar.getInstance()
+                if (opcMov == 1) {
+                    //calcula o dia atual -30
+                    calendario.add(Calendar.DAY_OF_MONTH, -31)
+                    ultimos30Dias = calendario.time
 
-        binding.txtSemMovimentacao.visibility = View.GONE
-        binding.txtSemCategoria.visibility = View.GONE
+                    //uso para visualização do txt de data
+                    calendario.add(Calendar.DAY_OF_MONTH, 1)
+                } else {
+                    // Calcula o dia 1 do mês atual para filtro
+                    calendario.set(Calendar.DAY_OF_MONTH, 0)
+                    dia1mes = calendario.time
+
+                    //uso para visualização do txt de data
+                    calendario.set(Calendar.DAY_OF_MONTH, 1)
+                    calendario.add(Calendar.MONTH, 1)
+                }
+
+                val diaFormatado = SimpleDateFormat(
+                    "dd/MM/yyyy",
+                    Locale("pt", "BR")).format(calendario.time)
+                binding.txtCatInicio.text = "Valores a partir de: ${diaFormatado}"
+                binding.txtMovInicio.text = "Valores a partir de: ${diaFormatado}"
+
+                binding.txtSemMovimentacao.visibility = View.GONE
+                binding.txtSemCategoria.visibility = View.GONE
+
+                carregarCategorias()
+                carregarContas()
+                carregarMovimentacoes()
+            }
+            .addOnFailureListener{
+                if (_binding == null) return@addOnFailureListener
+            }
+
 
         binding.btnAddDespesaHome.setOnClickListener(){
             trocarFragment(AddDespesasFragment())
@@ -142,7 +175,11 @@ class HomeFragment : Fragment() {
                 docs?.forEach { doc ->
 
                     try {
-                        if (doc.getDate("data")!!.before(dia1mes)) return@forEach
+                        if (opcMov == 2) {
+                            if (doc.getDate("data")!!.before(dia1mes)) return@forEach
+                        } else {
+                            if (doc.getDate("data")!!.before(ultimos30Dias)) return@forEach
+                        }
                     } catch (e: TypeNotPresentException) {
                         Log.e("Erro", "Erro ao converter data: $e")
                     }
@@ -280,7 +317,7 @@ class HomeFragment : Fragment() {
 
     @SuppressLint("NotifyDataSetChanged")
     private fun carregarCategorias() {
-        adapterCategorias = CategoriaHomeAdapter(listaCategorias) {
+        adapterCategorias = CategoriaHomeAdapter(listaCategorias, opcMov) {
             trocarFragment(CategoriasFragment())
         }
         binding.RvCategorias.layoutManager = LinearLayoutManager(requireContext())

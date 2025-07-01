@@ -48,12 +48,25 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/switchCriarMov" />
 
-    <Spinner
-        android:id="@+id/spnMov"
-        android:layout_width="150dp"
-        android:layout_height="48dp"
-        android:layout_marginTop="8dp"
-        app:layout_constraintStart_toStartOf="@+id/textView16"
-        app:layout_constraintTop_toBottomOf="@+id/textView16" />
+    <RadioGroup
+        android:id="@+id/divRadioMov"
+        android:layout_width="371dp"
+        android:layout_height="100dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView16">
+
+        <RadioButton
+            android:id="@+id/radio30Dias"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Últimos 30 dias" />
+
+        <RadioButton
+            android:id="@+id/radioDia1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="Dia 1 do mês" />
+    </RadioGroup>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
