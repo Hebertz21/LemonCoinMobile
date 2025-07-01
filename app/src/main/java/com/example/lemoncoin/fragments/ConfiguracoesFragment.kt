@@ -5,11 +5,19 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.example.lemoncoin.R
 import com.example.lemoncoin.databinding.FragmentConfiguracoesBinding
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 
 class ConfiguracoesFragment : Fragment() {
     private var _binding: FragmentConfiguracoesBinding? = null
     private val binding get() = _binding!!
+
+    val userId = FirebaseAuth.getInstance().currentUser?.uid.toString()
+    val db = FirebaseFirestore.getInstance()
+        .collection("usuarios")
+        .document(userId)
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -25,6 +33,40 @@ class ConfiguracoesFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        var opcCriar : Boolean
+
+        db.get().addOnSuccessListener {
+            opcCriar = it.getBoolean("criarMovimentacao") ?: true
+
+            if(opcCriar) {
+                corSwitch(true)
+                binding.switchCriarMov.isChecked = true
+            } else {
+                corSwitch(false)
+                binding.switchCriarMov.isChecked = false
+            }
+        }
+
+        binding.switchCriarMov.setOnClickListener(){
+            if(binding.switchCriarMov.isChecked){
+                corSwitch(true)
+                db.update("criarMovimentacao", true)
+            } else {
+                corSwitch(false)
+                db.update("criarMovimentacao", false)
+            }
+        }
+
+    }
+
+    private fun corSwitch(isChecked: Boolean) {
+        if (isChecked) {
+            binding.switchCriarMov.thumbTintList =
+                resources.getColorStateList(R.color.switch_ligado, null)
+        } else {
+            binding.switchCriarMov.thumbTintList =
+                resources.getColorStateList(R.color.switch_desligado, null)
+        }
     }
 
     override fun onDestroyView() {

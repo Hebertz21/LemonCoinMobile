@@ -15,8 +15,10 @@ import com.example.lemoncoin.databinding.FragmentAtualizarContaBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import java.text.NumberFormat
+import java.util.Date
 import java.util.Locale
 import java.util.concurrent.Executors
+import kotlin.coroutines.resume
 
 class AtualizarContaFragment : Fragment() {
 
@@ -39,6 +41,7 @@ class AtualizarContaFragment : Fragment() {
     private val firestore = FirebaseFirestore.getInstance()
     private val userId = FirebaseAuth.getInstance().currentUser?.uid
     private var nomeConta: String = ""
+    private var saldoAnterior: Double = 0.0
 
     private fun EditText.addMoneyMask(){
         val locale = Locale("pt", "BR")
@@ -99,6 +102,7 @@ class AtualizarContaFragment : Fragment() {
         dbContas.get().addOnSuccessListener { document ->
             if (document.exists()) {
                 nomeConta = document.getString("nome").toString()
+                saldoAnterior = document.getDouble("saldo") ?: 0.0
             } else{
                 nomeConta = ""
             }
@@ -135,6 +139,11 @@ class AtualizarContaFragment : Fragment() {
                 .document(contaId!!)
                 .update(dadosAtualizados)
                 .addOnSuccessListener {
+                    if (saldo > saldoAnterior){
+                        addReceitaEdicao(saldo - saldoAnterior, Date(), contaId!!)
+                    } else if (saldo != saldoAnterior) {
+                        addDespesaEdicao(saldo - saldoAnterior, Date(), contaId!!)
+                    }
                     Toast.makeText(context, "Conta atualizada com sucesso", Toast.LENGTH_SHORT).show()
 
                     parentFragmentManager.popBackStack() // Volta para tela anterior
@@ -257,6 +266,71 @@ class AtualizarContaFragment : Fragment() {
             .addOnFailureListener {
                 Toast.makeText(context, "Erro ao carregar dados da conta", Toast.LENGTH_SHORT).show()
             }
+    }
+
+    private suspend fun verificarCriacaoMov(uid: String): Boolean =
+        kotlinx.coroutines.suspendCancellableCoroutine { continuation ->
+            FirebaseFirestore.getInstance()
+                .collection("usuarios")
+                .document(uid)
+                .get()
+                .addOnSuccessListener { doc ->
+                    val criar = doc.getBoolean("criarMovimentacao") ?: true
+                    if (continuation.isActive) {
+                        continuation.resume(criar)
+                    }
+                }
+                .addOnFailureListener {
+                    if (continuation.isActive) {
+                        continuation.resume(true)
+                    }
+                }
+        }
+
+    fun addReceitaEdicao(valor: Double, data: Date, contaId: String, uid: String = userId.toString()) {
+        val executor = Executors.newSingleThreadExecutor()
+        executor.execute {
+            val criarMovimentacao = kotlinx.coroutines.runBlocking { verificarCriacaoMov(uid) }
+
+            if (!criarMovimentacao) return@execute
+
+            val receita = hashMapOf(
+                "nome" to "Adição de valor",
+                "valor" to valor,
+                "data" to data,
+                "categoriaId" to 0,
+                "contaId" to contaId,
+                "tipo" to "Receita"
+            )
+            FirebaseFirestore.getInstance()
+                .collection("usuarios")
+                .document(uid)
+                .collection("movimentações")
+                .add(receita)
+        }
+    }
+
+    fun addDespesaEdicao(valor: Double, data: Date, contaId: String, uid: String = userId.toString()) {
+        val executor = Executors.newSingleThreadExecutor()
+        executor.execute {
+            val criarMovimentacao = kotlinx.coroutines.runBlocking { verificarCriacaoMov(uid) }
+
+            if (!criarMovimentacao) return@execute
+
+            val despesa = hashMapOf(
+                "nome" to "Remoção de valor",
+                "valor" to valor * -1,
+                "data" to data,
+                "categoriaId" to 0,
+                "contaId" to contaId,
+                "tipo" to "Despesa"
+            )
+            FirebaseFirestore.getInstance()
+                .collection("usuarios")
+                .document(uid)
+                .collection("movimentações")
+                .add(despesa)
+        }
     }
 
 
