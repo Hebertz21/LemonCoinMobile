@@ -22,23 +22,22 @@
         android:id="@+id/switchCriarMov"
         android:layout_width="wrap_content"
         android:layout_height="48dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="16dp"
         android:scrollbarSize="4dp"
         android:text="Criar movimentação ao editar saldo de conta"
         android:textColor="@color/textView"
         android:textSize="16sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView3" />
+        app:layout_constraintStart_toStartOf="@+id/textView16"
+        app:layout_constraintTop_toBottomOf="@+id/textoUsuario" />
 
     <TextView
         android:id="@+id/textView16"
         android:layout_width="wrap_content"
-        android:layout_height="48dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:fontFamily="sans-serif-medium"
+        android:gravity="center_vertical"
         android:text="Mostrar movimentações na tela de home a partir de"
         android:textColor="@color/textView"
         android:textSize="16sp"
@@ -50,23 +49,68 @@
 
     <RadioGroup
         android:id="@+id/divRadioMov"
-        android:layout_width="371dp"
-        android:layout_height="100dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        app:layout_constraintStart_toStartOf="@+id/textView16"
         app:layout_constraintTop_toBottomOf="@+id/textView16">
 
         <RadioButton
             android:id="@+id/radio30Dias"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Últimos 30 dias" />
+            android:layout_height="32dp"
+            android:gravity="center_vertical"
+            android:text="Últimos 30 dias"
+            android:textColor="@color/textView"
+            android:textSize="16sp" />
 
         <RadioButton
             android:id="@+id/radioDia1"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="Dia 1 do mês" />
+            android:layout_height="32dp"
+            android:gravity="center_vertical"
+            android:text="Dia 1 do mês"
+            android:textColor="@color/textView"
+            android:textSize="16sp" />
     </RadioGroup>
+
+    <TextView
+        android:id="@+id/textoUsuario"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:gravity="center_vertical"
+        android:text="Nome do usuário:"
+        android:textColor="@color/textView"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@+id/textView16"
+        app:layout_constraintTop_toBottomOf="@+id/textView3" />
+
+    <TextView
+        android:id="@+id/txtNomeUsuario"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:gravity="center_vertical"
+        android:text="TextView"
+        android:textColor="@color/textView"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/textoUsuario"
+        app:layout_constraintStart_toEndOf="@+id/textoUsuario"
+        app:layout_constraintTop_toTopOf="@+id/textoUsuario" />
+
+    <Button
+        android:id="@+id/button"
+        style="@style/Buttons"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="24dp"
+        android:backgroundTint="@color/design_default_color_error"
+        android:text="Excluir Conta"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/divRadioMov" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

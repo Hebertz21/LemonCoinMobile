@@ -4,7 +4,7 @@
     android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="72dp"
-    android:background="?attr/colorPrimary">
+    android:background="@color/transparente">
 
     <com.google.android.material.appbar.MaterialToolbar
         android:id="@+id/tbInicio"
