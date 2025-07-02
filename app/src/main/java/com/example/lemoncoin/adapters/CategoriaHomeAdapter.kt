@@ -123,7 +123,8 @@ class CategoriaHomeAdapter(
                         .getCurrencyInstance(Locale("pt", "BR")).format(saldo)
                     holder.binding.txtSaldo.visibility = View.VISIBLE
                     holder.binding.txtCategoria.visibility = View.VISIBLE
-                    holder.binding.txtSaldo.text = saldoFormatado
+                    if(saldo < 0) holder.binding.txtSaldo.text = saldoFormatado
+                    else holder.binding.txtSaldo.text = "+${saldoFormatado}"
                     holder.binding.txtCategoria.text = categoria.nome
                     return@addOnSuccessListener
                 }

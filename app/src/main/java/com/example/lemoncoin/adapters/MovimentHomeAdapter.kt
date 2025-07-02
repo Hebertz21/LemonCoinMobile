@@ -36,7 +36,8 @@ class MovimentHomeAdapter (
         val valorFormatado = NumberFormat
             .getCurrencyInstance(Locale("pt", "BR")).format(valor)
 
-        holder.binding.txtSaldo.text = valorFormatado
+        if(valor < 0) holder.binding.txtSaldo.text = valorFormatado
+        else holder.binding.txtSaldo.text = "+${valorFormatado}"
         holder.binding.txtMovimentacao.text = movimentacao.nome
     }
 
