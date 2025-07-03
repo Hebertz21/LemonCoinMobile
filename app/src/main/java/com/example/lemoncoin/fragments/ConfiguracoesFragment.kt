@@ -98,7 +98,7 @@ class ConfiguracoesFragment : Fragment() {
                     .setMessage("Está ciente de que esta ação é irreversível?")
                     .setPositiveButton("Sim, estou ciente") { _, _ ->
                         CoroutineScope(kotlinx.coroutines.Dispatchers.Main).launch {
-                            db.delete().await()
+                            //db.delete().await()
                             user?.delete()?.await()
                             Firebase.auth.signOut()
                             Toast.makeText(requireContext(), "Conta deletada com sucesso!",
