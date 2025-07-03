@@ -23,4 +23,5 @@
     <color name="switch_ligado">#809c34</color>
     <color name="switch_desligado">#C5C396</color>
     <color name="vermelho">#FF0000</color>
+    <color name="highlighttext">#A7C562</color>
 </resources>

@@ -13,4 +13,5 @@
     <color name="borderHome">#6B6B6B</color>
     <color name="borderListaContas">#7a7a65</color>
     <color name="backgroundInput">#212620</color>
+    <color name="highlighttext">#9E9E9E</color>
 </resources>
