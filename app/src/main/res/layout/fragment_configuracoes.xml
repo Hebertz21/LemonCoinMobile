@@ -62,6 +62,7 @@
             android:gravity="center_vertical"
             android:text="Últimos 30 dias"
             android:textColor="@color/textView"
+            android:textColorLink="@color/switch_ligado"
             android:textSize="16sp" />
 
         <RadioButton
@@ -71,6 +72,7 @@
             android:gravity="center_vertical"
             android:text="Dia 1 do mês"
             android:textColor="@color/textView"
+            android:textColorLink="@color/switch_ligado"
             android:textSize="16sp" />
     </RadioGroup>
 
@@ -93,7 +95,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:gravity="center_vertical"
-        android:text="TextView"
+        android:text="         "
         android:textColor="@color/textView"
         android:textSize="16sp"
         android:textStyle="bold"
@@ -102,11 +104,11 @@
         app:layout_constraintTop_toTopOf="@+id/textoUsuario" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/btnDelConta"
         style="@style/Buttons"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="24dp"
+        android:layout_width="160dp"
+        android:layout_height="53dp"
+        android:layout_marginBottom="32dp"
         android:backgroundTint="@color/design_default_color_error"
         android:text="Excluir Conta"
         android:textStyle="bold"
