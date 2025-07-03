@@ -24,6 +24,7 @@
             android:layout_marginTop="5dp"
             android:text="Conta:"
             android:textColor="@color/buttons"
+            android:textColorHighlight="@color/highlighttext"
             android:textSize="14sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="@+id/txtViewDataRvMovimentacao"
@@ -36,6 +37,7 @@
             android:layout_marginTop="5dp"
             android:text="Categoria:"
             android:textColor="@color/buttons"
+            android:textColorHighlight="@color/highlighttext"
             android:textSize="14sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="@+id/txtViewDataRvMovimentacao"
@@ -48,6 +50,7 @@
             android:layout_marginTop="5dp"
             android:text="Valor:"
             android:textColor="@color/buttons"
+            android:textColorHighlight="@color/highlighttext"
             android:textSize="14sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="@+id/txtViewDataRvMovimentacao"
@@ -61,6 +64,7 @@
             android:layout_marginTop="8dp"
             android:text="Data:"
             android:textColor="@color/buttons"
+            android:textColorHighlight="@color/highlighttext"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -72,6 +76,7 @@
             android:layout_marginTop="5dp"
             android:text="Nome:"
             android:textColor="@color/buttons"
+            android:textColorHighlight="@color/highlighttext"
             android:textSize="14sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="@+id/txtViewDataRvMovimentacao"
@@ -84,6 +89,7 @@
             android:layout_marginStart="16dp"
             android:text="TextView"
             android:textColor="@color/buttons"
+            android:textColorHighlight="@color/highlighttext"
             app:layout_constraintStart_toEndOf="@+id/txtViewDataRvMovimentacao"
             app:layout_constraintTop_toTopOf="@+id/txtViewDataRvMovimentacao" />
 
@@ -94,6 +100,7 @@
             android:layout_marginStart="16dp"
             android:text="TextView"
             android:textColor="@color/buttons"
+            android:textColorHighlight="@color/highlighttext"
             app:layout_constraintStart_toEndOf="@+id/txtViewNomeRvMovimentacao"
             app:layout_constraintTop_toTopOf="@+id/txtViewNomeRvMovimentacao" />
 
@@ -104,6 +111,7 @@
             android:layout_marginStart="16dp"
             android:text="TextView"
             android:textColor="@color/buttons"
+            android:textColorHighlight="@color/highlighttext"
             app:layout_constraintStart_toEndOf="@+id/txtViewValorRvMovimentacao"
             app:layout_constraintTop_toTopOf="@+id/txtViewValorRvMovimentacao" />
 
@@ -113,6 +121,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:textColor="@color/buttons"
+            android:textColorHighlight="@color/highlighttext"
             app:layout_constraintStart_toEndOf="@+id/txtViewCategoriaRvMovimentacaoa"
             app:layout_constraintTop_toTopOf="@+id/txtViewCategoriaRvMovimentacaoa" />
 
@@ -122,6 +131,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:textColor="@color/buttons"
+            android:textColorHighlight="@color/highlighttext"
             app:layout_constraintStart_toEndOf="@+id/txtViewContaRvMovimentacao"
             app:layout_constraintTop_toTopOf="@+id/txtViewContaRvMovimentacao" />
 

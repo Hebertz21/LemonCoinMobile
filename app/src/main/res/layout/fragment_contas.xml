@@ -53,6 +53,7 @@
         android:layout_height="wrap_content"
         android:text="Clique no icone de + para adicionar contas"
         android:textColor="@color/titulos"
+        android:textColorHighlight="@color/highlighttext"
         android:textSize="16sp"
         android:textStyle="bold"
         android:visibility="invisible"

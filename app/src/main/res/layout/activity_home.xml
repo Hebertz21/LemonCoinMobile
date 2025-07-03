@@ -28,6 +28,7 @@
             android:contentDescription="Botão"
             android:text="&#9776;"
             android:textColor="@color/buttons"
+            android:textColorHighlight="@color/highlighttext"
             android:textSize="38sp"
             android:textStyle="bold"
             app:iconSize="50dp"

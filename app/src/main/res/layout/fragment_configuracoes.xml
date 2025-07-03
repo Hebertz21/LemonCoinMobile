@@ -12,6 +12,7 @@
         android:layout_marginTop="32dp"
         android:text="CONFIGURAÇÕES"
         android:textColor="@color/titulos"
+        android:textColorHighlight="@color/highlighttext"
         android:textSize="29sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
@@ -26,6 +27,7 @@
         android:scrollbarSize="4dp"
         android:text="Criar movimentação ao editar saldo de conta"
         android:textColor="@color/textView"
+        android:textColorHighlight="@color/highlighttext"
         android:textSize="16sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="@+id/textView16"
@@ -40,6 +42,7 @@
         android:gravity="center_vertical"
         android:text="Mostrar movimentações na tela de home a partir de"
         android:textColor="@color/textView"
+        android:textColorHighlight="@color/highlighttext"
         android:textSize="16sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
@@ -62,6 +65,7 @@
             android:gravity="center_vertical"
             android:text="Últimos 30 dias"
             android:textColor="@color/textView"
+            android:textColorHighlight="@color/highlighttext"
             android:textColorLink="@color/switch_ligado"
             android:textSize="16sp" />
 
@@ -72,6 +76,7 @@
             android:gravity="center_vertical"
             android:text="Dia 1 do mês"
             android:textColor="@color/textView"
+            android:textColorHighlight="@color/highlighttext"
             android:textColorLink="@color/switch_ligado"
             android:textSize="16sp" />
     </RadioGroup>
@@ -84,6 +89,7 @@
         android:gravity="center_vertical"
         android:text="Nome do usuário:"
         android:textColor="@color/textView"
+        android:textColorHighlight="@color/highlighttext"
         android:textSize="16sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="@+id/textView16"
@@ -97,6 +103,7 @@
         android:gravity="center_vertical"
         android:text="         "
         android:textColor="@color/textView"
+        android:textColorHighlight="@color/highlighttext"
         android:textSize="16sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/textoUsuario"

@@ -22,6 +22,7 @@
             android:text="VAMOS ADICIONAR O SEU BANCO"
             android:textAlignment="center"
             android:textColor="@color/titulos"
+            android:textColorHighlight="@color/highlighttext"
             android:textSize="20sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
@@ -38,6 +39,7 @@
             android:layout_weight="1"
             android:text="Escolha o Ícone para representar o Banco"
             android:textAlignment="center"
+            android:textColorHighlight="@color/highlighttext"
             android:textSize="18sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
@@ -242,7 +244,8 @@
                 android:id="@+id/InputNomeBanco"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Nome do Banco" />
+                android:hint="Nome do Banco"
+                android:textColorHighlight="@color/highlighttext" />
 
         </com.google.android.material.textfield.TextInputLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>

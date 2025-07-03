@@ -66,6 +66,7 @@
             android:layout_marginTop="32dp"
             android:text="CATEGORIAS"
             android:textColor="@color/textView"
+            android:textColorHighlight="@color/highlighttext"
             android:textSize="20dp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"

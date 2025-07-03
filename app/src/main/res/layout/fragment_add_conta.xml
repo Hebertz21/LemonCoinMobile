@@ -26,6 +26,7 @@
             android:layout_marginTop="24dp"
             android:text="ADICIONAR CONTA"
             android:textColor="@color/titulos"
+            android:textColorHighlight="@color/highlighttext"
             android:textSize="35dp"
             android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@+id/constraintLayout9"
@@ -88,6 +89,7 @@
                     android:gravity="center"
                     android:text="Conta"
                     android:textColor="@color/textView"
+                    android:textColorHighlight="@color/highlighttext"
                     android:textSize="16dp"
                     android:textStyle="bold"
                     app:layout_constraintStart_toStartOf="parent"
@@ -124,7 +126,7 @@
                         android:inputType="numberDecimal"
                         android:paddingStart="6dp"
                         android:textColor="@color/textView"
-                        android:textColorHighlight="@color/textView"
+                        android:textColorHighlight="@color/highlighttext"
                         android:textColorHint="@color/textView" />
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -166,7 +168,7 @@
                     android:maxLines="6"
                     android:scrollbars="vertical"
                     android:textColor="@color/textView"
-                    android:textColorHighlight="@color/textView"
+                    android:textColorHighlight="@color/highlighttext"
                     android:textColorHint="@color/textView"
                     android:verticalScrollbarPosition="right" />
             </com.google.android.material.textfield.TextInputLayout>
@@ -179,6 +181,7 @@
                 android:layout_marginTop="24dp"
                 android:text="Cancelar"
                 android:textColor="@color/textButton"
+                android:textColorHighlight="@color/highlighttext"
                 android:textSize="20dp"
                 app:layout_constraintEnd_toStartOf="@+id/btnConfirmar"
                 app:layout_constraintHorizontal_bias="0.5"
@@ -192,6 +195,7 @@
                 android:layout_height="70dp"
                 android:text="Confirmar"
                 android:textColor="@color/textButton"
+                android:textColorHighlight="@color/highlighttext"
                 android:textSize="20dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"

@@ -38,7 +38,7 @@
             android:layout_marginTop="8dp"
             android:text="CADASTRE-SE AQUI"
             android:textColor="@color/titulos"
-            android:textColorHighlight="@color/titulos"
+            android:textColorHighlight="@color/highlighttext"
             android:textSize="34sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
@@ -168,7 +168,7 @@
             android:layout_marginTop="16dp"
             android:text="Gênero:"
             android:textColor="@color/textView"
-            android:textColorHighlight="@color/textView"
+            android:textColorHighlight="@color/highlighttext"
             android:textColorHint="@color/textView"
             android:textColorLink="@color/textView"
             android:textSize="20sp"
@@ -183,7 +183,7 @@
             android:layout_marginTop="8dp"
             android:text="Senha"
             android:textColor="@color/textView"
-            android:textColorHighlight="@color/textView"
+            android:textColorHighlight="@color/highlighttext"
             android:textColorHint="@color/textView"
             android:textColorLink="@color/textView"
             android:textSize="18sp"
@@ -226,7 +226,7 @@
             android:layout_height="wrap_content"
             android:text="Confirmar senha"
             android:textColor="@color/textView"
-            android:textColorHighlight="@color/textView"
+            android:textColorHighlight="@color/highlighttext"
             android:textColorHint="@color/textView"
             android:textColorLink="@color/textView"
             android:textSize="18sp"
@@ -301,6 +301,7 @@
                 android:text="Masculino"
                 android:textAlignment="viewStart"
                 android:textColor="@color/textView"
+                android:textColorHighlight="@color/highlighttext"
                 android:textSize="14sp" />
 
             <RadioButton
@@ -313,6 +314,7 @@
                 android:buttonTint="@color/black"
                 android:text="Feminino"
                 android:textColor="@color/textView"
+                android:textColorHighlight="@color/highlighttext"
                 android:textSize="14sp" />
 
             <RadioButton
@@ -324,6 +326,7 @@
                 android:buttonTint="@color/black"
                 android:text="Outro"
                 android:textColor="@color/textView"
+                android:textColorHighlight="@color/highlighttext"
                 android:textSize="14sp" />
 
         </RadioGroup>
@@ -343,6 +346,7 @@
             android:paddingRight="0dp"
             android:paddingBottom="0dp"
             android:text="Cadastrar"
+            android:textColorHighlight="@color/highlighttext"
             android:textSize="28sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"

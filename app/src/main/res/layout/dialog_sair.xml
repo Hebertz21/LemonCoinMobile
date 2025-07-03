@@ -16,6 +16,7 @@
         android:gravity="center"
         android:text="Você deseja realmente sair?"
         android:textColor="@color/textView"
+        android:textColorHighlight="@color/highlighttext"
         android:textSize="16sp"
         android:textStyle="bold" />
 
@@ -36,6 +37,7 @@
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
             android:text="Cancelar"
+            android:textColorHighlight="@color/highlighttext"
             android:textSize="14sp"></Button>
 
 
@@ -48,6 +50,7 @@
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
             android:text="Sim"
+            android:textColorHighlight="@color/highlighttext"
             android:textSize="14sp" />
     </LinearLayout>
 

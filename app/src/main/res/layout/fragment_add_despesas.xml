@@ -47,7 +47,7 @@
                 android:inputType="none"
                 android:paddingEnd="15dp"
                 android:textColor="@color/textView"
-                android:textColorHighlight="@color/textView"
+                android:textColorHighlight="@color/highlighttext"
                 android:textColorHint="@color/textView"
                 android:textColorLink="@color/textView" />
         </com.google.android.material.textfield.TextInputLayout>
@@ -75,7 +75,7 @@
                 android:background="@color/transparente"
                 android:hint="Nome:"
                 android:textColor="@color/textView"
-                android:textColorHighlight="@color/textView"
+                android:textColorHighlight="@color/highlighttext"
                 android:textColorHint="@color/textView"
                 android:textColorLink="@color/textView"
                 app:layout_constraintEnd_toEndOf="@id/guideDireita"
@@ -104,7 +104,7 @@
                 android:hint="Valor: R$"
                 android:inputType="numberDecimal"
                 android:textColor="@color/textView"
-                android:textColorHighlight="@color/textView"
+                android:textColorHighlight="@color/highlighttext"
                 android:textColorHint="@color/textView"
                 android:textColorLink="@color/textView" />
         </com.google.android.material.textfield.TextInputLayout>
@@ -142,6 +142,7 @@
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
             android:text="CANCELAR"
+            android:textColorHighlight="@color/highlighttext"
             android:textSize="18sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toStartOf="@+id/btnAddDespesa"
@@ -181,6 +182,7 @@
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
             android:text="ADICIONAR"
+            android:textColorHighlight="@color/highlighttext"
             android:textSize="18sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
@@ -197,6 +199,7 @@
         android:layout_marginBottom="16dp"
         android:text="ADICIONAR DESPESAS"
         android:textColor="@color/titulos"
+        android:textColorHighlight="@color/highlighttext"
         android:textSize="28sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/constraintLayout4"

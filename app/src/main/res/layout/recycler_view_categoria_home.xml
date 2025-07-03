@@ -24,6 +24,7 @@
             android:text="nome categoria"
             android:textAlignment="viewStart"
             android:textColor="@color/textView"
+            android:textColorHighlight="@color/highlighttext"
             android:textSize="16sp"
             android:textStyle="bold" />
 
@@ -36,6 +37,7 @@
             android:text="R$0,00"
             android:textAlignment="viewEnd"
             android:textColor="@color/textView"
+            android:textColorHighlight="@color/highlighttext"
             android:textSize="16sp"
             android:textStyle="bold" />
     </LinearLayout>

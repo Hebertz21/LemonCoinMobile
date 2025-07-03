@@ -38,6 +38,7 @@
         android:text="DESPESAS"
         android:textAlignment="center"
         android:textColor="@color/textButton"
+        android:textColorHighlight="@color/highlighttext"
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/guideInferior"
@@ -65,10 +66,11 @@
         android:text="RECEITAS"
         android:textAlignment="center"
         android:textColor="@color/textButton"
+        android:textColorHighlight="@color/highlighttext"
         android:textSize="20sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/guideInferior"
 
+        app:layout_constraintBottom_toTopOf="@+id/guideInferior"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/guideline8"
         app:layout_constraintTop_toTopOf="@+id/guideSuperior" />

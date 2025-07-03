@@ -54,6 +54,7 @@
             android:layout_marginEnd="16dp"
             android:layout_marginBottom="24dp"
             android:text="ADICIONAR RECEITA"
+            android:textColorHighlight="@color/highlighttext"
             android:textSize="16dp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -67,6 +68,7 @@
             android:layout_marginBottom="8dp"
             android:text="TOTAL:"
             android:textColor="@color/textView"
+            android:textColorHighlight="@color/highlighttext"
             android:textSize="24sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@+id/txtValorTotal"
@@ -79,6 +81,7 @@
             android:layout_marginBottom="24dp"
             android:text="R$"
             android:textColor="@color/buttons"
+            android:textColorHighlight="@color/highlighttext"
             android:textSize="24sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -105,6 +108,7 @@
             android:layout_marginTop="16dp"
             android:text="RECEITAS"
             android:textColor="@color/textView"
+            android:textColorHighlight="@color/highlighttext"
             android:textSize="20dp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
@@ -131,6 +135,7 @@
                 android:paddingStart="7dp"
                 android:paddingLeft="7dp"
                 android:paddingRight="7dp"
+                android:textColorHighlight="@color/highlighttext"
                 android:textSize="14sp" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -155,6 +160,7 @@
                 android:paddingLeft="7dp"
                 android:paddingEnd="7dp"
                 android:paddingRight="7dp"
+                android:textColorHighlight="@color/highlighttext"
                 android:textSize="14sp" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -164,6 +170,7 @@
             android:layout_height="wrap_content"
             android:text="FILTRO:"
             android:textColor="@color/textView"
+            android:textColorHighlight="@color/highlighttext"
             android:textSize="16sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="@+id/layoutDataInicio"

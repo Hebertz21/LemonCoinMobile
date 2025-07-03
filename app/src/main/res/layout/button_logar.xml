@@ -16,6 +16,7 @@
         android:fontFamily="sans-serif"
         android:text="ENTRAR"
         android:textColor="@color/textButton"
+        android:textColorHighlight="@color/highlighttext"
         android:textSize="16sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
