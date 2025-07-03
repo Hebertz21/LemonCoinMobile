@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.example.lemoncoin.HomeActivity
 import com.example.lemoncoin.LoginActivity
@@ -93,7 +94,7 @@ class ConfiguracoesFragment : Fragment() {
         binding.btnDelConta.setOnClickListener(){
             val user = FirebaseAuth.getInstance().currentUser
             fun deletar() {
-                AlertDialog.Builder(requireContext())
+                val builder = AlertDialog.Builder(requireContext())
                     .setTitle("Deletar Conta ⚠️")
                     .setMessage("Está ciente de que esta ação é irreversível?")
                     .setPositiveButton("Sim, estou ciente") { _, _ ->
@@ -108,18 +109,42 @@ class ConfiguracoesFragment : Fragment() {
                             (activity as? HomeActivity)?.finish()
                         }
                     }
+
                     .setNegativeButton("Não, cancelar", null)
-                    .show()
+
+                val dialog = builder.create()
+
+                dialog.setOnShowListener{
+                    val btnSim = dialog.getButton(AlertDialog.BUTTON_POSITIVE)
+                    val btnNao = dialog.getButton(AlertDialog.BUTTON_NEGATIVE)
+
+                    btnSim.setTextColor(ContextCompat.getColor(requireContext(), R.color.vermelho))
+                    btnNao.setTextColor(ContextCompat.getColor(requireContext(), R.color.textView))
+                }
+
+                dialog.show()
             }
 
-            AlertDialog.Builder(requireContext())
+            val builder = AlertDialog.Builder(requireContext())
                 .setTitle("Deletar Conta ⚠\uFE0F")
                 .setMessage("Você tem certeza que deseja deletar sua conta? Esta ação é irreversível.")
                 .setPositiveButton("Sim") { _, _ ->
                     deletar()
                 }
                 .setNegativeButton("Não", null)
-                .show()
+                //.show()
+            val dialog = builder.create()
+
+            dialog.setOnShowListener{
+                val btnSim = dialog.getButton(AlertDialog.BUTTON_POSITIVE)
+                val btnNao = dialog.getButton(AlertDialog.BUTTON_NEGATIVE)
+
+                btnSim.setTextColor(ContextCompat.getColor(requireContext(), R.color.textView))
+                btnNao.setTextColor(ContextCompat.getColor(requireContext(), R.color.textView))
+            }
+
+            dialog.show()
+
         }
     }
 
